@@ -1,4 +1,4 @@
-# WegemansApp
+# Wegmans App
 
 ## Team Members:
 
