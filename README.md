@@ -1,4 +1,4 @@
-# WegemansApp
+# Wegmans App
 
 ## Team Members:
 
@@ -13,6 +13,7 @@
 
 - [x] Form Team
 - [ ] Purpose
+- [ ] Design
 - [ ] Create epic/feature/stories
 - [ ] Develop Backend
 - [ ] Develop Client
