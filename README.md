@@ -19,7 +19,10 @@ const teamMembers = ['Mohammed', 'Daniel'];
 ## TODO:
 
 - [x] Form Team
-- [ ] Purpose
-- [ ] Create epic/feature/stories
+- [x] Purpose
+- [ ] Design
+- [ ] Create epics/features/stories
 - [ ] Develop Backend
 - [ ] Develop Client
+- [ ] Test
+- [ ] Deploy
