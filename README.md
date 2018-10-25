@@ -1,9 +1,16 @@
 # Wegmans App
 
+## Team Name
+
+```javascript
+const teamName = 'Bits...Please';
+```
+
 ## Team Members:
 
-> - Daniel
-> - Mohammed
+```javascript
+const teamMembers = ['Mohammed', 'Daniel'];
+```
 
 ## Product Owners:
 
