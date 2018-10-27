@@ -1,4 +1,4 @@
-# Wegmans App
+# :boom: Wegmans App :boom:
 
 ## Team Name
 
@@ -14,7 +14,7 @@ const teamMembers = ['Mohammed', 'Daniel'];
 
 ## Product Owners:
 
-> - Prof Howard
+> - :sparkles: Prof Howard :sparkles:
 
 ## TODO:
 
