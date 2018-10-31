@@ -1,9 +1,16 @@
-# Wegmans App
+# :boom: Walcart App :boom:
+
+## Team Name
+
+```javascript
+const teamName = 'Bits...Please';
+```
 
 ## Team Members:
 
-> - Daniel
-> - Mohammed
+```javascript
+const teamMembers = ['Mohammed', 'Daniel', 'Geze'];
+```
 
 ## Product Owners:
 
@@ -12,8 +19,10 @@
 ## TODO:
 
 - [x] Form Team
-- [ ] Purpose
+- [x] Purpose
 - [ ] Design
-- [ ] Create epic/feature/stories
+- [ ] Create epics/features/stories
 - [ ] Develop Backend
 - [ ] Develop Client
+- [ ] Test
+- [ ] Deploy
