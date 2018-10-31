@@ -10,38 +10,27 @@ https://github.com/dcousino/Walcart/docs/user/user.schema.json
 
 
 
-| Abstract | Extensible | Status | Identifiable | Custom Properties | Additional Properties | Defined In |
-|----------|------------|--------|--------------|-------------------|-----------------------|------------|
-| Can be instantiated | Yes | Experimental | No | Forbidden | Permitted | [user.schema.json](user.schema.json) |
+| Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                           |
+| ------------------- | ---------- | ------------ | ------------ | ----------------- | --------------------- | ------------------------------------ |
+| Can be instantiated | Yes        | Experimental | No           | Forbidden         | Permitted             | [user.schema.json](user.schema.json) |
 
 
 # The User Schema Properties
 
 
 
-| Property | Type | Required | Default | Defined by |
-|----------|------|----------|---------|------------|
-
-| [billingAddress](#billingaddress) | `object` | Optional |  | The User Schema (this schema) |
-
-| [currentOrder](#currentorder) | `string` | Optional | `""` | The User Schema (this schema) |
-
-| [currentShoppingCart](#currentshoppingcart) | `string` | Optional | `""` | The User Schema (this schema) |
-
-| [deliveryAddress](#deliveryaddress) | `object` | Optional |  | The User Schema (this schema) |
-
-| [firstName](#firstname) | `string` | **Required** | `""` | The User Schema (this schema) |
-
-| [id](#id) | `string` | **Required** | `""` | The User Schema (this schema) |
-
-| [lastName](#lastname) | `string` | **Required** | `""` | The User Schema (this schema) |
-
-| [lastVisited](#lastvisited) | `integer` | **Required** | `0` | The User Schema (this schema) |
-
-| [previousOrders](#previousorders) | `string[]` | Optional |  | The User Schema (this schema) |
-
-| `*` | any | Additional | this schema *allows* additional properties |
-
+| Property                                    | Type       | Required     | Default                                    | Defined by                    |
+| ------------------------------------------- | ---------- | ------------ | ------------------------------------------ | ----------------------------- |
+| [billingAddress](#billingaddress)           | `object`   | Optional     |                                            | The User Schema (this schema) |
+| [currentOrder](#currentorder)               | `string`   | Optional     | `""`                                       | The User Schema (this schema) |
+| [currentShoppingCart](#currentshoppingcart) | `string`   | Optional     | `""`                                       | The User Schema (this schema) |
+| [deliveryAddress](#deliveryaddress)         | `object`   | Optional     |                                            | The User Schema (this schema) |
+| [firstName](#firstname)                     | `string`   | **Required** | `""`                                       | The User Schema (this schema) |
+| [id](#id)                                   | `string`   | **Required** | `""`                                       | The User Schema (this schema) |
+| [lastName](#lastname)                       | `string`   | **Required** | `""`                                       | The User Schema (this schema) |
+| [lastVisited](#lastvisited)                 | `integer`  | **Required** | `0`                                        | The User Schema (this schema) |
+| [previousOrders](#previousorders)           | `string[]` | Optional     |                                            | The User Schema (this schema) |
+| `*`                                         | any        | Additional   | this schema *allows* additional properties |
 
 ## billingAddress
 ### The Billingaddress Schema
@@ -65,21 +54,14 @@ https://github.com/dcousino/Walcart/docs/user/user.schema.json
 
 
 
-
-| Property | Type | Required | Default |
-|----------|------|----------|---------|
-
-| `addressLine1`| string | Optional | `""` |
-
-| `addressLine2`| string | Optional | `""` |
-
-| `addressLine3`| string | Optional | `""` |
-
-| `isSameAsDelivery`| boolean | **Required** | `false` |
-
-| `state`| string | Optional | `""` |
-
-| `zip`| string | Optional | `""` |
+| Property           | Type    | Required     | Default |
+| ------------------ | ------- | ------------ | ------- |
+| `addressLine1`     | string  | Optional     | `""`    |
+| `addressLine2`     | string  | Optional     | `""`    |
+| `addressLine3`     | string  | Optional     | `""`    |
+| `isSameAsDelivery` | boolean | **Required** | `false` |
+| `state`            | string  | Optional     | `""`    |
+| `zip`              | string  | Optional     | `""`    |
 
 
 
@@ -111,7 +93,7 @@ undefined
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -166,7 +148,7 @@ undefined
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -221,7 +203,7 @@ undefined
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -318,7 +300,7 @@ undefined
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -373,7 +355,7 @@ undefined
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -433,7 +415,7 @@ All instances must conform to this regular expression
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -483,7 +465,7 @@ All instances must conform to this regular expression
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -533,7 +515,7 @@ All instances must conform to this regular expression
 
 
 | Property | Type | Required | Default |
-|----------|------|----------|---------|
+| -------- | ---- | -------- | ------- |
 
 | `addressLine1`| string | **Required** | `""` |
 
@@ -575,7 +557,7 @@ undefined
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -630,7 +612,7 @@ undefined
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -685,7 +667,7 @@ undefined
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -740,7 +722,7 @@ undefined
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -795,7 +777,7 @@ undefined
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -855,7 +837,7 @@ All instances must conform to this regular expression
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -905,7 +887,7 @@ All instances must conform to this regular expression
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -955,7 +937,7 @@ All instances must conform to this regular expression
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
@@ -1051,7 +1033,7 @@ All items must be of the type:
 
 
 
-All instances must conform to this regular expression 
+All instances must conform to this regular expression
 
 ```regex
 ^(.*)$
