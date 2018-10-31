@@ -514,18 +514,13 @@ All instances must conform to this regular expression
 
 
 
-| Property | Type | Required | Default |
-| -------- | ---- | -------- | ------- |
-
-| `addressLine1`| string | **Required** | `""` |
-
-| `addressLine2`| string | **Required** | `""` |
-
-| `addressLine3`| string | **Required** | `""` |
-
-| `state`| string | **Required** | `""` |
-
-| `zip`| string | **Required** | `""` |
+| Property       | Type   | Required     | Default |
+| -------------- | ------ | ------------ | ------- |
+| `addressLine1` | string | **Required** | `""`    |
+| `addressLine2` | string | **Required** | `""`    |
+| `addressLine3` | string | **Required** | `""`    |
+| `state`        | string | **Required** | `""`    |
+| `zip`          | string | **Required** | `""`    |
 
 
 
