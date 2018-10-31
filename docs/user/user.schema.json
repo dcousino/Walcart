@@ -1,0 +1,223 @@
+{
+    "definitions": {},
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/dcousino/Walcart/docs/user/user.schema.json",
+    "type": "object",
+    "title": "The User Schema",
+    "required": [
+        "id",
+        "lastVisited",
+        "lastName",
+        "firstName"
+    ],
+    "properties": {
+        "id": {
+            "$id": "#/properties/id",
+            "type": "string",
+            "title": "The Id Schema",
+            "default": "",
+            "examples": [
+                "dcousino@email.com"
+            ],
+            "pattern": "^(.*)$"
+        },
+        "lastVisited": {
+            "$id": "#/properties/lastVisited",
+            "type": "integer",
+            "title": "The Lastvisited Schema",
+            "default": 0,
+            "examples": [
+                1540393941
+            ]
+        },
+        "currentShoppingCart": {
+            "$id": "#/properties/currentShoppingCart",
+            "type": "string",
+            "title": "The Currentshoppingcart Schema",
+            "default": "",
+            "examples": [
+                "7b137d27-8167-4a0c-bfb3-61ccf7edea5c"
+            ],
+            "pattern": "^(.*)$"
+        },
+        "lastName": {
+            "$id": "#/properties/lastName",
+            "type": "string",
+            "title": "The Lastname Schema",
+            "default": "",
+            "examples": [
+                "Cousino"
+            ],
+            "pattern": "^(.*)$"
+        },
+        "firstName": {
+            "$id": "#/properties/firstName",
+            "type": "string",
+            "title": "The Firstname Schema",
+            "default": "",
+            "examples": [
+                "Daniel"
+            ],
+            "pattern": "^(.*)$"
+        },
+        "currentOrder": {
+            "$id": "#/properties/currentOrder",
+            "type": "string",
+            "title": "The Currentorder Schema",
+            "default": "",
+            "examples": [
+                "901643c9-c3a4-4989-a9c3-e0876dacd6c3"
+            ],
+            "pattern": "^(.*)$"
+        },
+        "previousOrders": {
+            "$id": "#/properties/previousOrders",
+            "type": "array",
+            "title": "The Previousorders Schema",
+            "items": {
+                "$id": "#/properties/previousOrders/items",
+                "type": "string",
+                "title": "The Items Schema",
+                "default": "",
+                "examples": [
+                    "26132d42-f224-4836-a49c-8348c2a4673d",
+                    "d0c4826d-e953-431a-baec-ff4a4b8d94fc"
+                ],
+                "pattern": "^(.*)$"
+            }
+        },
+        "deliveryAddress": {
+            "$id": "#/properties/deliveryAddress",
+            "type": "object",
+            "title": "The Deliveryaddress Schema",
+            "required": [
+                "addressLine1",
+                "addressLine2",
+                "addressLine3",
+                "state",
+                "zip"
+            ],
+            "properties": {
+                "addressLine1": {
+                    "$id": "#/properties/deliveryAddress/properties/addressLine1",
+                    "type": "string",
+                    "title": "The Addressline1 Schema",
+                    "default": "",
+                    "examples": [
+                        "123 Lollypop Ln"
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "addressLine2": {
+                    "$id": "#/properties/deliveryAddress/properties/addressLine2",
+                    "type": "string",
+                    "title": "The Addressline2 Schema",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "addressLine3": {
+                    "$id": "#/properties/deliveryAddress/properties/addressLine3",
+                    "type": "string",
+                    "title": "The Addressline3 Schema",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "state": {
+                    "$id": "#/properties/deliveryAddress/properties/state",
+                    "type": "string",
+                    "title": "The State Schema",
+                    "default": "",
+                    "examples": [
+                        "MD"
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "zip": {
+                    "$id": "#/properties/deliveryAddress/properties/zip",
+                    "type": "string",
+                    "title": "The Zip Schema",
+                    "default": "",
+                    "examples": [
+                        "21085"
+                    ],
+                    "pattern": "^(.*)$"
+                }
+            }
+        },
+        "billingAddress": {
+            "$id": "#/properties/billingAddress",
+            "type": "object",
+            "title": "The Billingaddress Schema",
+            "required": [
+                "isSameAsDelivery"
+            ],
+            "properties": {
+                "isSameAsDelivery": {
+                    "$id": "#/properties/billingAddress/properties/isSameAsDelivery",
+                    "type": "boolean",
+                    "title": "The Issameasdelivery Schema",
+                    "default": false,
+                    "examples": [
+                        true
+                    ]
+                },
+                "addressLine1": {
+                    "$id": "#/properties/billingAddress/properties/addressLine1",
+                    "type": "string",
+                    "title": "The Addressline1 Schema",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "addressLine2": {
+                    "$id": "#/properties/billingAddress/properties/addressLine2",
+                    "type": "string",
+                    "title": "The Addressline2 Schema",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "addressLine3": {
+                    "$id": "#/properties/billingAddress/properties/addressLine3",
+                    "type": "string",
+                    "title": "The Addressline3 Schema",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "state": {
+                    "$id": "#/properties/billingAddress/properties/state",
+                    "type": "string",
+                    "title": "The State Schema",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "zip": {
+                    "$id": "#/properties/billingAddress/properties/zip",
+                    "type": "string",
+                    "title": "The Zip Schema",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ],
+                    "pattern": "^(.*)$"
+                }
+            }
+        }
+    }
+}
