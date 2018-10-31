@@ -1,0 +1,100 @@
+{
+    "definitions": {},
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/dcousino/Walcart/blob/master/docs/cart/cart.schema.json",
+    "type": "object",
+    "title": "The Cart Schema",
+    "required": [
+        "id",
+        "items"
+    ],
+    "properties": {
+        "id": {
+            "$id": "#/properties/id",
+            "type": "string",
+            "title": "The Id Schema",
+            "default": "",
+            "examples": [
+                "a4343bd3-a9db-4faa-9a05-f4779a99e11a"
+            ],
+            "pattern": "^(.*)$"
+        },
+        "items": {
+            "$id": "#/properties/items",
+            "type": "array",
+            "title": "The Items Schema",
+            "items": {
+                "$id": "#/properties/items/items",
+                "type": "object",
+                "title": "The Items Schema",
+                "required": [
+                    "productId",
+                    "productName",
+                    "category",
+                    "thumbnail",
+                    "salePrice",
+                    "qty"
+                ],
+                "properties": {
+                    "productId": {
+                        "$id": "#/properties/items/items/properties/productId",
+                        "type": "integer",
+                        "title": "The Productid Schema",
+                        "default": 0,
+                        "examples": [
+                            718430110
+                        ]
+                    },
+                    "productName": {
+                        "$id": "#/properties/items/items/properties/productName",
+                        "type": "string",
+                        "title": "The Productname Schema",
+                        "default": "",
+                        "examples": [
+                            "(6 Pack) Barilla Pasta Spaghetti, 16.0 oz"
+                        ],
+                        "pattern": "^(.*)$"
+                    },
+                    "category": {
+                        "$id": "#/properties/items/items/properties/category",
+                        "type": "string",
+                        "title": "The Category Schema",
+                        "default": "",
+                        "examples": [
+                            "Food/Meal Solutions, Grains & Pasta/Pasta & Noodles"
+                        ],
+                        "pattern": "^(.*)$"
+                    },
+                    "thumbnail": {
+                        "$id": "#/properties/items/items/properties/thumbnail",
+                        "type": "string",
+                        "title": "The Thumbnail Schema",
+                        "default": "",
+                        "examples": [
+                            "https://i5.walmartimages.com/asr/20f02778-c6c8-4c96-8826-b8437259ea77_1.2a6b1afe39235c937ee9eb757a2cc06a.jpeg?odnHeight=100&odnWidth=100&odnBg=ffffff"
+                        ],
+                        "pattern": "^(.*)$"
+                    },
+                    "salePrice": {
+                        "$id": "#/properties/items/items/properties/salePrice",
+                        "type": "number",
+                        "title": "The Saleprice Schema",
+                        "default": 0,
+                        "examples": [
+                            7.14
+                        ]
+                    },
+                    "qty": {
+                        "$id": "#/properties/items/items/properties/qty",
+                        "type": "integer",
+                        "title": "The Qty Schema",
+                        "default": 0,
+                        "examples": [
+                            4
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
