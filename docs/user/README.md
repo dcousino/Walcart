@@ -36,4 +36,4 @@ The basic object should look something like:
 }
 ```
 
-[See Schema](https://github.com/dcousino/Walcart/docs/user/user.schema.md)
+[See Schema](https://github.com/dcousino/Walcart/blob/master/docs/user/user.schema.md)
