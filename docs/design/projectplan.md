@@ -1,6 +1,6 @@
 # Project Management Plan For Walcart
 ---
-### WCPMP-1 {style=text-align:center}
+### WCPMP-1
 
 #### 11/4/18
 
