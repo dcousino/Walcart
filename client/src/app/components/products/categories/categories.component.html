@@ -1,0 +1,18 @@
+<ng-container *ngIf="categories">
+  <div>
+    <ul>
+      <li *ngFor="let category of categories; trackBy: trackByFn;" (click)="listItemClick(category.id)">{{
+        category.name }}
+        <ng-container *ngIf="category.children">
+          <ul>
+            <ng-container *ngIf="show(category.id)">
+              <li *ngFor="let child of category.children; trackBy: trackByFn;" (click)="listItemClick(child.id); $event.stopPropagation();">
+                {{ child.name}}
+              </li>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </li>
+    </ul>
+  </div>
+</ng-container>
