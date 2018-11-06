@@ -1,0 +1,100 @@
+@startuml
+
+package "Client" {
+  (Angular 7) - [Walcart]
+}
+ 
+cloud {
+  [AWS]
+}
+
+
+cloud  {
+  (Walmart Open API)
+  
+}
+
+node Lambdas{
+  frame GetUser
+  frame CreateUser
+  frame UpdateUser
+  frame DeleteUser
+  frame GetCart
+  frame CreateCart
+  frame UpdateCart
+  frame DeleteCart
+  frame GetOrder
+  frame CreateOrder
+  frame UpdateOrder
+  frame DeleteOrder
+}
+
+node "API Gateway" as APIGateway {
+  frame users {
+    [GET] as USERS_GET
+    [POST] as USERS_POST
+    [PUT] as USERS_PUT
+    [DELETE] as USERS_DELETE
+  }
+  frame orders {
+    [GET] as ORDERS_GET
+    [POST] as ORDERS_POST
+    [PUT] as ORDERS_PUT
+    [DELETE] as ORDERS_DELETE
+  }
+  frame carts {
+    [GET] as CARTS_GET
+    [POST] as CARTS_POST
+    [PUT] as CARTS_PUT
+    [DELETE] as CARTS_DELETE
+  }
+  frame Passthrough {
+    [ANY]
+  }
+}
+
+database DynamoDB {
+  frame Users {
+
+  }
+  frame Orders {
+
+  }
+  frame Carts {
+
+  }
+}
+
+
+[Walcart] --> [AWS]
+Passthrough ---> (Walmart Open API)
+[AWS] --> APIGateway
+[AWS] ---> DynamoDB
+[AWS] ---> Lambdas
+USERS_GET ---> GetUser
+USERS_POST ---> CreateUser
+USERS_PUT ---> UpdateUser
+USERS_DELETE ---> DeleteUser
+CARTS_GET ---> GetCart
+CARTS_POST ---> CreateCart
+CARTS_PUT ---> UpdateCart
+CARTS_DELETE ---> DeleteCart
+ORDERS_GET ---> GetOrder
+ORDERS_POST ---> CreateOrder
+ORDERS_PUT ---> UpdateOrder
+ORDERS_DELETE ---> DeleteOrder
+GetCart --> Carts
+UpdateCart --> Carts
+CreateCart --> Carts
+DeleteCart --> Carts
+GetUser --> Users
+UpdateUser --> Users
+CreateUser --> Users
+DeleteUser --> Users
+GetOrder --> Orders
+UpdateOrder --> Orders
+CreateOrder --> Orders
+DeleteOrder --> Orders
+
+
+@enduml
