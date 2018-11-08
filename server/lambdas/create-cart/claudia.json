@@ -1,0 +1,7 @@
+{
+  "lambda": {
+    "role": "create-cart-executor",
+    "name": "create-cart",
+    "region": "us-east-1"
+  }
+}
