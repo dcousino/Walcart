@@ -10,6 +10,8 @@ const teamName = 'Bits...Please';
 
 ```javascript
 const teamMembers = ['Mohammed', 'Daniel', 'Geze'];
+// update
+teamMembers = teamMembers.filter(member => member !== 'Geze');
 ```
 
 ## Product Owners:
