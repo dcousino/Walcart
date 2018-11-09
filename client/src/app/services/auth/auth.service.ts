@@ -11,8 +11,8 @@ import {
 } from 'amazon-cognito-identity-js';
 import { User } from '../../models/user';
 const POOL_DATA = {
-  UserPoolId: 'us-east-1_XLI3vkIMZ',
-  ClientId: '7t8v9eh0jchpu2q4gds2puamrq'
+  UserPoolId: 'us-east-1_b62U8X7xd',
+  ClientId: 'uu3jm1ssofhp0nh86t8ug3s13'
 };
 const userPool = new CognitoUserPool(POOL_DATA);
 
@@ -25,10 +25,16 @@ export class AuthService {
   authStatusChanged = new Subject<boolean>();
   registeredUser: CognitoUser;
   constructor(private router: Router) {}
-  signUp(username: string, email: string, password: string): void {
+  signUp(
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string
+  ): void {
     this.authIsLoading.next(true);
     const user: User = {
-      username: username,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       password: password
     };
@@ -36,10 +42,20 @@ export class AuthService {
       Name: 'email',
       Value: user.email
     };
+    const givenNameAttribute = {
+      Name: 'given_name',
+      Value: user.firstName
+    };
+    const familyNameAttribute = {
+      Name: 'family_name',
+      Value: user.lastName
+    };
     const attrList: CognitoUserAttribute[] = [];
     attrList.push(new CognitoUserAttribute(emailAttribute));
+    attrList.push(new CognitoUserAttribute(givenNameAttribute));
+    attrList.push(new CognitoUserAttribute(familyNameAttribute));
     userPool.signUp(
-      user.username,
+      user.email,
       user.password,
       attrList,
       null,
@@ -56,10 +72,10 @@ export class AuthService {
     );
     return;
   }
-  confirmUser(username: string, code: string) {
+  confirmUser(email: string, code: string) {
     this.authIsLoading.next(true);
     const userData = {
-      Username: username,
+      Username: email,
       Pool: userPool
     };
     const cognitoUser = new CognitoUser(userData);
@@ -78,15 +94,16 @@ export class AuthService {
       }
     });
   }
-  signIn(username: string, password: string): void {
+  signIn(email: string, password: string): void {
+    console.log('trying');
     this.authIsLoading.next(true);
     const authData = {
-      Username: username,
+      Username: email,
       Password: password
     };
     const authDetails = new AuthenticationDetails(authData);
     const userData = {
-      Username: username,
+      Username: email,
       Pool: userPool
     };
     const cognitoUser = new CognitoUser(userData);

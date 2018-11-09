@@ -5,7 +5,7 @@ const ApiBuilder = require('claudia-api-builder'),
   dynamoDb = new AWS.DynamoDB.DocumentClient(),
   DynamoParams = require('./DynamoParams'),
   NotFoundError = require('./NotFoundError');
-const WALCART_AUTH = 'walcartpool';
+const WALCART_AUTH = 'walcart-pool';
 module.exports = api;
 api.corsOrigin('*');
 api.corsHeaders('Content-Type,Authorization');
@@ -13,13 +13,18 @@ api.registerAuthorizer(WALCART_AUTH, {
   providerARNs: [process.env.cognito_arn]
 });
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Users ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+/**
+ * Gets a user by id (email)
+ * @param id
+ */
 api.get(
   '/user/{id}',
   async request => {
     'use strict';
     const params = new DynamoParams('users', request.pathParams.id);
     try {
-      const user = await dynamoDb.get(params).promise();
+      const user = await dynamoDb.get(params).promise().Item;
       isResultEmpty(user, 'user');
       return user;
     } catch (error) {
@@ -28,7 +33,64 @@ api.get(
   },
   { cognitoAuthorizer: WALCART_AUTH }
 );
+/**
+ * Creates a user
+ */
+api.post(
+  '/user',
+  request => {
+    'use strict';
+    const params = {
+      TableName: 'users',
+      Item: {
+        id: request.body.id,
+        firstName: request.body.firstName,
+        lastName: request.body.lastName,
+        lastVisited: new Date()
+      },
+      ConditionExpression: 'attribute_not_exists(id)'
+    };
+    try {
+      return dynamoDb.put(params).promise();
+    } catch (error) {
+      return handleError(error);
+    }
+  },
+  { cognitoAuthorizer: WALCART_AUTH }
+);
+/**
+ * Updates a user
+ */
+api.put(
+  '/user',
+  function(request) {
+    'use strict';
+    console.log(request);
+    return request.lambdaContext;
+  },
+  { cognitoAuthorizer: WALCART_AUTH }
+);
+/**
+ * Deletes a user
+ * @param id
+ */
+api.delete(
+  '/user/{id}',
+  function(request) {
+    'use strict';
+    console.log(request);
+    return request.lambdaContext;
+  },
+  { cognitoAuthorizer: WALCART_AUTH }
+);
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Carts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Orders ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Products ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+/**
+ * Gets the cached product categories
+ */
 api.get(
   '/product-categories',
   async request => {
@@ -49,36 +111,27 @@ api.get(
   },
   { cognitoAuthorizer: WALCART_AUTH }
 );
-api.post('/user', function(request) {
-  'use strict';
-  console.log(request);
-  return request.lambdaContext;
-});
-
-api.put('/user', function(request) {
-  'use strict';
-  console.log(request);
-  return request.lambdaContext;
-});
-
-api.delete('/user/{id}', function(request) {
-  'use strict';
-  console.log(request);
-  return request.lambdaContext;
-});
 
 function handleError(error, table, action) {
   console.log(error);
   if (error instanceof NotFoundError) {
     return new api.ApiResponse(
       error,
-      { 'X-Version': '303', 'Content-Type': 'application/json' },
+      {
+        'X-Version': '303',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
       404
     );
   } else {
     return new api.ApiResponse(
       { error: `An error occurred while trying to ${action} ${table}.` },
-      { 'X-Version': '303', 'Content-Type': 'application/json' },
+      {
+        'X-Version': '303',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
       500
     );
   }

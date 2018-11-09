@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "api.js",
+  "config": {
+    "cognito": ""
+  },
   "scripts": {
     "create": "claudia create --region us-east-1 --api-module api --policies policies --configure-db",
     "deploy": "claudia update",
-    "update": "claudia update --configure-db --no-optional-dependencies"
+    "update": "claudia update --configure-db --no-optional-dependencies --set-env cognito_arn=%npm_package_config_cognito%"
   },
   "keywords": [],
   "author": "Daniel Cousino",
