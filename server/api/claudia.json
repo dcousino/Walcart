@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "walcart-api-executor",
+    "name": "walcart-api",
+    "region": "us-east-1"
+  },
+  "api": {
+    "id": "fs4rs4fpcj",
+    "module": "api"
+  }
+}

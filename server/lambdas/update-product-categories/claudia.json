@@ -1,0 +1,7 @@
+{
+  "lambda": {
+    "role": "update-product-categories-executor",
+    "name": "update-product-categories",
+    "region": "us-east-1"
+  }
+}

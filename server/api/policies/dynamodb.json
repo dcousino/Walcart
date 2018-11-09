@@ -1,0 +1,20 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "dynamodb:DeleteItem",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:Scan"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "arn:aws:dynamodb:us-east-1:438195961183:table/carts",
+        "arn:aws:dynamodb:us-east-1:438195961183:table/orders",
+        "arn:aws:dynamodb:us-east-1:438195961183:table/users",
+        "arn:aws:dynamodb:us-east-1:438195961183:table/product-categories"
+      ]
+    }
+  ]
+}

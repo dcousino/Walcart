@@ -1,0 +1,20 @@
+{
+  "name": "walcart-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api.js",
+  "scripts": {
+    "create": "claudia create --region us-east-1 --api-module api --policies policies --configure-db",
+    "deploy": "claudia update",
+    "update": "claudia update --configure-db --no-optional-dependencies"
+  },
+  "keywords": [],
+  "author": "Daniel Cousino",
+  "license": "MIT",
+  "dependencies": {
+    "claudia-api-builder": "^4.1.1"
+  },
+  "optionalDependencies": {
+    "aws-sdk": "^2.351.0"
+  }
+}

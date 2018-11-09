@@ -1,0 +1,20 @@
+{
+  "name": "update-product-categories",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "claudia test-lambda",
+    "create": "claudia create --region us-east-1 --handler %npm_package_name%.handler --policies policies --no-optional-dependencies",
+    "update": "claudia update --no-optional-dependencies"
+  },
+  "keywords": [],
+  "author": "Daniel Cousino",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "optionalDependencies": {
+    "aws-sdk": "^2.351.0"
+  }
+}
