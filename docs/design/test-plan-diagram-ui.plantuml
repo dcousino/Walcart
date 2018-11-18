@@ -1,0 +1,31 @@
+@startuml test-plan-ui
+
+  package Auth as "Auth/User Info" {
+    [Login] 
+    [Sign Up] 
+    [Confirm Email]
+    [View Account]
+    [Update Account]
+    [View Past Orders]
+  }
+
+  package Shopping as "Shopping/Checkout" {
+    [Make Payment] 
+    [Check out] 
+    [Schedule Delivery]
+    [View Cart]
+    [Update Cart]
+    [Search Products]
+    [Browse Products by Category]
+    [View Product Details]
+  }
+
+cloud {
+  [AWS]
+}
+
+(User Interface) -d-> Auth :<<interacts>>
+(User Interface) -d--> Shopping:<<interacts>>
+(User Interface) <-u-> [AWS]:<<interacts>>
+User -r--> (User Interface): <<interacts>>
+@enduml

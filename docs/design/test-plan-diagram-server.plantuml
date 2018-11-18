@@ -1,0 +1,13 @@
+@startuml test-plan-server
+
+cloud {
+  [AWS]
+}
+[AWS] -up-> () Cognito 
+() Cognito -> [API Gateway]: <<authenticates>>
+
+
+  (User Interface) <-up-> [AWS]:<<interacts>>
+  (API Gateway) <-up-> (Lambdas) : <<routes>>
+  (Lambdas) <-l-> (DynamoDB) :<<stores/retrieves>>
+@enduml
