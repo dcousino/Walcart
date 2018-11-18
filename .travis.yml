@@ -11,7 +11,7 @@ branches:
     - master
 
 before_script:
-  - cd client && npm install -g @angular/cli
+  - cd client && npm install -g @angular/cli && npm install --save-dev @angular-devkit/build-angular
 
 script:
   - ng build --prod --aot
