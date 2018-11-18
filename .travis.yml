@@ -14,9 +14,9 @@ branches:
     - master
 
 before_script:
+  - sonar-scanner
   - cd client && npm install -g @angular/cli && npm install --save-dev @angular-devkit/build-angular
 
 script:
-  - sonar-scanner
   - ng build --prod --aot
   - ng test
