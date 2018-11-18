@@ -22,7 +22,7 @@ teamMembers = teamMembers.filter(member => member !== 'Geze');
 
 - [x] Form Team
 - [x] Purpose
-- [ ] Design
+- [x] Design
 - [ ] Create epics/features/stories
 - [ ] Develop Backend
 - [ ] Develop Client
