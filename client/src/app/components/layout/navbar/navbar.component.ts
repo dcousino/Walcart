@@ -8,7 +8,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  constructor() {}
+  constructor(private httpClient: HttpClient, private auth: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+   
+  }
 }
