@@ -1,6 +1,10 @@
 sudo: required
 addons:
   chrome: stable
+  sonarcloud:
+    organization: 'dcousino-github' # the key of the org you chose at step #3
+    token:
+      secure: 'IoXJpWQEhDfwLTngRVBnHBFlODulVj5SYBV+1ypSFZj9r9UyqrbiwsewAHkxymrUtD6lK2FILqp5C+W5/B1ubbyzoqOSqJTUZHKad5y/rOPV76tHf9zwmBJ9h7xf0f/c2gNq5W+sShfZ2TXyJhiw+0Ilt5RMMxoijz3jSJXY29JYdI56NPFf/jyPsp72+mlCApFIr2HZqjZvYI+svD6M8Ot5Qsf2UGC8hehIwHm9sjm/6dSLcJHBHBQRUsZ+SrFI1XhvEtden+HWMbW7RUpTzcZUkVUwFYV+sqJ4TP/ocpi3aED4cV74cPvMYyqchHl/AoktMweIRkecSB6dJE3g/9rgRiU1kkuCCyqq5e0A6mzThtI3t8rvf3B26/Vc3WZSY84vAdOygVRGNxeCPk1tNEHWoC3EBMKtbppRAwtic5Abep3uKbSQ+fcIBgUHlQemAkfb4XG8/yGFUJ56C6vov3fMjHk3A+6Fr8bXxkUQ1Fzaouj7V3tFLEmsj31JIQ/xMDFCw+LUA4bLzh7wqHuUDoacy4vBUPPexBgKLG4jHUB/6HV6FkvNUM9JVnseZePXpQVUlp0Atw7RaB8cpHJwtRrpNYMj0LrLz3sTM8P7S6uIQVUgyIT56cxwpwWzxCzL6I0lFUCNY8XyI8l+ABBr2+PT1rSoGoz1AuOiJoHG13Y='
 
 language: node_js
 node_js:
@@ -14,5 +18,6 @@ before_script:
   - cd client && npm install -g @angular/cli
 
 script:
+  - sonar-scanner
   - ng build --prod --aot
   - ng test

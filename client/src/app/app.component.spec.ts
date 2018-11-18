@@ -1,12 +1,11 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from '../app/components/layout/navbar/navbar.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent, NavbarComponent]
     }).compileComponents();
   }));
 
@@ -26,6 +25,8 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to client!');
+    expect(compiled.querySelector('h1').textContent).toContain(
+      'Welcome to client!'
+    );
   });
 });

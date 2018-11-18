@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { QueryService } from 'src/app/services/query.service';
+
 import { Category } from 'src/app/models/category';
 
 @Component({
@@ -10,13 +10,10 @@ import { Category } from 'src/app/models/category';
 export class CategoriesComponent implements OnInit {
   categories: Category[];
   selectedItems: string[];
-  constructor(private qrySvc: QueryService) {}
+  constructor() {}
 
   ngOnInit() {
     this.selectedItems = [];
-    this.qrySvc.getCategories().subscribe(res => {
-      this.categories = res.categories;
-    });
   }
   show(listItemId: string): boolean {
     return this.selectedItems.includes(listItemId);
