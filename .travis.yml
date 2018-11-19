@@ -17,7 +17,7 @@ before_script:
   - cd client && npm install -g @angular/cli && npm install --save-dev @angular-devkit/build-angular
 script:
   - ng build --prod --aot
-  - ng test
+  - ng test --code-coverage
 deploy:
   provider: s3
   access_key_id:
