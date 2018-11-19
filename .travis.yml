@@ -17,6 +17,8 @@ before_script:
 script:
   - ng build --prod --aot
   - ng test
+before_deploy:
+  - cd dist
 deploy:
   provider: s3
   access_key_id:
