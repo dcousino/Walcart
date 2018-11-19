@@ -26,5 +26,5 @@ deploy:
   bucket: walcart
   skip_cleanup: true
   local_dir: dist
-  upload-dir: v1
+  region: us-east-1
   acl: public_read
