@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dcousino/Walcart.svg?branch=master)](https://travis-ci.org/dcousino/Walcart)
+
 # :boom: Walcart App :boom:
 
 ## Team Name
