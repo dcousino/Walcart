@@ -30,3 +30,4 @@ deploy:
   local_dir: dist
   on:
     branch: master
+  acl: public_read
