@@ -17,15 +17,10 @@ before_script:
 script:
   - ng build --prod --aot
   - ng test
-before_deploy:
-  - cd ..
+before_deploy: pip install --user awscli
 deploy:
-  provider: s3
-  access_key_id:
-    secure: PLkt+Cm1rqWUYdvtu7/mSmG2wrErGMiR+32Vh1w4dNczHdVbLGYtDJJOW1vIZNDG1FQOKFpfwnyRvxEzjrm//h3+WWi5Vg0T3eOJYk/vQyG3YcQXuaqy45Hbl+E0lBV7LYm6lyg7uWdkSX6CnR9DCZi6a9jZEa/BzSoCZyA0z5NEznTaZ1vAVjqiAjHvhCJRF1JzlaAFTcFyYH/jZZ5D1okdOnq4ZW8zj2dze8R1AVkTeBkmT5xWlUFttnryECHkuBHHdBlOD3u7yYixT+Ful6yNcm1gsastIqTYjKulWjtmqh+Ih8DHA1wXZLnw/AFiKkjGZzTVcEstQjAkiS5RiH7U/k2ek8xakp9QvVoH2UIQiu0f30047dqhtzZnk1ROQIz9QB5KVSrGitNX6Xjv/bbuypZCcIBc/aS9su7XuhYJ9f1Ne8P13sitd3k8SyfSxgWDUI73yUWEFNxQ5Hz0of07psY3qjEtw/gVD38PBOUsnu4LP8SnFn4uFsUwJMCib9hQnzGanq0O7HN36XEtLrQvj6qZ+/FPc2fk61xAXMORF0PB0xPwAu+XRAcI+iGXg0ZqmVhPrcjwz1c9OHvUEqYsUYVAQKUhhQOZOz2AbTnlZfGqW8y93sAweqIW2Gkrwc7ETSaKq3p2qJw+JedaEIHkfrSjsoED+l54hYlkW3M=
-  secret_access_key:
-    secure: ZBW1iQSdmvI8/l4N8dGhf+uBc+yfVvTWPyHii95/lvNJhyFvZ3qQQs1NbR+Ccfp06kC1SebkRH3Os81Kz9HWEFBNw22qrLAX1eX4k5Q2wfK7wB1Lep7yqr6Zu5kQHpej7ZRuoX4sJRbT3YYMN0MDo62CsIyGZo2ZPl7niGQosY8nKfkJLOSLLJ/ZmiZfWERJcAzFgR2jhdNiaOsVYZfeoisr+ZARHyW/PT8lN/FSNz7tQLx5aNhZMZ6tfSe15S9Y3UcTN6uBIaxK8fUEjhfo5zHnIVmbpnTrfJbiTEek4Jz6tvgJo3mMc2JOZQYmV1ZPLoLSELNNn28IeSuobwYkoveh9O/kfGe3I1uq2OI3myDVpZ6I9YVpLFuw5K+s+fU8h2yL5x970AW+PREgnO34ffo5nhSnD+gyhQyNOQvf8WDxkTwU+two9SmRIcKByje75GqGZubEzlzekcHbcGS8zA9sxEOtUJ0mWHRVewhVL4PC+Xx8F6JL5tZhxVrtBuNTcqfvgipEKLY8MpHnqgT+oRgJKoMb3pFOUtUkeNcXZbVrRWkLDA2KKa6cFOA7n12cxT5FVdXUHo35QGNoed3ZtA222EI3o/gzIP1WDv4dpYoRBu56TdYNTuzenRUT/hNn71AVexXknkyuAvIc0idPWqp1dcS/TsrHL0R+3/7IYTY=
-  bucket: walcart
+  provider: script
+  script: ~/.local/bin/aws s3 sync dist s3://walcart --region=us-east-1 --delete
   skip_cleanup: true
-  local_dir: client/dist
-  acl: public_read
+  on:
+    branch: master
