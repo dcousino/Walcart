@@ -11,12 +11,13 @@ node_js:
 branches:
   only:
     - master
+    - develop
 before_script:
   - sonar-scanner
   - cd client && npm install -g @angular/cli && npm install --save-dev @angular-devkit/build-angular
 script:
   - ng build --prod --aot
-  - ng test
+  - ng test --code-coverage
 deploy:
   provider: s3
   access_key_id:
@@ -28,3 +29,5 @@ deploy:
   local_dir: dist/client
   region: us-east-1
   acl: public_read
+  on:
+    branch: master
