@@ -11,12 +11,13 @@ node_js:
 branches:
   only:
     - master
+    - develop
 before_script:
-  - sonar-scanner
   - cd client && npm install -g @angular/cli && npm install --save-dev @angular-devkit/build-angular
 script:
   - ng build --prod --aot
-  - ng test
+  - ng test --code-coverage --watch=false
+  - cd .. && sonar-scanner
 deploy:
   provider: s3
   access_key_id:
@@ -25,6 +26,8 @@ deploy:
     secure: ZBW1iQSdmvI8/l4N8dGhf+uBc+yfVvTWPyHii95/lvNJhyFvZ3qQQs1NbR+Ccfp06kC1SebkRH3Os81Kz9HWEFBNw22qrLAX1eX4k5Q2wfK7wB1Lep7yqr6Zu5kQHpej7ZRuoX4sJRbT3YYMN0MDo62CsIyGZo2ZPl7niGQosY8nKfkJLOSLLJ/ZmiZfWERJcAzFgR2jhdNiaOsVYZfeoisr+ZARHyW/PT8lN/FSNz7tQLx5aNhZMZ6tfSe15S9Y3UcTN6uBIaxK8fUEjhfo5zHnIVmbpnTrfJbiTEek4Jz6tvgJo3mMc2JOZQYmV1ZPLoLSELNNn28IeSuobwYkoveh9O/kfGe3I1uq2OI3myDVpZ6I9YVpLFuw5K+s+fU8h2yL5x970AW+PREgnO34ffo5nhSnD+gyhQyNOQvf8WDxkTwU+two9SmRIcKByje75GqGZubEzlzekcHbcGS8zA9sxEOtUJ0mWHRVewhVL4PC+Xx8F6JL5tZhxVrtBuNTcqfvgipEKLY8MpHnqgT+oRgJKoMb3pFOUtUkeNcXZbVrRWkLDA2KKa6cFOA7n12cxT5FVdXUHo35QGNoed3ZtA222EI3o/gzIP1WDv4dpYoRBu56TdYNTuzenRUT/hNn71AVexXknkyuAvIc0idPWqp1dcS/TsrHL0R+3/7IYTY=
   bucket: walcart
   skip_cleanup: true
-  local_dir: dist/client
+  local_dir: client/dist/client
   region: us-east-1
   acl: public_read
+  on:
+    branch: master
