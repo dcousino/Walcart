@@ -12,19 +12,15 @@ import { CartComponent } from './components/orders/cart/cart.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ConfirmComponent } from './components/customers/confirm/confirm.component';
 import { FormsModule } from '@angular/forms';
-import {
-  StoreModule,
-  ActionReducerMap,
-  ActionReducer,
-  MetaReducer
-} from '@ngrx/store';
+import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
-import { reducers, effects, CustomSerializer } from './store';
+import { reducers, effects } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { isDevMode } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HomeComponent } from './components/customers/home/home.component';
 
+const isDev = isDevMode();
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
@@ -53,7 +49,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot(effects),
 
-    isDevMode() ? StoreDevtoolsModule.instrument() : []
+    isDev ? StoreDevtoolsModule.instrument() : []
   ],
 
   bootstrap: [AppComponent]

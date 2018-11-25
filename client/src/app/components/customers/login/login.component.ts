@@ -4,6 +4,7 @@ import { Observable, from } from 'rxjs';
 import * as fromStore from '../../../store';
 import { CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
 import { LoginUser } from 'src/app/models/login-user';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
