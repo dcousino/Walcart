@@ -16,11 +16,10 @@ import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { reducers, effects } from './store';
 import { EffectsModule } from '@ngrx/effects';
-import { isDevMode } from '@angular/core';
+import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HomeComponent } from './components/customers/home/home.component';
 
-const isDev = isDevMode();
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
@@ -49,7 +48,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot(effects),
 
-    isDev ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
 
   bootstrap: [AppComponent]
