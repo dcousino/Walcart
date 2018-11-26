@@ -1,25 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, from } from 'rxjs';
-import * as fromStore from '../../../store';
-import { CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApplicatonState, Login } from '../../../store';
 import { LoginUser } from 'src/app/models/login-user';
-import { NgForm } from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css', '../auth.style.css']
 })
 export class LoginComponent implements OnInit {
-  email: string;
-  password: string;
+  constructor(private fb: FormBuilder, private store: Store<ApplicatonState>) {}
+  authForm: FormGroup;
 
-  constructor(private store: Store<fromStore.ApplicatonState>) {}
+  ngOnInit() {
+    this.createForm();
+  }
+  createForm(): void {
+    this.authForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
+  }
 
-  ngOnInit() {}
-  login() {
-    this.store.dispatch(
-      new fromStore.Login({ email: this.email, password: this.password })
-    );
+  onSubmit({ value, valid }: { value: LoginUser; valid: boolean }) {
+    if (valid) {
+      this.store.dispatch(new Login(value));
+    }
   }
 }

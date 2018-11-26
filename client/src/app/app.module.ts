@@ -16,7 +16,7 @@ import { CartItemComponent } from './components/orders/cart-item/cart-item.compo
 import { FormsModule } from '@angular/forms';
 =======
 import { ConfirmComponent } from './components/customers/confirm/confirm.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { reducers, effects } from './store';
@@ -28,7 +28,7 @@ import { HomeComponent } from './components/customers/home/home.component';
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
-  return localStorageSync({ keys: ['auth'], rehydrate: true })(reducer);
+  return localStorageSync({ keys: ['auth', 'user'], rehydrate: true })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 >>>>>>> 12370b3a596252b2c61e9aa7e3d8fae03d9fa0ea
@@ -60,6 +60,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot(effects),
 

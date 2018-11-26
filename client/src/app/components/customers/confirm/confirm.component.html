@@ -3,18 +3,31 @@
     <div class="card">
       <div class="card-header"><h3>Confirm Account</h3></div>
       <div class="card-body">
-        <form #clientForm="ngForm">
+        <form
+          id="confirm-form"
+          [formGroup]="authForm"
+          (ngSubmit)="onSubmit(authForm)"
+          novalidate
+        >
           <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
             <input
-              [(ngModel)]="email"
-              name="email"
+              formControlName="email"
               type="text"
               class="form-control"
               placeholder="email"
             />
+          </div>
+          <div
+            *ngIf="
+              authForm.get('email').hasError('required') &&
+              authForm.get('email').touched
+            "
+            class="alert alert-danger"
+          >
+            Email is required
           </div>
           <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -24,15 +37,22 @@
               type="text"
               class="form-control"
               placeholder="code"
-              name="code"
-              [(ngModel)]="code"
+              formControlName="code"
             />
           </div>
-
+          <div
+            *ngIf="
+              authForm.get('code').hasError('required') &&
+              authForm.get('code').touched
+            "
+            class="alert alert-danger"
+          >
+            Code is required
+          </div>
           <div class="form-group">
             <input
-              type="button"
-              (click)="confirm()"
+              type="submit"
+              [disabled]="!authForm.valid"
               value="Confirm"
               class="btn float-right login_btn"
             />
