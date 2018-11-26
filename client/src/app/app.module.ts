@@ -10,6 +10,9 @@ import { CategoriesComponent } from './components/products/categories/categories
 import { CheckoutComponent } from './components/orders/checkout/checkout.component';
 import { CartComponent } from './components/orders/cart/cart.component';
 import { AppRoutingModule } from './app-routing.module';
+import { OrderComponent } from './components/orders/order/order.component';
+import { CartItemComponent } from './components/orders/cart-item/cart-item.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,9 +22,13 @@ import { AppRoutingModule } from './app-routing.module';
     RegisterComponent,
     CategoriesComponent,
     CheckoutComponent,
-    CartComponent
+    CartComponent,
+    OrderComponent,
+    CartItemComponent
   ],
-  imports: [BrowserModule, NgbModule, HttpClientModule, AppRoutingModule],
+  imports: [BrowserModule, NgbModule, 
+    HttpClientModule, AppRoutingModule, 
+    FormsModule],
   providers: [],
   bootstrap: [AppComponent]
 })
