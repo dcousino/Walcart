@@ -7,12 +7,18 @@ import { RegisterComponent } from './components/customers/register/register.comp
 import { AuthGuard } from './auth.guard';
 import { CartComponent } from './components/orders/cart/cart.component';
 import { HomeComponent } from './components/customers/home/home.component';
+import { CategoriesComponent } from './components/products/categories/categories.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'confirm', component: ConfirmComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'cart', canActivate: [AuthGuard], component: CartComponent },
+  {
+    path: 'categories',
+    canActivate: [AuthGuard],
+    component: CategoriesComponent
+  },
   { path: 'home', canActivate: [AuthGuard], component: HomeComponent }
 ];
 

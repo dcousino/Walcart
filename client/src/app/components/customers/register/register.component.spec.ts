@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register.component';
 import { StoreModule, MetaReducer, ActionReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
@@ -18,7 +18,11 @@ describe('RegisterComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [RegisterComponent],
-      imports: [FormsModule, StoreModule.forRoot(reducers, { metaReducers })]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        StoreModule.forRoot(reducers, { metaReducers })
+      ]
     }).compileComponents();
   }));
 

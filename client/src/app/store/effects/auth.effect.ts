@@ -20,7 +20,7 @@ export class AuthEffects {
     switchMap(login => {
       return this.authService.signIn(login.email, login.password).pipe(
         map(userSession => new authActions.LoginSuccess(userSession)),
-        tap(() => this.router.navigate(['/confirm'])),
+        tap(() => this.router.navigate(['/home'])),
         catchError(error => of(new authActions.LoginFail(error)))
       );
     })
