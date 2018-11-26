@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { RegisterComponent } from './register.component';
+import { ConfirmComponent } from './confirm.component';
 import { StoreModule, MetaReducer, ActionReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { reducers } from '../../../store';
@@ -11,19 +11,19 @@ export function localStorageSyncReducer(
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
-describe('RegisterComponent', () => {
-  let component: RegisterComponent;
-  let fixture: ComponentFixture<RegisterComponent>;
+describe('ConfirmComponent', () => {
+  let component: ConfirmComponent;
+  let fixture: ComponentFixture<ConfirmComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RegisterComponent],
+      declarations: [ConfirmComponent],
       imports: [FormsModule, StoreModule.forRoot(reducers, { metaReducers })]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegisterComponent);
+    fixture = TestBed.createComponent(ConfirmComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

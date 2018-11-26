@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, of, Observer } from 'rxjs';
 import {
   CognitoUserPool,
   CognitoUserAttribute,
@@ -10,6 +10,8 @@ import {
   CognitoUserSession
 } from 'amazon-cognito-identity-js';
 import { User } from '../../models/user';
+import { catchError } from 'rxjs/operators';
+import { RegistrationUser } from 'src/app/models/registration-user';
 const POOL_DATA = {
   UserPoolId: 'us-east-1_b62U8X7xd',
   ClientId: 'uu3jm1ssofhp0nh86t8ug3s13'
@@ -30,14 +32,50 @@ export class AuthService {
     password: string,
     firstName: string,
     lastName: string
-  ): void {
-    this.authIsLoading.next(true);
+  ): Observable<CognitoUser> {
+    const { user, attrList }: RegistrationUser = this.createRegistrationUser(
+      firstName,
+      lastName,
+      email,
+      password
+    );
+
+    return Observable.create((observer: Observer<CognitoUser>) => {
+      userPool.signUp(
+        user.email,
+        user.password,
+        attrList,
+        null,
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            observer.error(err);
+            observer.complete();
+          } else {
+            observer.next(result.user);
+            observer.complete();
+          }
+        }
+      );
+    });
+  }
+  private createRegistrationUser(
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ): RegistrationUser {
     const user: User = {
       firstName: firstName,
       lastName: lastName,
       email: email,
       password: password
     };
+    const attrList: CognitoUserAttribute[] = this.createUserAttributes(user);
+    return { user, attrList };
+  }
+
+  private createUserAttributes(user: User) {
     const emailAttribute = {
       Name: 'email',
       Value: user.email
@@ -54,82 +92,62 @@ export class AuthService {
     attrList.push(new CognitoUserAttribute(emailAttribute));
     attrList.push(new CognitoUserAttribute(givenNameAttribute));
     attrList.push(new CognitoUserAttribute(familyNameAttribute));
-    userPool.signUp(
-      user.email,
-      user.password,
-      attrList,
-      null,
-      (err, result) => {
-        if (err) {
-          this.authDidFail.next(true);
-          this.authIsLoading.next(false);
-        } else {
-          this.authDidFail.next(false);
-          this.authIsLoading.next(false);
-          this.registeredUser = result.user;
-        }
-      }
-    );
-    return;
+    return attrList;
   }
-  confirmUser(email: string, code: string) {
-    this.authIsLoading.next(true);
-    const userData = {
-      Username: email,
-      Pool: userPool
-    };
-    const cognitoUser = new CognitoUser(userData);
-    cognitoUser.confirmRegistration(code, true, (err, result) => {
-      if (err) {
-        console.log(err);
-        this.authDidFail.next(true);
-        this.authIsLoading.next(false);
-        return;
-      } else {
-        console.log(result);
 
-        this.authDidFail.next(false);
-        this.authIsLoading.next(false);
-        this.router.navigate(['/']);
-      }
+  confirmUser(email: string, code: string): Observable<boolean> {
+    const cognitoUser = this.getCognitoUser(email);
+    return Observable.create((observer: Observer<boolean>) => {
+      cognitoUser.confirmRegistration(code, true, (err, result) => {
+        if (err) {
+          console.log(err);
+          observer.error(err);
+          observer.complete();
+        } else {
+          observer.next(true);
+          observer.complete();
+        }
+      });
     });
   }
-  signIn(email: string, password: string): void {
-    console.log('trying');
-    this.authIsLoading.next(true);
+
+  private getAuthDetails(email: string, password: string) {
     const authData = {
       Username: email,
       Password: password
     };
-    const authDetails = new AuthenticationDetails(authData);
+    return new AuthenticationDetails(authData);
+  }
+
+  private getCognitoUser(email: string) {
     const userData = {
       Username: email,
       Pool: userPool
     };
-    const cognitoUser = new CognitoUser(userData);
-    const that = this;
-    cognitoUser.authenticateUser(authDetails, {
-      onSuccess(result: CognitoUserSession) {
-        that.authStatusChanged.next(true);
-        that.authDidFail.next(false);
-        that.authIsLoading.next(false);
-        console.log(result);
-      },
-      onFailure(err) {
-        console.log(err);
-        that.authDidFail.next(true);
-        that.authIsLoading.next(false);
+    return new CognitoUser(userData);
+  }
+  signIn(email: string, password: string): Observable<CognitoUserSession> {
+    const authDetails = this.getAuthDetails(email, password);
+    const cognitoUser = this.getCognitoUser(email);
+
+    return Observable.create(
+      (observer: Observer<{ session: CognitoUserSession }>) => {
+        cognitoUser.authenticateUser(authDetails, {
+          onSuccess: session => {
+            observer.next({ session: session });
+            observer.complete();
+          },
+          onFailure: error => observer.error(error)
+        });
       }
-    });
-    this.authStatusChanged.next(true);
-    return;
+    );
   }
   getAuthenticatedUser() {
     return userPool.getCurrentUser();
   }
-  logout() {
+  logout(): Observable<boolean> {
     this.getAuthenticatedUser().signOut();
-    this.authStatusChanged.next(false);
+    return of(true);
   }
   isAuthenticated(): Observable<boolean> {
     const user = this.getAuthenticatedUser();
