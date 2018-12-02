@@ -10,11 +10,6 @@ import { CategoriesComponent } from './components/products/categories/categories
 import { CheckoutComponent } from './components/orders/checkout/checkout.component';
 import { CartComponent } from './components/orders/cart/cart.component';
 import { AppRoutingModule } from './app-routing.module';
-<<<<<<< HEAD
-import { OrderComponent } from './components/orders/order/order.component';
-import { CartItemComponent } from './components/orders/cart-item/cart-item.component';
-import { FormsModule } from '@angular/forms';
-=======
 import { ConfirmComponent } from './components/customers/confirm/confirm.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
@@ -31,7 +26,6 @@ export function localStorageSyncReducer(
   return localStorageSync({ keys: ['auth', 'user'], rehydrate: true })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
->>>>>>> 12370b3a596252b2c61e9aa7e3d8fae03d9fa0ea
 
 @NgModule({
   declarations: [
@@ -42,15 +36,6 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     CategoriesComponent,
     CheckoutComponent,
     CartComponent,
-<<<<<<< HEAD
-    OrderComponent,
-    CartItemComponent
-  ],
-  imports: [BrowserModule, NgbModule, 
-    HttpClientModule, AppRoutingModule, 
-    FormsModule],
-  providers: [],
-=======
     ConfirmComponent,
     HomeComponent
   ],
@@ -67,7 +52,6 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
 
->>>>>>> 12370b3a596252b2c61e9aa7e3d8fae03d9fa0ea
   bootstrap: [AppComponent]
 })
 export class AppModule {}
