@@ -9,7 +9,10 @@ export class ProductPageNavComponent implements OnInit {
   constructor() {}
   @Input() name: string;
   @Input() id: string;
-
+  @Input() totalPages: string;
+  @Input() isFirstPage: boolean;
+  @Input() currentPageNumber: string;
+  @Input() isLastPage: boolean;
   @Output() getNext = new EventEmitter<void>();
   @Output() getPrevious = new EventEmitter<void>();
 
@@ -17,8 +20,6 @@ export class ProductPageNavComponent implements OnInit {
     this.getNext.emit();
   }
   previous() {
-    console.log('clicked pre');
-
     this.getPrevious.emit();
   }
   ngOnInit() {}

@@ -5,9 +5,9 @@ import { Categories } from '../models/categories';
 import { Category } from '../models/category';
 import { ProductPage } from '../models/product-page/product-page';
 import { Store } from '@ngrx/store';
-import { ApplicationState } from '../store';
+import { ApplicationState, getProductState } from '../store';
 import { AuthService } from './auth/auth.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Injectable({
@@ -23,10 +23,12 @@ export class QueryService {
     private auth: AuthService,
     private store: Store<ApplicationState>
   ) {
-    this.store.select('products').subscribe(page => {
-      this.currentPage = page.pages.length.toString();
-      this.currentPageNumber = page.currentPage;
-      this.pages = page.pages;
+    this.store.select('product').subscribe(page => {
+      if (page) {
+        this.currentPage = page.pages.length.toString();
+        this.currentPageNumber = page.currentPage;
+        this.pages = page.pages;
+      }
     });
   }
 
@@ -53,7 +55,7 @@ export class QueryService {
   }
 
   getNextProductPage(pathParams: string): Observable<ProductPage> {
-    if (this.pages.length > this.currentPageNumber + 1) {
+    if (this.pages && this.pages.length > this.currentPageNumber + 1) {
       return of(this.pages[this.currentPageNumber + 1]);
     }
     return this.httpClient

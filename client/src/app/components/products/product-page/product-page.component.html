@@ -3,6 +3,10 @@
 <ng-container *ngIf="currentPage && currentPage.items">
   <app-product-page-nav
     [name]="currentCategory.name"
+    [isFirstPage]="isFirstPage()"
+    [currentPageNumber]="getCurrentPageNumber()"
+    [isLastPage]="isLastPage()"
+    [totalPages]="totalPages"
     [id]="currentCategory.id"
     (getNext)="getNext()"
     (getPrevious)="getPrevious()"
@@ -10,31 +14,31 @@
   <div>
     <div class="row">
       <div
-        class="col-lg-4 d-flex align-items-stretch"
+        class="col-lg-4 col-sm-12 py-2"
         *ngFor="let item of currentPage.items; trackBy: trackByFn"
       >
-        <div class="card mb-4 shadow-sm">
+        <div class="card h-100">
           <img class="card-img-top" [src]="item.largeImage" alt="" />
           <div class="card-body">
             <p class="card-text">{{ item.name }}</p>
-            <p class="card-text">
-              <strong>Stock</strong>:
-              <span
-                [ngClass]="
-                  item.stock == 'Available' ? 'text-success' : 'text-warning'
-                "
-                >{{ item.stock }}</span
-              >
-              | <strong>Price</strong> ${{ item.salePrice.toFixed(2) }}
-            </p>
-            <div class="d-flex justify-content-between align-items-center">
-              <button
-                (click)="addToCart(item)"
-                class="btn btn-success btn-circle btn-lg"
-              >
-                <i class="fa fa-plus"></i>
-              </button>
-            </div>
+          </div>
+          <div class="card-footer">
+            <button
+              *ngIf="item.stock !== 'Not available'"
+              (click)="addToCart(item)"
+              class="btn btn-success btn-circle"
+            >
+              <i class="fa fa-plus"></i>
+            </button>
+            <strong class="ml-4">Stock: </strong>
+            <span
+              [ngClass]="
+                item.stock == 'Available' ? 'text-success' : 'text-warning'
+              "
+              >{{ item.stock }}</span
+            >
+            | <strong>Price: </strong>
+            {{ item.salePrice ? '$' + item.salePrice.toFixed(2) : 'N/A' }}
           </div>
         </div>
       </div>
@@ -42,8 +46,11 @@
   </div>
   <app-product-page-nav
     [name]="currentCategory.name"
+    [isFirstPage]="isFirstPage()"
+    [isLastPage]="isLastPage()"
+    [totalPages]="currentPage.totalPages"
     [id]="currentCategory.id"
     (getNext)="getNext()"
-    (getPrevious)="(getPrevious)"
+    (getPrevious)="getPrevious()"
   ></app-product-page-nav>
 </ng-container>

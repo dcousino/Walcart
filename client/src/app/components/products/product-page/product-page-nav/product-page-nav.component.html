@@ -1,6 +1,6 @@
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
+    <li class="page-item">
       <a
         [routerLink]="['/sub-categories', id]"
         class="btn btn-sm btn-outline-success"
@@ -10,12 +10,31 @@
     </li>
   </ul>
 </nav>
-<button class="btn btn-outline-success btn-lg float-left" (click)="previous()">
-  <i class="fa fa-chevron-left"></i>
-</button>
 
-<button class="btn btn-outline-success btn-lg float-right" (click)="next()">
-  <i class="fa fa-chevron-right"></i>
-</button>
-<div class="clearfix"></div>
+<ul class="nav nav-pills nav-fill">
+  <li class="nav-item">
+    <button
+      class="btn btn-outline-success btn-lg "
+      [disabled]="isFirstPage"
+      (click)="previous()"
+    >
+      <i class="fa fa-chevron-left"></i>
+    </button>
+  </li>
+  <li class="nav-item">
+    <span class="btn btn-outline-success btn-lg "
+      >{{ currentPageNumber }}/{{ totalPages }}</span
+    >
+  </li>
+  <li class="nav-item">
+    <button
+      class="btn btn-outline-success btn-lg "
+      [disabled]="isLastPage"
+      (click)="next()"
+    >
+      <i class="fa fa-chevron-right"></i>
+    </button>
+  </li>
+</ul>
+
 <br /><br />

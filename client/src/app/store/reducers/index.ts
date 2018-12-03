@@ -60,6 +60,9 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
   }
 }
 export const getAuthState = createFeatureSelector<fromAuth.AuthState>('auth');
-export const getProductState = createFeatureSelector<ApplicationState>(
+export const getProductState = createFeatureSelector<fromProduct.ProductState>(
   'product'
 );
+export const getCategoryState = createFeatureSelector<
+  fromCategories.CategoryState
+>('categories');
