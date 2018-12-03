@@ -19,14 +19,20 @@ import { EffectsModule } from '@ngrx/effects';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HomeComponent } from './components/customers/home/home.component';
+import { SubCategoriesComponent } from './components/products/sub-categories/sub-categories.component';
+import { ProductPageComponent } from './components/products/product-page/product-page.component';
+import { ProductPageNavComponent } from './components/products/product-page/product-page-nav/product-page-nav.component';
+import { SpinnerComponent } from './components/layout/spinner/spinner.component';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
-  return localStorageSync({ keys: ['auth', 'user'], rehydrate: true })(reducer);
+  return localStorageSync({
+    keys: ['auth', 'user', 'categories', 'cart'],
+    rehydrate: true
+  })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +43,11 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     CheckoutComponent,
     CartComponent,
     ConfirmComponent,
-    HomeComponent
+    HomeComponent,
+    SubCategoriesComponent,
+    ProductPageComponent,
+    ProductPageNavComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

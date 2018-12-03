@@ -1,18 +1,36 @@
-<ng-container *ngIf="categories">
-  <div>
-    <ul>
-      <li *ngFor="let category of categories; trackBy: trackByFn;" (click)="listItemClick(category.id)">{{
-        category.name }}
-        <ng-container *ngIf="category.children">
-          <ul>
-            <ng-container *ngIf="show(category.id)">
-              <li *ngFor="let child of category.children; trackBy: trackByFn;" (click)="listItemClick(child.id); $event.stopPropagation();">
-                {{ child.name}}
-              </li>
-            </ng-container>
-          </ul>
-        </ng-container>
-      </li>
-    </ul>
-  </div>
-</ng-container>
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="wrapper">
+  <ng-container *ngIf="categories">
+    <div>
+      <div class="row">
+        <div
+          class="col-md-4"
+          *ngFor="let category of categories; trackBy: trackByFn"
+        >
+          <div class="card mb-4 shadow-sm">
+            <img
+              class="card-img-top"
+              src="assets\categories\{{category.id}}.jpeg"
+              onError="this.src='assets\images\placeholder.jpg';"
+              alt=""
+            />
+            <div class="card-body">
+              <p class="card-text">{{ category.name }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/sub-categories', category.id]"
+                    class="btn btn-sm btn-outline-secondary"
+                  >
+                    View
+                  </a>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

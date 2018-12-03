@@ -1,16 +1,14 @@
 import { CartItem } from '../../models/cart-item';
 import * as fromCart from '../actions/cart.action';
 export interface CartState {
-  data: CartItem[];
+  cart: CartItem[];
+  id: string;
   loading: boolean;
 }
 
 export const initialState: CartState = {
-  data: [
-    {
-      id: 'cart1'
-    }
-  ],
+  id: '',
+  cart: [],
   loading: false
 };
 
@@ -22,10 +20,31 @@ export function reducer(
     case fromCart.ADD_TO_CART: {
       return {
         ...state,
-        loading: true
+        cart: [...state.cart, action.payload]
       };
     }
+    case fromCart.REMOVE_FROM_CART: {
+      return {
+        ...state,
+        cart: state.cart.filter(item => item.itemId !== action.payload)
+      };
+    }
+    case fromCart.UPDATE_CART_ITEM_QUANTITY: {
+      console.log(action.payload);
 
+      return {
+        ...state,
+        cart: state.cart.map(item =>
+          item.itemId === action.payload.id
+            ? {
+                ...item,
+                quantity: action.payload.quantity,
+                totalCost: action.payload.quantity * item.salePrice
+              }
+            : item
+        )
+      };
+    }
     default:
       return state;
   }

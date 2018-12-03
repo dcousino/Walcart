@@ -3,11 +3,29 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from '../app/components/layout/navbar/navbar.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
+import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
+import { reducers } from './store';
+import { localStorageSync } from 'ngrx-store-localstorage';
+
+export function localStorageSyncReducer(
+  reducer: ActionReducer<any>
+): ActionReducer<any> {
+  return localStorageSync({
+    keys: ['auth', 'user', 'categories', 'cart'],
+    rehydrate: true
+  })(reducer);
+}
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent, NavbarComponent],
-      imports: [RouterTestingModule, FormsModule]
+      imports: [
+        RouterTestingModule,
+        FormsModule,
+        StoreModule.forRoot(reducers, { metaReducers })
+      ]
     }).compileComponents();
   }));
 
@@ -15,12 +33,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'client'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    console.log(app);
-    expect(app.title).toEqual('client');
   });
 });

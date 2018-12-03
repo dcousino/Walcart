@@ -12,9 +12,12 @@ import { LoginUser } from 'src/app/models/login-user';
 export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store<ApplicatonState>) {}
   authForm: FormGroup;
-
+  authError: any;
   ngOnInit() {
     this.createForm();
+    this.store.select('auth').subscribe(auth => {
+      this.authError = auth.error;
+    });
   }
   createForm(): void {
     this.authForm = this.fb.group({

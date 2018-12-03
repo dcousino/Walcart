@@ -1,39 +1,54 @@
 import { Action } from '@ngrx/store';
 import { CartItem } from 'src/app/models/cart-item';
+import { Cart } from 'src/app/models/cart';
 
-export const NEW_CART = '[Cart] New cart';
 export const ADD_TO_CART = '[Cart] Add to cart';
 export const REMOVE_FROM_CART = '[Cart] Remove from cart';
-export const UPDATE_CART = '[Cart] Update cart';
+export const UPDATE_CART_ITEM_QUANTITY = '[Cart] Update cart item quantity';
 export const SAVE_CART = '[Cart] Save cart';
+export const SAVE_CART_SUCCESS = '[Cart] Save cart success';
+export const SAVE_CART_FAIL = '[Cart] Save cart fail';
 export const CLEAR_CART = '[Cart] Clear cart';
-
-export class NewCart implements Action {
-  readonly type = NEW_CART;
-}
 
 export class AddToCart implements Action {
   readonly type = ADD_TO_CART;
+  constructor(public payload: CartItem) {}
 }
 
 export class RemoveFromCart implements Action {
   readonly type = REMOVE_FROM_CART;
-  constructor(public payload: any) {}
+  constructor(public payload: number) {}
 }
 
-export class UpdateCart implements Action {
-  readonly type = UPDATE_CART;
-  constructor(public payload: CartItem[]) {}
+export class UpdateCartItemQuantity implements Action {
+  readonly type = UPDATE_CART_ITEM_QUANTITY;
+  constructor(public payload: any) {}
 }
 
 export class ClearCart implements Action {
   readonly type = CLEAR_CART;
 }
 
+export class SaveCart implements Action {
+  readonly type = SAVE_CART;
+  constructor(public payload: Cart) {}
+}
+
+export class SaveCartSuccess implements Action {
+  readonly type = SAVE_CART_SUCCESS;
+}
+
+export class SaveCartFail implements Action {
+  readonly type = SAVE_CART_FAIL;
+  constructor(public payload: any) {}
+}
+
 // action types
 export type CartAction =
-  | NewCart
+  | SaveCart
+  | SaveCartSuccess
+  | SaveCartFail
   | AddToCart
   | RemoveFromCart
-  | UpdateCart
+  | UpdateCartItemQuantity
   | ClearCart;
