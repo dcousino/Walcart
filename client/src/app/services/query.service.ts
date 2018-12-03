@@ -23,7 +23,7 @@ export class QueryService {
     private auth: AuthService,
     private store: Store<ApplicationState>
   ) {
-    this.store.select('product').subscribe(page => {
+    this.store.select('products').subscribe(page => {
       if (page) {
         this.currentPage = page.pages.length.toString();
         this.currentPageNumber = page.currentPage;

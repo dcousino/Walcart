@@ -14,11 +14,12 @@ import {
   take
 } from 'rxjs/operators';
 
-import { of, Observable } from 'rxjs';
+import { of, Observable, ObservableInput } from 'rxjs';
 import { QueryService } from 'src/app/services/query.service';
 import { Store } from '@ngrx/store';
 import { ProductState } from '../reducers/product.reducer';
 import { getCategoryState } from '../reducers';
+import { Category } from 'src/app/models/category';
 
 @Injectable()
 export class CategoryEffects {
@@ -35,10 +36,7 @@ export class CategoryEffects {
     switchMap(categories => {
       // We'll just go off the cache ... this should change too much
       if (categories && categories.length > 0) {
-        return Observable.create(observer => {
-          observer.next(new LoadCategoriesSuccess(categories));
-          observer.complete();
-        });
+        return this.triggerLoadSucces(categories);
       }
       return this.queryService.getMainCategories().pipe(
         map(categories => new LoadCategoriesSuccess(categories)),
@@ -46,4 +44,11 @@ export class CategoryEffects {
       );
     })
   );
+
+  private triggerLoadSucces(categories: Category[]): ObservableInput<{}> {
+    return Observable.create(observer => {
+      observer.next(new LoadCategoriesSuccess(categories));
+      observer.complete();
+    });
+  }
 }
