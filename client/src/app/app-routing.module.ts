@@ -13,26 +13,22 @@ import { ProductPageComponent } from './components/products/product-page/product
 const routes: Routes = [
   {
     path: '',
-    component: CategoriesComponent,
-    canActivate: [AuthGuard]
+    component: CategoriesComponent
   },
   { path: 'login', component: LoginComponent },
   { path: 'confirm', component: ConfirmComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'cart', canActivate: [AuthGuard], component: CartComponent },
+  { path: 'cart', component: CartComponent },
   {
     path: 'categories',
-    component: CategoriesComponent,
-    canActivate: [AuthGuard]
+    component: CategoriesComponent
   },
   {
     path: 'sub-categories/:id',
-    canActivate: [AuthGuard],
     component: SubCategoriesComponent
   },
   {
     path: 'product-page/:id',
-    canActivate: [AuthGuard],
     component: ProductPageComponent
   }
 ];

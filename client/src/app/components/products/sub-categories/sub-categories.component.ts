@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ApplicatonState } from 'src/app/store';
+import { ApplicationState } from 'src/app/store';
 import { Category } from 'src/app/models/category';
 import { QueryService } from 'src/app/services/query.service';
 import {
@@ -26,7 +26,7 @@ export class SubCategoriesComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<ApplicatonState>
+    private store: Store<ApplicationState>
   ) {}
   id: string;
   category: Category;

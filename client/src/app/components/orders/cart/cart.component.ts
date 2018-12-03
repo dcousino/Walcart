@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ApplicatonState } from 'src/app/store';
+import { ApplicationState } from 'src/app/store';
 import { Product } from 'src/app/models/product';
 import { ProductItem } from 'src/app/models/product-page/product-item';
 import {
@@ -19,7 +19,7 @@ export class CartComponent implements OnInit {
   cartTotal: string = '0.00';
   estimatedShipping: string = '0.00';
   total: string;
-  constructor(private store: Store<ApplicatonState>) {}
+  constructor(private store: Store<ApplicationState>) {}
 
   ngOnInit() {
     this.store.select('cart').subscribe(cartState => {

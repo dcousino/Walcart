@@ -17,7 +17,7 @@ export interface CategoryState {
 }
 
 export const initialState: CategoryState = {
-  categories: null,
+  categories: [],
   currentCategory: null,
   currentSubCategory: null,
   loading: false

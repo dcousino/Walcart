@@ -3,7 +3,8 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 .wrapper {
-  background-image: url('/assets/nav-logo.png');
+  margin-top: 100px;
+  background-image: url('/assets/main-logo.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -16,7 +17,7 @@
 .social_icon span {
   font-size: 60px;
   margin-left: 10px;
-  color: rgb(103, 103, 218);
+  color: rgb(60, 201, 170);
 }
 
 .social_icon span:hover {
@@ -36,7 +37,7 @@
 
 .input-group-prepend span {
   width: 50px;
-  background-color: rgb(103, 103, 218);
+  background-color: rgb(60, 201, 170);
   color: black;
   border: 0 !important;
 }
@@ -59,7 +60,7 @@ input:focus {
 
 .login_btn {
   color: black;
-  background-color: rgb(103, 103, 218);
+  background-color: rgb(60, 201, 170);
   width: 5em;
 }
 

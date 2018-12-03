@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Category } from 'src/app/models/category';
-import { ApplicatonState } from 'src/app/store';
+import { ApplicationState } from 'src/app/store';
 import { Store } from '@ngrx/store';
 import { LoadCategories } from 'src/app/store/actions/category.action';
 
@@ -14,7 +14,7 @@ export class CategoriesComponent implements OnInit {
   categories: Category[] = [];
   selectedItems: string[];
   loading: boolean;
-  constructor(private store: Store<ApplicatonState>) {}
+  constructor(private store: Store<ApplicationState>) {}
 
   ngOnInit() {
     this.store.dispatch(new LoadCategories());

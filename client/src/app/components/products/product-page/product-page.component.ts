@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ApplicatonState } from 'src/app/store';
+import { ApplicationState } from 'src/app/store';
 import {
   LoadNextProductPage,
   LoadPreviousPage
@@ -21,7 +21,7 @@ export class ProductPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<ApplicatonState>
+    private store: Store<ApplicationState>
   ) {}
   nextPage: string;
   private paramSub: any;

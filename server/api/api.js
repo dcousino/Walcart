@@ -316,59 +316,51 @@ api.delete(
 /**
  * Gets the cached product categories
  */
-api.get(
-  '/product-categories',
-  async request => {
-    'use strict';
-    const params = {
-      TableName: 'product-categories'
-    };
-    try {
-      const res = await dynamoDb.scan(params).promise();
-      return new api.ApiResponse(
-        res.Items,
-        { 'Content-Type': 'application/json' },
-        200
-      );
-    } catch (error) {
-      return handleError(error, 'product catergories', 'get');
-    }
-  },
-  { cognitoAuthorizer: WALCART_AUTH }
-);
-
-api.any(
-  '/walmart/{proxy+}',
-  async request => {
-    'use strict';
-    const proxyurl = new URL(
-      `http://api.walmartlabs.com/${request.pathParams.proxy}`
+api.get('/product-categories', async request => {
+  'use strict';
+  const params = {
+    TableName: 'product-categories'
+  };
+  try {
+    const res = await dynamoDb.scan(params).promise();
+    return new api.ApiResponse(
+      res.Items,
+      { 'Content-Type': 'application/json' },
+      200
     );
+  } catch (error) {
+    return handleError(error, 'product catergories', 'get');
+  }
+});
 
-    for (const kvp in request.queryString) {
-      proxyurl.searchParams.append(kvp, request.queryString[kvp]);
-    }
-    proxyurl.searchParams.append('apiKey', process.env.apiKey);
-    proxyurl.searchParams.append('format', 'json');
-    try {
-      const res = await axios.get(proxyurl.toString());
-      return new api.ApiResponse(
-        res.data,
-        { 'Content-Type': 'application/json' },
-        200
-      );
-    } catch (err) {
-      return new api.ApiResponse(
-        { error: `While trying to load page` },
-        {
-          'Content-Type': 'application/json'
-        },
-        500
-      );
-    }
-  },
-  { cognitoAuthorizer: WALCART_AUTH }
-);
+api.any('/walmart/{proxy+}', async request => {
+  'use strict';
+  const proxyurl = new URL(
+    `http://api.walmartlabs.com/${request.pathParams.proxy}`
+  );
+
+  for (const kvp in request.queryString) {
+    proxyurl.searchParams.append(kvp, request.queryString[kvp]);
+  }
+  proxyurl.searchParams.append('apiKey', process.env.apiKey);
+  proxyurl.searchParams.append('format', 'json');
+  try {
+    const res = await axios.get(proxyurl.toString());
+    return new api.ApiResponse(
+      res.data,
+      { 'Content-Type': 'application/json' },
+      200
+    );
+  } catch (err) {
+    return new api.ApiResponse(
+      { error: `While trying to load page` },
+      {
+        'Content-Type': 'application/json'
+      },
+      500
+    );
+  }
+});
 
 function handleError(error, table, action) {
   console.log('error', error);

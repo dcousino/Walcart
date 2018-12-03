@@ -5,7 +5,7 @@ import { Categories } from '../models/categories';
 import { Category } from '../models/category';
 import { ProductPage } from '../models/product-page/product-page';
 import { Store } from '@ngrx/store';
-import { ApplicatonState } from '../store';
+import { ApplicationState } from '../store';
 import { AuthService } from './auth/auth.service';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -21,7 +21,7 @@ export class QueryService {
   constructor(
     private httpClient: HttpClient,
     private auth: AuthService,
-    private store: Store<ApplicatonState>
+    private store: Store<ApplicationState>
   ) {
     this.store.select('products').subscribe(page => {
       this.currentPage = page.pages.length.toString();
@@ -32,12 +32,12 @@ export class QueryService {
 
   getMainCategories(): Observable<Category[]> {
     return this.httpClient.get<Category[]>(
-      'https://fs4rs4fpcj.execute-api.us-east-1.amazonaws.com/latest/product-categories',
-      {
-        headers: new HttpHeaders({
-          Authorization: this.auth.getToken()
-        })
-      }
+      'https://fs4rs4fpcj.execute-api.us-east-1.amazonaws.com/latest/product-categories'
+      // {
+      //   headers: new HttpHeaders({
+      //     Authorization: this.auth.getToken()
+      //   })
+      // }
     );
   }
 

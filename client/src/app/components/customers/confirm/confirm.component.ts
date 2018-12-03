@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Confirm, ApplicatonState } from '../../../store';
+import { Confirm, ApplicationState } from '../../../store';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ConfirmUser } from 'src/app/models/confirm-user';
 @Component({
@@ -9,7 +9,10 @@ import { ConfirmUser } from 'src/app/models/confirm-user';
   styleUrls: ['./confirm.component.css', '../auth.style.css']
 })
 export class ConfirmComponent implements OnInit {
-  constructor(private fb: FormBuilder, private store: Store<ApplicatonState>) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<ApplicationState>
+  ) {}
   authForm: FormGroup;
 
   ngOnInit() {

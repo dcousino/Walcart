@@ -1,5 +1,7 @@
 import { CognitoUserSession } from 'amazon-cognito-identity-js';
 import * as fromAuth from '../actions/auth.action';
+import { createFeatureSelector } from '@ngrx/store';
+import { ApplicationState } from '.';
 
 export interface AuthState {
   auth: CognitoUserSession;
@@ -69,5 +71,3 @@ export function reducer(
       return state;
   }
 }
-
-export const getAuth = (state: AuthState) => state.auth;

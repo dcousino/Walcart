@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import * as authActions from '../actions/auth.action';
-import { switchMap, map, catchError, tap } from 'rxjs/operators';
+
+import { switchMap, map, catchError, tap, exhaustMap } from 'rxjs/operators';
 
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ApplicationState } from '../reducers';
+
 @Injectable()
 export class AuthEffects {
   constructor(
@@ -17,21 +21,46 @@ export class AuthEffects {
   @Effect()
   login$ = this.actions$.ofType(authActions.LOGIN).pipe(
     map((action: authActions.Login) => action.payload),
-    switchMap(login => {
-      return this.authService.signIn(login.email, login.password).pipe(
+    exhaustMap(login =>
+      this.authService.signIn(login.email, login.password).pipe(
         map(userSession => new authActions.LoginSuccess(userSession)),
-        tap(() => this.router.navigate(['/categories'])),
         catchError(error => of(new authActions.LoginFail(error)))
-      );
+      )
+    )
+  );
+  @Effect({ dispatch: false })
+  loginSuccess$ = this.actions$.ofType(authActions.LOGIN_SUCCESS).pipe(
+    tap(() => {
+      this.router.navigate(['/categories']);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  registerSuccess$ = this.actions$.ofType(authActions.REGISTER_SUCCESS).pipe(
+    tap(() => {
+      this.router.navigate(['/confirm']);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  confirmSuccess$ = this.actions$.ofType(authActions.CONFIRM_SUCCESS).pipe(
+    tap(() => {
+      this.router.navigate(['/login']);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  logoutSuccess$ = this.actions$.ofType(authActions.LOGOUT_SUCCESS).pipe(
+    tap(() => {
+      this.router.navigate(['/login']);
     })
   );
 
   @Effect()
   logout$ = this.actions$.ofType(authActions.LOGOUT).pipe(
-    switchMap(logout => {
+    switchMap(() => {
       return this.authService.logout().pipe(
         map(() => new authActions.LogoutSuccess()),
-        tap(() => this.router.navigate(['/login'])),
         catchError(error => of(new authActions.LogoutFail(error)))
       );
     })
@@ -50,7 +79,7 @@ export class AuthEffects {
         )
         .pipe(
           map(userSession => new authActions.RegisterSuccess(userSession)),
-          tap(() => this.router.navigate(['/confirm'])),
+
           catchError(error => of(new authActions.RegisterFail(error)))
         );
     })
@@ -68,7 +97,7 @@ export class AuthEffects {
             throw new Error();
           }
         }),
-        tap(() => this.router.navigate(['/login'])),
+
         catchError(error => of(new authActions.ConfirmFail(error)))
       );
     })

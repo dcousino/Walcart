@@ -33,7 +33,7 @@ export class ProductEffects {
     private actions$: Actions,
     private queryService: QueryService,
     private router: Router,
-    private store$: Store<ProductState>
+    private store: Store<ProductState>
   ) {}
 
   @Effect()
@@ -65,12 +65,12 @@ export class ProductEffects {
 
   @Effect()
   loadPrevious$ = this.actions$.ofType(LOAD_PREVIOUS_PRODUCT_PAGE).pipe(
-    withLatestFrom(this.store$.select('products')),
+    withLatestFrom(this.store.select('products')),
     tap(products => {
       const nextPage = `/product-page/${--products[1].currentPage}`;
       this.router.navigate([nextPage]);
     }),
-    withLatestFrom(this.store$.select('products')),
+    withLatestFrom(this.store.select('products')),
     map(products => {
       return new LoadPreviousPageSuccess(products[1].currentPage);
     }),

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Store } from '@ngrx/store';
-import { ApplicatonState, Logout } from 'src/app/store';
+import { ApplicationState, Logout } from 'src/app/store';
 import { Router, NavigationStart, Event, NavigationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 
@@ -13,7 +13,7 @@ import { filter, map } from 'rxjs/operators';
 export class NavbarComponent implements OnInit {
   constructor(
     private authService: AuthService,
-    private store: Store<ApplicatonState>,
+    private store: Store<ApplicationState>,
     private router: Router
   ) {}
   cartItemCount: number;

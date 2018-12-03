@@ -25,21 +25,19 @@ export interface RouterStateUrl {
   params: Params;
 }
 
-export interface ApplicatonState {
+export interface ApplicationState {
   user: fromUser.UserState;
   cart: fromCart.CartState;
   products: fromProduct.ProductState;
   auth: fromAuth.AuthState;
-  router: RouterReducerState<RouterStateUrl>;
   categories: fromCategories.CategoryState;
 }
 
-export const reducers: ActionReducerMap<ApplicatonState> = {
+export const reducers: ActionReducerMap<ApplicationState> = {
   cart: fromCart.reducer,
   user: fromUser.reducer,
   products: fromProduct.reducer,
   auth: fromAuth.reducer,
-  router: routerReducer,
   categories: fromCategories.reducer
 };
 
@@ -62,8 +60,6 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
   }
 }
 export const getAuthState = createFeatureSelector<fromAuth.AuthState>('auth');
-
-export const getAuth = createSelector(
-  getAuthState,
-  (state: fromAuth.AuthState) => state.auth
+export const getProductState = createFeatureSelector<ApplicationState>(
+  'product'
 );

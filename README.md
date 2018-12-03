@@ -2,7 +2,7 @@
 
 # :boom: Walcart App :boom:
 
-![](https://s3.us-east-2.amazonaws.com/rekpictures/nav-logo.png)]
+<img src="https://s3.us-east-2.amazonaws.com/rekpictures/nav-logo.png" size="200px">
 
 ## Team Name
 
