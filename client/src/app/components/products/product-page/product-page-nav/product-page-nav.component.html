@@ -1,0 +1,21 @@
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a
+        [routerLink]="['/sub-categories', id]"
+        class="btn btn-sm btn-outline-success"
+      >
+        Back to {{ name }}
+      </a>
+    </li>
+  </ul>
+</nav>
+<button class="btn btn-outline-success btn-lg float-left" (click)="previous()">
+  <i class="fa fa-chevron-left"></i>
+</button>
+
+<button class="btn btn-outline-success btn-lg float-right" (click)="next()">
+  <i class="fa fa-chevron-right"></i>
+</button>
+<div class="clearfix"></div>
+<br /><br />

@@ -1,34 +1,105 @@
-<form class="form-signin">
-  <img
-    class="mb-4"
-    src="../../assets/brand/bootstrap-solid.svg"
-    alt=""
-    width="72"
-    height="72"
-  />
-  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-  <label for="inputEmail" class="sr-only">Email address</label>
-  <input
-    type="email"
-    id="inputEmail"
-    class="form-control"
-    placeholder="Email address"
-    required
-    autofocus
-  />
-  <label for="inputPassword" class="sr-only">Password</label>
-  <input
-    type="password"
-    id="inputPassword"
-    class="form-control"
-    placeholder="Password"
-    required
-  />
-  <div class="checkbox mb-3">
-    <label> <input type="checkbox" value="remember-me" /> Remember me </label>
+<div class="wrapper">
+  <div class="container h-100">
+    <div class="row align-items-center h-100">
+      <div class="col-md-5 col-sm-12 mx-auto">
+        <div class="card">
+          <div class="card-header">
+            <h3>Sign In</h3>
+            <div class="d-flex justify-content-end social_icon">
+              <span><i class="fab fa-facebook-square"></i></span>
+              <span><i class="fab fa-google-plus-square"></i></span>
+              <span><i class="fab fa-twitter-square"></i></span>
+            </div>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm)">
+              <div
+                class="input-group form-group"
+                [ngClass]="{
+                  'has-danger':
+                    authForm.get('email').hasError('required') &&
+                    authForm.get('email').touched,
+                  'has-success': authForm.get('email').valid
+                }"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="fas fa-user"></i
+                  ></span>
+                </div>
+                <input
+                  id="email"
+                  formControlName="email"
+                  type="text"
+                  class="form-control"
+                  placeholder="email"
+                />
+              </div>
+              <div
+                *ngIf="
+                  authForm.get('email').hasError('required') &&
+                  authForm.get('email').touched
+                "
+                class="alert alert-danger"
+              >
+                Email required
+              </div>
+              <div
+                *ngIf="
+                  authForm.get('email').hasError('email') &&
+                  authForm.get('email').touched
+                "
+                class="alert alert-danger"
+              >
+                Email is not valid
+              </div>
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="fas fa-key"></i
+                  ></span>
+                </div>
+                <input
+                  id="password"
+                  type="password"
+                  class="form-control"
+                  placeholder="password"
+                  formControlName="password"
+                />
+              </div>
+              <div
+                *ngIf="
+                  authForm.get('password').hasError('required') &&
+                  authForm.get('password').touched
+                "
+                class="alert alert-danger"
+              >
+                Password is required
+              </div>
+              <div class="row align-items-center remember">
+                <input type="checkbox" />Remember Me
+              </div>
+              <div class="form-group">
+                <button
+                  type="submit"
+                  [disabled]="!authForm.valid"
+                  class="btn float-right login_btn"
+                >
+                  Login
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-center links">
+              Don't have an account?<a href="register">Sign Up</a>
+            </div>
+          </div>
+          <div *ngIf="authError" class="alert alert-danger">
+            {{ authError.message }}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">
-    Sign in
-  </button>
-  <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-</form>
+</div>

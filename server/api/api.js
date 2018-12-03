@@ -1,6 +1,7 @@
 /*global require, module*/
 const ApiBuilder = require('claudia-api-builder');
-
+const axios = require('axios');
+const { URL } = require('url');
 const AWS = require('aws-sdk');
 const api = new ApiBuilder();
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
@@ -331,6 +332,39 @@ api.get(
       );
     } catch (error) {
       return handleError(error, 'product catergories', 'get');
+    }
+  },
+  { cognitoAuthorizer: WALCART_AUTH }
+);
+
+api.any(
+  '/walmart/{proxy+}',
+  async request => {
+    'use strict';
+    const proxyurl = new URL(
+      `http://api.walmartlabs.com/${request.pathParams.proxy}`
+    );
+
+    for (const kvp in request.queryString) {
+      proxyurl.searchParams.append(kvp, request.queryString[kvp]);
+    }
+    proxyurl.searchParams.append('apiKey', process.env.apiKey);
+    proxyurl.searchParams.append('format', 'json');
+    try {
+      const res = await axios.get(proxyurl.toString());
+      return new api.ApiResponse(
+        res.data,
+        { 'Content-Type': 'application/json' },
+        200
+      );
+    } catch (err) {
+      return new api.ApiResponse(
+        { error: `While trying to load page` },
+        {
+          'Content-Type': 'application/json'
+        },
+        500
+      );
     }
   },
   { cognitoAuthorizer: WALCART_AUTH }
