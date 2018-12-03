@@ -1,0 +1,47 @@
+import { BestMarketplacePrice } from './best-marketplace-price';
+import { Attributes } from './attributes';
+
+export interface ProductItem {
+  itemId: number;
+  parentItemId: number;
+  name: string;
+  salePrice: number;
+  upc: string;
+  categoryPath: string;
+  shortDescription: string;
+  longDescription: string;
+  brandName: string;
+  thumbnailImage: string;
+  mediumImage: string;
+  largeImage: string;
+  productTrackingUrl: string;
+  ninetySevenCentShipping: boolean;
+  standardShipRate: number;
+  size: string;
+  color: string;
+  marketplace: boolean;
+  shipToStore: boolean;
+  freeShipToStore: boolean;
+  modelNumber: string;
+  productUrl: string;
+  customerRating: string;
+  numReviews: number;
+  variants: number[];
+  customerRatingImage: string;
+  bestMarketplacePrice: BestMarketplacePrice;
+  categoryNode: string;
+  rhid: string;
+  bundle: boolean;
+  clearance: boolean;
+  preOrder: boolean;
+  stock: string;
+  attributes: Attributes;
+  gender: string;
+  addToCartUrl: string;
+  affiliateAddToCartUrl: string;
+  freeShippingOver35Dollars: boolean;
+  availableOnline: boolean;
+  msrp?: number;
+  twoThreeDayShippingRate?: number;
+  sellerInfo: string;
+}

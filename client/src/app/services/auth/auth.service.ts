@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, Observable, Subject, of, Observer } from 'rxjs';
+import { Observable, of, Observer } from 'rxjs';
 import {
   CognitoUserPool,
   CognitoUserAttribute,
@@ -22,9 +22,6 @@ const userPool = new CognitoUserPool(POOL_DATA);
   providedIn: 'root'
 })
 export class AuthService {
-  authIsLoading = new BehaviorSubject<boolean>(false);
-  authDidFail = new BehaviorSubject<boolean>(false);
-  authStatusChanged = new Subject<boolean>();
   registeredUser: CognitoUser;
   constructor(private router: Router) {}
   signUp(
@@ -111,6 +108,24 @@ export class AuthService {
     });
   }
 
+  getToken(): string {
+    try {
+      if (this.getAuthenticatedUser()) {
+        return this.getAuthenticatedUser().getSession((err, session) => {
+          if (err) {
+            console.log(err);
+            return '';
+          }
+          return session.getIdToken().getJwtToken();
+        });
+      } else {
+        return '';
+      }
+    } catch (err) {
+      console.log(err);
+      return '';
+    }
+  }
   private getAuthDetails(email: string, password: string) {
     const authData = {
       Username: email,
@@ -170,8 +185,5 @@ export class AuthService {
       observer.complete();
     });
     return obs;
-  }
-  initAuth() {
-    this.isAuthenticated().subscribe(auth => this.authStatusChanged.next(auth));
   }
 }

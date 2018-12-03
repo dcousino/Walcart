@@ -8,7 +8,7 @@ import {
   routerReducer,
   RouterStateSerializer
 } from '@ngrx/router-store';
-
+import * as fromCategories from './category.reducter';
 import * as fromUser from './user.reducer';
 import * as fromProduct from './product.reducer';
 import * as fromCart from './cart.reducer';
@@ -31,6 +31,7 @@ export interface ApplicatonState {
   products: fromProduct.ProductState;
   auth: fromAuth.AuthState;
   router: RouterReducerState<RouterStateUrl>;
+  categories: fromCategories.CategoryState;
 }
 
 export const reducers: ActionReducerMap<ApplicatonState> = {
@@ -38,7 +39,8 @@ export const reducers: ActionReducerMap<ApplicatonState> = {
   user: fromUser.reducer,
   products: fromProduct.reducer,
   auth: fromAuth.reducer,
-  router: routerReducer
+  router: routerReducer,
+  categories: fromCategories.reducer
 };
 
 export const getRouterState = createFeatureSelector<

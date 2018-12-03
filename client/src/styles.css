@@ -1,5 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
+
 body {
-  padding-top: 55px;
+  padding-top: 100px;
+  background-image: url('/assets/background.png');
+  background-repeat: repeat;
+}
+body,
+html {
+  height: 100%;
+}
+
+.btn-primary {
+  background-color: rgb(103, 103, 218) !important;
 }

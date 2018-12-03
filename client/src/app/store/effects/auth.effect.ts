@@ -20,8 +20,19 @@ export class AuthEffects {
     switchMap(login => {
       return this.authService.signIn(login.email, login.password).pipe(
         map(userSession => new authActions.LoginSuccess(userSession)),
-        tap(() => this.router.navigate(['/home'])),
+        tap(() => this.router.navigate(['/categories'])),
         catchError(error => of(new authActions.LoginFail(error)))
+      );
+    })
+  );
+
+  @Effect()
+  logout$ = this.actions$.ofType(authActions.LOGOUT).pipe(
+    switchMap(logout => {
+      return this.authService.logout().pipe(
+        map(() => new authActions.LogoutSuccess()),
+        tap(() => this.router.navigate(['/login'])),
+        catchError(error => of(new authActions.LogoutFail(error)))
       );
     })
   );
@@ -59,15 +70,6 @@ export class AuthEffects {
         }),
         tap(() => this.router.navigate(['/login'])),
         catchError(error => of(new authActions.ConfirmFail(error)))
-      );
-    })
-  );
-  @Effect()
-  logout$ = this.actions$.ofType(authActions.LOGOUT).pipe(
-    switchMap(() => {
-      return this.authService.logout().pipe(
-        map(logout => new authActions.LogoutUser()),
-        catchError(error => of(new authActions.LogoutUserFail(error)))
       );
     })
   );

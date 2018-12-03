@@ -14,6 +14,7 @@ export const CONFIRM = '[Auth] Attempt to confirm current user';
 export const CONFIRM_SUCCESS = '[Auth] Confirm current user successful';
 export const CONFIRM_FAIL = '[Auth] Confirm current user';
 export const LOGOUT = '[Auth] Logout current user';
+export const LOGOUT_SUCCESS = '[Auth] Logout current user successfull1`';
 export const LOGOUT_FAIL = '[Auth] Logout user fail';
 
 export class Login implements Action {
@@ -59,11 +60,15 @@ export class ConfirmFail implements Action {
   constructor(public payload: any) {}
 }
 
-export class LogoutUser implements Action {
+export class Logout implements Action {
   readonly type = LOGOUT;
 }
 
-export class LogoutUserFail implements Action {
+export class LogoutSuccess implements Action {
+  readonly type = LOGOUT_SUCCESS;
+}
+
+export class LogoutFail implements Action {
   readonly type = LOGOUT_FAIL;
   constructor(public payload: any) {}
 }
@@ -78,4 +83,6 @@ export type AuthAction =
   | Confirm
   | ConfirmSuccess
   | ConfirmFail
-  | LogoutUser;
+  | Logout
+  | LogoutSuccess
+  | LogoutFail;

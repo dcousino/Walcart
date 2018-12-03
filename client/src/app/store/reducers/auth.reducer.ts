@@ -4,6 +4,7 @@ import * as fromAuth from '../actions/auth.action';
 export interface AuthState {
   auth: CognitoUserSession;
   loading: boolean;
+  error?: any;
 }
 
 export const initialState: AuthState = {
@@ -23,7 +24,6 @@ export function reducer(
       };
     }
     case fromAuth.LOGIN_SUCCESS: {
-      console.log(action.payload);
       return {
         ...state,
         auth: action.payload,
@@ -33,13 +33,28 @@ export function reducer(
     case fromAuth.LOGIN_FAIL: {
       return {
         ...state,
-        loading: false
+        loading: false,
+        error: action.payload
       };
     }
     case fromAuth.LOGOUT: {
-      console.log('called');
       return {
         ...state,
+        loading: true
+      };
+    }
+    case fromAuth.LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        auth: null,
+        loading: false
+      };
+    }
+    case fromAuth.LOGOUT_FAIL: {
+      return {
+        ...state,
+        error: action.payload,
+        // Still clear out auth
         auth: null,
         loading: false
       };

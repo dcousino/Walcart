@@ -1,25 +1,47 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" [routerLink]="['/']">
+    <img class="logo" src="/assets/nav-lite-logo.png" height="40"
+  /></a>
   <button
     class="navbar-toggler"
     type="button"
     data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
+    data-target="#navbar1"
+    aria-controls="navbarNav"
     aria-expanded="false"
     aria-label="Toggle navigation"
   >
     <span class="navbar-toggler-icon"></span>
   </button>
+  <div class="collapse navbar-collapse" id="navbar1">
+    <ul *ngIf="!isAuth" class="navbar-nav ml-auto">
+      <li class="nav-item" [class.active]="isCurrentPage('login')">
+        <a class="nav-link" [routerLink]="['/login']">Login </a>
+      </li>
+      <li class="nav-item" [class.active]="isCurrentPage('register')">
+        <a class="nav-link" [routerLink]="['/register']"> SignUp </a>
+      </li>
+    </ul>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul *ngIf="isAuth" class="navbar-nav ml-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#"
+        <a class="nav-link" [routerLink]="['/']"
           >Home <span class="sr-only">(current)</span></a
         >
       </li>
-      <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+      <li class="nav-item">
+        <span
+          [routerLink]="['/cart']"
+          class="fa-stack fa-2x has-badge"
+          [attr.data-count]="cartItemCount"
+        >
+          <i class="fa fa-shopping-cart fa-stack-1x red-cart"></i>
+        </span>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" role="button" (click)="logout()">Logout</a>
+      </li>
     </ul>
   </div>
 </nav>

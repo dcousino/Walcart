@@ -1,3 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Medula+One');
+
 .navbar-dark {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(103, 103, 218, 0.9) !important;
+}
+.nav-link {
+  cursor: pointer;
+  font-family: 'Medula One', cursive;
+  font-size: 2em;
+}
+
+.fa-stack[data-count]:after {
+  position: absolute;
+  right: 0%;
+  top: 0%;
+  content: attr(data-count);
+  font-size: 40%;
+  padding: 0.6em;
+  border-radius: 999px;
+  line-height: 0.5em;
+  color: white;
+  color: #210b70;
+  text-align: center;
+  min-width: 2em;
+  font-weight: bold;
+  background: white;
+  border-style: solid;
+}
+
+.red-cart {
+  color: #210b70;
+  background: transparent;
 }
