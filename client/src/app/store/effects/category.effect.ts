@@ -5,14 +5,7 @@ import {
   LoadCategoriesSuccess,
   LoadCategoriesFail
 } from '../actions/category.action';
-import {
-  switchMap,
-  map,
-  catchError,
-  withLatestFrom,
-  filter,
-  take
-} from 'rxjs/operators';
+import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
 
 import { of, Observable, ObservableInput } from 'rxjs';
 import { QueryService } from 'src/app/services/query.service';

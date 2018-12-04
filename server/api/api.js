@@ -53,6 +53,7 @@ api.post(
       TableName: 'users',
       Item: {
         id: request.body.id,
+        email: request.body.email,
         firstName: request.body.firstName,
         lastName: request.body.lastName,
         lastVisited: (Date.now() / 1000) | 0

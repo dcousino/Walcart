@@ -7,12 +7,7 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  data: {
-    firstName: 'Daniel',
-    lastName: 'Cousino',
-    email: 'Daniel.cousinoa',
-    password: 'asdf'
-  },
+  data: null,
   auth: false,
   loading: false
 };

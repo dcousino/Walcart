@@ -45,12 +45,7 @@ export class QueryService {
 
   getFirstProductPage(categoryId: string): Observable<ProductPage> {
     return this.httpClient.get<ProductPage>(
-      `https://fs4rs4fpcj.execute-api.us-east-1.amazonaws.com/latest/walmart/v1/paginated/items?count=25&category=${categoryId}`,
-      {
-        headers: new HttpHeaders({
-          Authorization: this.auth.getToken()
-        })
-      }
+      `https://fs4rs4fpcj.execute-api.us-east-1.amazonaws.com/latest/walmart/v1/paginated/items?count=25&category=${categoryId}`
     );
   }
 
@@ -60,12 +55,7 @@ export class QueryService {
     }
     return this.httpClient
       .get<ProductPage>(
-        `https://fs4rs4fpcj.execute-api.us-east-1.amazonaws.com/latest/walmart/${pathParams}`,
-        {
-          headers: new HttpHeaders({
-            Authorization: this.auth.getToken()
-          })
-        }
+        `https://fs4rs4fpcj.execute-api.us-east-1.amazonaws.com/latest/walmart/${pathParams}`
       )
       .pipe(
         map(res => {

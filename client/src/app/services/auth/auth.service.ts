@@ -63,6 +63,7 @@ export class AuthService {
     password: string
   ): RegistrationUser {
     const user: User = {
+      id: '',
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -101,6 +102,7 @@ export class AuthService {
           observer.error(err);
           observer.complete();
         } else {
+          console.log(result);
           observer.next(true);
           observer.complete();
         }
@@ -145,17 +147,17 @@ export class AuthService {
     const authDetails = this.getAuthDetails(email, password);
     const cognitoUser = this.getCognitoUser(email);
 
-    return Observable.create(
-      (observer: Observer<{ session: CognitoUserSession }>) => {
-        cognitoUser.authenticateUser(authDetails, {
-          onSuccess: session => {
-            observer.next({ session: session });
-            observer.complete();
-          },
-          onFailure: error => observer.error(error)
-        });
-      }
-    );
+    return Observable.create((observer: Observer<string>) => {
+      cognitoUser.authenticateUser(authDetails, {
+        onSuccess: session => {
+          const token = session.getIdToken().getJwtToken();
+          localStorage['token'] = token;
+          observer.next(token);
+          observer.complete();
+        },
+        onFailure: error => observer.error(error)
+      });
+    });
   }
   getAuthenticatedUser() {
     return userPool.getCurrentUser();

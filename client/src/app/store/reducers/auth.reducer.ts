@@ -22,14 +22,16 @@ export function reducer(
     case fromAuth.LOGIN: {
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       };
     }
     case fromAuth.LOGIN_SUCCESS: {
       return {
         ...state,
         auth: action.payload,
-        loading: false
+        loading: false,
+        error: false
       };
     }
     case fromAuth.LOGIN_FAIL: {
@@ -42,14 +44,16 @@ export function reducer(
     case fromAuth.LOGOUT: {
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       };
     }
     case fromAuth.LOGOUT_SUCCESS: {
       return {
         ...state,
         auth: null,
-        loading: false
+        loading: false,
+        error: null
       };
     }
     case fromAuth.LOGOUT_FAIL: {
@@ -64,7 +68,8 @@ export function reducer(
     case fromAuth.CONFIRM: {
       return {
         ...state,
-        loading: false
+        loading: false,
+        error: null
       };
     }
     default:

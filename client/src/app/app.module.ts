@@ -27,6 +27,7 @@ import { SubCategoriesComponent } from './components/products/sub-categories/sub
 import { ProductPageComponent } from './components/products/product-page/product-page.component';
 import { ProductPageNavComponent } from './components/products/product-page/product-page-nav/product-page-nav.component';
 import { SpinnerComponent } from './components/layout/spinner/spinner.component';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
@@ -38,6 +39,15 @@ export function localStorageSyncReducer(
 }
 
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
+export function jwtOptionsFactory() {
+  return {
+    tokenGetter: () => {
+      return localStorage.getItem('token');
+    },
+    whitelistedDomains: environment.whitelist
+  };
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +74,13 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot(effects),
     // StoreRouterConnectingModule.forRoot({}),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory
+      }
+    })
   ],
 
   bootstrap: [AppComponent]

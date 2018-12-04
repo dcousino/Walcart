@@ -4,6 +4,7 @@ import { Category } from 'src/app/models/category';
 import { ApplicationState } from 'src/app/store';
 import { Store } from '@ngrx/store';
 import { LoadCategories } from 'src/app/store/actions/category.action';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-categories',

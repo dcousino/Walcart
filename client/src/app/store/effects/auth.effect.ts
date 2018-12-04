@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import * as authActions from '../actions/auth.action';
-
 import { switchMap, map, catchError, tap, exhaustMap } from 'rxjs/operators';
-
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ApplicationState } from '../reducers';
 
 @Injectable()
 export class AuthEffects {
@@ -79,7 +75,6 @@ export class AuthEffects {
         )
         .pipe(
           map(userSession => new authActions.RegisterSuccess(userSession)),
-
           catchError(error => of(new authActions.RegisterFail(error)))
         );
     })
