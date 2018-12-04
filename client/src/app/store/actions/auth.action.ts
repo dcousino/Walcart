@@ -37,7 +37,7 @@ export class Register implements Action {
 }
 export class RegisterSuccess implements Action {
   readonly type = REGISTER_SUCCESS;
-  constructor(public payload: CognitoUser) {}
+  constructor(public payload: string) {}
 }
 
 export class RegisterFail implements Action {

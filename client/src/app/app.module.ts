@@ -14,10 +14,6 @@ import { ConfirmComponent } from './components/customers/confirm/confirm.compone
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
-import {
-  StoreRouterConnectingModule,
-  StoreRouterConfig
-} from '@ngrx/router-store';
 import { reducers, effects } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { environment } from '../environments/environment';

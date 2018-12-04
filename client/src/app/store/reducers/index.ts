@@ -63,6 +63,7 @@ export const getAuthState = createFeatureSelector<fromAuth.AuthState>('auth');
 export const getProductState = createFeatureSelector<fromProduct.ProductState>(
   'product'
 );
+export const getUserState = createFeatureSelector<fromUser.UserState>('user');
 export const getCategoryState = createFeatureSelector<
   fromCategories.CategoryState
 >('categories');

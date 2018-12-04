@@ -1,13 +1,13 @@
 import { User } from '../../models/user';
 import * as fromUser from '../actions/user.action';
 export interface UserState {
-  data: User;
+  user: User;
   auth: boolean;
   loading: boolean;
 }
 
 export const initialState: UserState = {
-  data: null,
+  user: null,
   auth: false,
   loading: false
 };
@@ -17,26 +17,14 @@ export function reducer(
   action: fromUser.UserAction
 ): UserState {
   switch (action.type) {
-    case fromUser.LOGIN: {
+    case fromUser.NEW_TEMP_USER: {
       return {
         ...state,
-        loading: true
+        loading: false,
+        user: action.payload
       };
     }
-    case fromUser.LOGIN_SUCCESS: {
-      return {
-        ...state,
-        auth: true,
-        loading: false
-      };
-    }
-    case fromUser.LOGIN_FAIL: {
-      return {
-        ...state,
-        auth: false,
-        loading: false
-      };
-    }
+
     default:
       return state;
   }

@@ -7,9 +7,11 @@ export interface AuthState {
   auth: CognitoUserSession;
   loading: boolean;
   error?: any;
+  id: string;
 }
 
 export const initialState: AuthState = {
+  id: null,
   auth: null,
   loading: false
 };
@@ -39,6 +41,30 @@ export function reducer(
         ...state,
         loading: false,
         error: action.payload
+      };
+    }
+    case fromAuth.REGISTER: {
+      return {
+        ...state,
+        loading: true,
+        error: null,
+        id: null
+      };
+    }
+    case fromAuth.REGISTER_SUCCESS: {
+      return {
+        ...state,
+        id: action.payload,
+        loading: false,
+        error: false
+      };
+    }
+    case fromAuth.REGISTER_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        id: null
       };
     }
     case fromAuth.LOGOUT: {

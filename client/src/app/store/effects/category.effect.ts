@@ -29,7 +29,7 @@ export class CategoryEffects {
     switchMap(categories => {
       // We'll just go off the cache ... this should change too much
       if (categories && categories.length > 0) {
-        return this.triggerLoadSucces(categories);
+        return this.triggerLoadSuccess(categories);
       }
       return this.queryService.getMainCategories().pipe(
         map(categories => new LoadCategoriesSuccess(categories)),
@@ -38,7 +38,7 @@ export class CategoryEffects {
     })
   );
 
-  private triggerLoadSucces(categories: Category[]): ObservableInput<{}> {
+  private triggerLoadSuccess(categories: Category[]): ObservableInput<{}> {
     return Observable.create(observer => {
       observer.next(new LoadCategoriesSuccess(categories));
       observer.complete();

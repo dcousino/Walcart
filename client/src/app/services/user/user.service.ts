@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from 'src/app/models/user';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { TokenType } from '@angular/compiler';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
+import { environment } from '../../../environments/environment';
+const { host, version, protocol } = environment.api;
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +12,9 @@ import { AuthService } from '../auth/auth.service';
 export class UserService {
   constructor(
     private httpClient: HttpClient,
-    private jwtSvc: JwtHelperService,
-    private authSvc: AuthService
+    private jwtSvc: JwtHelperService
   ) {}
+  private baseUrl = `${protocol}://${host}/${version}/user`;
 
   createUserFromJwt() {
     const token: any = this.jwtSvc.decodeToken();
@@ -27,9 +27,19 @@ export class UserService {
 
     console.log(user);
   }
-  getUser(id: string): Observable<User> {
-    return this.httpClient.get<User>(
-      `https://fs4rs4fpcj.execute-api.us-east-1.amazonaws.com/latest/user/${id}`
-    );
+  get(id: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.baseUrl}/${id}`);
+  }
+
+  create(user: User): Observable<boolean> {
+    return this.httpClient.post<boolean>(this.baseUrl, user);
+  }
+
+  update(user: User): Observable<boolean> {
+    return this.httpClient.put<boolean>(this.baseUrl, user);
+  }
+
+  delete(id: string): Observable<boolean> {
+    return this.httpClient.delete<boolean>(`${this.baseUrl}/${id}`);
   }
 }

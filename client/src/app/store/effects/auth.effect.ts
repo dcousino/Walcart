@@ -74,7 +74,7 @@ export class AuthEffects {
           register.lastName
         )
         .pipe(
-          map(userSession => new authActions.RegisterSuccess(userSession)),
+          map(cognitoId => new authActions.RegisterSuccess(cognitoId)),
           catchError(error => of(new authActions.RegisterFail(error)))
         );
     })

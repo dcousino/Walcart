@@ -29,7 +29,7 @@ export class AuthService {
     password: string,
     firstName: string,
     lastName: string
-  ): Observable<CognitoUser> {
+  ): Observable<string> {
     const { user, attrList }: RegistrationUser = this.createRegistrationUser(
       firstName,
       lastName,
@@ -37,7 +37,7 @@ export class AuthService {
       password
     );
 
-    return Observable.create((observer: Observer<CognitoUser>) => {
+    return Observable.create((observer: Observer<string>) => {
       userPool.signUp(
         user.email,
         user.password,
@@ -49,7 +49,7 @@ export class AuthService {
             observer.error(err);
             observer.complete();
           } else {
-            observer.next(result.user);
+            observer.next(result.userSub);
             observer.complete();
           }
         }
