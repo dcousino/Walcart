@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import * as authActions from '../actions/auth.action';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { UserService } from 'src/app/services/user/user.service';
-import { Store } from '@ngrx/store';
-import { AuthState } from '../reducers/auth.reducer';
-import { CreateTempUser } from '../actions/user.action';
-import { getAuthState, getUserState } from '../reducers';
-import { Action } from 'rxjs/internal/scheduler/Action';
+import { Store, State } from '@ngrx/store';
+import {
+  CreateTempUser,
+  UpdateUserWithId,
+  UPDATE_USER_WITH_ID,
+  PersistUserSuccess,
+  PersistUserFail,
+  PERSIST_USER,
+  PersistUser
+} from '../actions/user.action';
+
+import { UserState } from '../reducers/user.reducer';
+import { getUserState } from '../reducers';
 
 @Injectable()
 export class UserEffects {
   constructor(
     private actions$: Actions,
     private userSvc: UserService,
-    private store$: Store<AuthState>
+    private store$: Store<UserState>
   ) {}
 
   @Effect()
@@ -30,6 +38,27 @@ export class UserEffects {
     })),
     switchMap(user => {
       return of(new CreateTempUser(user));
+    })
+  );
+
+  @Effect()
+  updateTempUser$ = this.actions$.ofType(authActions.REGISTER_SUCCESS).pipe(
+    map((action: authActions.RegisterSuccess) => action.payload),
+    switchMap(user => {
+      return of(new UpdateUserWithId(user));
+    })
+  );
+
+  @Effect()
+  persistUserToServer$ = this.actions$.ofType(PERSIST_USER).pipe(
+    map((action: PersistUser) => action.payload),
+    switchMap(user => {
+      console.log(user);
+
+      return this.userSvc.create(user).pipe(
+        map(result => new PersistUserSuccess(result)),
+        catchError(error => of(new PersistUserFail(error)))
+      );
     })
   );
 }

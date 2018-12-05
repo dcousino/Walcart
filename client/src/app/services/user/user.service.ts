@@ -4,6 +4,8 @@ import { User } from 'src/app/models/user';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { filter, map, tap, catchError, switchMap } from 'rxjs/operators';
+import { of } from 'zen-observable';
 const { host, version, protocol } = environment.api;
 
 @Injectable({
@@ -32,7 +34,16 @@ export class UserService {
   }
 
   create(user: User): Observable<boolean> {
-    return this.httpClient.post<boolean>(this.baseUrl, user);
+    return this.get(user.id).pipe(
+      map(get => Object.keys(get).length > 0),
+      switchMap(res => {
+        if (res) {
+          return of(true);
+        } else {
+          return this.httpClient.post<boolean>(this.baseUrl, user);
+        }
+      })
+    );
   }
 
   update(user: User): Observable<boolean> {

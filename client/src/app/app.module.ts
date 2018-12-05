@@ -24,6 +24,7 @@ import { ProductPageComponent } from './components/products/product-page/product
 import { ProductPageNavComponent } from './components/products/product-page/product-page-nav/product-page-nav.component';
 import { SpinnerComponent } from './components/layout/spinner/spinner.component';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { clearState } from './store/reducers/clearState.metaReducer';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
@@ -34,7 +35,10 @@ export function localStorageSyncReducer(
   })(reducer);
 }
 
-const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
+const metaReducers: Array<MetaReducer<any, any>> = [
+  localStorageSyncReducer,
+  clearState
+];
 export function jwtOptionsFactory() {
   return {
     tokenGetter: () => {

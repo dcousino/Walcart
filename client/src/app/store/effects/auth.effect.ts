@@ -1,25 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import * as authActions from '../actions/auth.action';
-import { switchMap, map, catchError, tap, exhaustMap } from 'rxjs/operators';
+import {
+  switchMap,
+  map,
+  catchError,
+  tap,
+  mergeMap,
+  withLatestFrom
+} from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { UserState } from '../reducers/user.reducer';
+import { getUserState } from '..';
+import { PersistUser } from '../actions/user.action';
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private userStore$: Store<UserState>
   ) {}
 
   @Effect()
   login$ = this.actions$.ofType(authActions.LOGIN).pipe(
     map((action: authActions.Login) => action.payload),
-    exhaustMap(login =>
+    switchMap(login =>
       this.authService.signIn(login.email, login.password).pipe(
-        map(userSession => new authActions.LoginSuccess(userSession)),
+        withLatestFrom(this.userStore$.select(getUserState)),
+        switchMap(([userSession, userState]) => {
+          console.log('session', userSession);
+          console.log('user', userState);
+          return [
+            new authActions.LoginSuccess(userSession),
+            new PersistUser(userState.user)
+          ];
+        }),
         catchError(error => of(new authActions.LoginFail(error)))
       )
     )
