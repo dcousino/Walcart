@@ -18,25 +18,26 @@ export function reducer(
 ): CartState {
   switch (action.type) {
     case fromCart.ADD_TO_CART: {
-      if(state.cart.some(item => item.itemId === action.payload.itemId)){
+      if (state.cart.some(item => item.itemId === action.payload.itemId)) {
         return {
           ...state,
           cart: state.cart.map(item =>
             item.itemId === action.payload.itemId
               ? {
                   ...item,
-                  quantity: action.payload.quantity,
-                  totalCost: action.payload.quantity * item.salePrice
+                  quantity: ++item.quantity,
+                  totalCost: item.quantity * item.salePrice
                 }
               : item
           )
-        }; 
-      } else{
-      return {
-        ...state,
-        cart: [...state.cart, action.payload]
-      };
-    }}
+        };
+      } else {
+        return {
+          ...state,
+          cart: [...state.cart, action.payload]
+        };
+      }
+    }
     case fromCart.REMOVE_FROM_CART: {
       return {
         ...state,
@@ -44,10 +45,12 @@ export function reducer(
       };
     }
     case fromCart.UPDATE_CART_ITEM_QUANTITY: {
+      console.log(action.payload);
+
       return {
         ...state,
         cart: state.cart.map(item =>
-          item.itemId === action.payload.itemId
+          item.itemId === action.payload.id
             ? {
                 ...item,
                 quantity: action.payload.quantity,
