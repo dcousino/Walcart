@@ -124,7 +124,9 @@
       />
     </div>
     <div class="product-removal">
-      <button class="remove-product">Remove</button>
+      <button (click)="removeItem(item.itemId)" class="remove-product">
+        Remove
+      </button>
     </div>
     <div class="product-line-price">{{ item?.totalCost?.toFixed(2) }}</div>
   </div>
