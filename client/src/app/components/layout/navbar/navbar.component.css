@@ -27,6 +27,9 @@
   border-style: solid;
 }
 
+.nav-wrap {
+  width: calc(100vw - 34px);
+}
 .red-cart {
   color: #210b70;
   background: transparent;

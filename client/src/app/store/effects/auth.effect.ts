@@ -14,8 +14,10 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UserState } from '../reducers/user.reducer';
-import { getUserState } from '..';
-import { PersistUser } from '../actions/user.action';
+import { getUserState } from '../selectors';
+import { PersistUser, CreateOrLoadUser } from '../actions/user.action';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorModalComponent } from 'src/app/components/alerts/error-modal/error-modal.component';
 
 @Injectable()
 export class AuthEffects {
@@ -23,7 +25,8 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthService,
     private router: Router,
-    private userStore$: Store<UserState>
+    private userStore$: Store<UserState>,
+    private modalService: NgbModal
   ) {}
 
   @Effect()
@@ -31,14 +34,8 @@ export class AuthEffects {
     map((action: authActions.Login) => action.payload),
     switchMap(login =>
       this.authService.signIn(login.email, login.password).pipe(
-        withLatestFrom(this.userStore$.select(getUserState)),
-        switchMap(([userSession, userState]) => {
-          console.log('session', userSession);
-          console.log('user', userState);
-          return [
-            new authActions.LoginSuccess(userSession),
-            new PersistUser(userState.user)
-          ];
+        switchMap(token => {
+          return [new authActions.LoginSuccess(token), new CreateOrLoadUser()];
         }),
         catchError(error => of(new authActions.LoginFail(error)))
       )
@@ -48,6 +45,24 @@ export class AuthEffects {
   loginSuccess$ = this.actions$.ofType(authActions.LOGIN_SUCCESS).pipe(
     tap(() => {
       this.router.navigate(['/categories']);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  userloginErrorModal$ = this.actions$.ofType(authActions.LOGIN_FAIL).pipe(
+    map((action: authActions.LoginFail) => action.payload),
+    tap(error => {
+      const modalRef = this.modalService.open(ErrorModalComponent);
+      modalRef.componentInstance.errorMessage = error.message;
+    })
+  );
+
+  @Effect({ dispatch: false })
+  userConfirmErrorModal$ = this.actions$.ofType(authActions.CONFIRM_FAIL).pipe(
+    map((action: authActions.ConfirmFail) => action.payload),
+    tap(error => {
+      const modalRef = this.modalService.open(ErrorModalComponent);
+      modalRef.componentInstance.errorMessage = error.message;
     })
   );
 
@@ -109,10 +124,9 @@ export class AuthEffects {
           if (confirm) {
             return new authActions.ConfirmSuccess(true);
           } else {
-            throw new Error();
+            return new authActions.ConfirmFail(new Error('Confirm failed'));
           }
         }),
-
         catchError(error => of(new authActions.ConfirmFail(error)))
       );
     })

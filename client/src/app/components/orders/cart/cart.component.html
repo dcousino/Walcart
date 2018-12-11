@@ -1,96 +1,152 @@
-<div class="row">
-  <div class="col-sm-12 col-md-10 col-md-offset-1">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th class="text-center">Price</th>
-          <th class="text-center">Total</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of items">
-          <td class="col-sm-8 col-md-6">
-            <div class="media">
-              <a class="thumbnail pull-left" href="#">
-                <img
-                  class="media-object"
-                  [src]="item.thumbnailImage"
-                  style="width: 72px; height: 72px;"
-                />
-              </a>
-              <div class="media-body">
-                <h4 class="media-heading">
-                  <a href="#">{{ item.name }}</a>
-                </h4>
-                <h5 class="media-heading">
-                  by <a href="#">{{ item.brandName }}</a>
-                </h5>
-                <span>Status: </span
-                ><span class="text-success"
-                  ><strong>{{ item.stock }}</strong></span
-                >
+<!--
+  <div class="row">
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <td class="col-sm-8 col-md-6">
+              <div class="media">
+                <a class="thumbnail pull-left" href="#">
+                  <img
+                    class="media-object"
+                    [src]="item.thumbnailImage"
+                    style="width: 72px; height: 72px;"
+                  />
+                </a>
+                <div class="media-body">
+                  <h4 class="media-heading">
+                    <a href="#">{{ item.name }}</a>
+                  </h4>
+                  <h5 class="media-heading">
+                    by <a href="#">{{ item.brandName }}</a>
+                  </h5>
+                  <span>Status: </span
+                  ><span class="text-success"
+                    ><strong>{{ item.stock }}</strong></span
+                  >
+                </div>
               </div>
-            </div>
-          </td>
-          <td class="col-sm-1 col-md-1" style="text-align: center">
-            <input
-              type="number"
-              (change)="updateQuantity(item.itemId, +$event.target.value)"
-              class="form-control"
-              id="exampleInputEmail1"
-              value="{{item.quantity}}"
-            />
-          </td>
-          <td class="col-sm-1 col-md-1 text-center">
-            <strong>${{ item.salePrice?.toFixed(2) }}</strong>
-          </td>
-          <td class="col-sm-1 col-md-1 text-center">
-            <strong *ngIf="cartTotal"
-              >${{ item?.totalCost?.toFixed(2) }}</strong
-            >
-          </td>
-          <td class="col-sm-1 col-md-1">
-            <button (click)="removeItem(item.itemId)" class="btn btn-danger">
-              <i class="fa fa-times"></i> Remove
-            </button>
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <h5>Subtotal<br />Estimated shipping</h5>
-            <h3>Total</h3>
-          </td>
-          <td class="text-right">
-            <h5>
-              <strong>${{ cartTotal }}<br />${{ estimatedShipping }}</strong>
-            </h5>
-            <h3>${{ total }}</h3>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <a [routerLink]="['/']" class="btn btn-primary">
-              Continue Shopping
-            </a>
-          </td>
-          <td>
-            <button class="btn btn-success">
-              Checkout <span class="glyphicon glyphicon-play"></span>
-            </button>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+            </td>
+            <td class="col-sm-1 col-md-1" style="text-align: center">
+              <input
+                type="number"
+                (change)="updateQuantity(item.itemId, +$event.target.value)"
+                class="form-control"
+                id="exampleInputEmail1"
+                value="{{item.quantity}}"
+              />
+            </td>
+            <td class="col-sm-1 col-md-1 text-center">
+              <strong>${{ item.salePrice?.toFixed(2) }}</strong>
+            </td>
+            <td class="col-sm-1 col-md-1 text-center">
+              <strong *ngIf="cartTotal"
+                >${{ item?.totalCost?.toFixed(2) }}</strong
+              >
+            </td>
+            <td class="col-sm-1 col-md-1">
+              <button (click)="removeItem(item.itemId)" class="btn btn-danger">
+                <i class="fa fa-times"></i> Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <h5>Subtotal<br />Estimated shipping</h5>
+              <h3>Total</h3>
+            </td>
+            <td class="text-right">
+              <h5>
+                <strong>${{ cartTotal }}<br />${{ estimatedShipping }}</strong>
+              </h5>
+              <h3>${{ total }}</h3>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <a [routerLink]="['/']" class="btn btn-primary">
+                Continue Shopping
+              </a>
+            </td>
+            <td>
+              <button class="btn btn-success">
+                Checkout <span class="glyphicon glyphicon-play"></span>
+              </button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+-->
+
+<h1>Shopping Cart</h1>
+
+<div class="shopping-cart">
+  <div class="column-labels">
+    <label class="product-image">Image</label>
+    <label class="product-details">Product</label>
+    <label class="product-price">Price</label>
+    <label class="product-quantity">Quantity</label>
+    <label class="product-removal">Remove</label>
+    <label class="product-line-price">Total</label>
+  </div>
+
+  <div class="product" *ngFor="let item of items">
+    <div class="product-image"><img [src]="item.thumbnailImage" /></div>
+    <div class="product-details">
+      <div class="product-title">{{ item.name }}</div>
+      <p class="product-description">{{ item.brand }}</p>
+    </div>
+    <div class="product-price">${{ item.salePrice?.toFixed(2) }}</div>
+    <div class="product-quantity">
+      <input
+        type="number"
+        (change)="updateQuantity(item.itemId, +$event.target.value)"
+        value="{{item.quantity}}"
+      />
+    </div>
+    <div class="product-removal">
+      <button class="remove-product">Remove</button>
+    </div>
+    <div class="product-line-price">${{ item?.totalCost?.toFixed(2) }}</div>
+  </div>
+
+  <div class="totals">
+    <div class="totals-item">
+      <label>Subtotal</label>
+      <div class="totals-value" id="cart-subtotal">71.97</div>
+    </div>
+    <div class="totals-item">
+      <label>Tax (5%)</label>
+      <div class="totals-value" id="cart-tax">3.60</div>
+    </div>
+    <div class="totals-item">
+      <label>Shipping</label>
+      <div class="totals-value" id="cart-shipping">15.00</div>
+    </div>
+    <div class="totals-item totals-item-total">
+      <label>Grand Total</label>
+      <div class="totals-value" id="cart-total">90.57</div>
+    </div>
+
+    <button class="checkout">Checkout</button>
   </div>
 </div>

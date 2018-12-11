@@ -8,6 +8,7 @@ import {
   UpdateCartItemQuantity
 } from 'src/app/store/actions/cart.action';
 import { CartItem } from 'src/app/models/cart-item';
+import { getCartState } from 'src/app/store/selectors';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +23,7 @@ export class CartComponent implements OnInit {
   constructor(private store: Store<ApplicationState>) {}
 
   ngOnInit() {
-    this.store.select('cart').subscribe(cartState => {
+    this.store.select(getCartState).subscribe(cartState => {
       this.items = cartState.cart;
       if (this.items.length > 0) {
         this.cartTotal = this.items

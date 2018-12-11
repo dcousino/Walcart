@@ -1,13 +1,5 @@
-import {
-  ActionReducerMap,
-  createSelector,
-  createFeatureSelector
-} from '@ngrx/store';
-import {
-  RouterReducerState,
-  routerReducer,
-  RouterStateSerializer
-} from '@ngrx/router-store';
+import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+import { RouterReducerState, RouterStateSerializer } from '@ngrx/router-store';
 import * as fromCategories from './category.reducter';
 import * as fromUser from './user.reducer';
 import * as fromProduct from './product.reducer';
@@ -59,11 +51,3 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
     return { url, queryParams, params };
   }
 }
-export const getAuthState = createFeatureSelector<fromAuth.AuthState>('auth');
-export const getProductState = createFeatureSelector<fromProduct.ProductState>(
-  'product'
-);
-export const getUserState = createFeatureSelector<fromUser.UserState>('user');
-export const getCategoryState = createFeatureSelector<
-  fromCategories.CategoryState
->('categories');

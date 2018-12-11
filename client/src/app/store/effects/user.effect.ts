@@ -1,64 +1,69 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-import * as authActions from '../actions/auth.action';
 import { map, switchMap, withLatestFrom, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { UserService } from 'src/app/services/user/user.service';
 import { Store, State } from '@ngrx/store';
 import {
-  CreateTempUser,
-  UpdateUserWithId,
-  UPDATE_USER_WITH_ID,
   PersistUserSuccess,
   PersistUserFail,
   PERSIST_USER,
-  PersistUser
+  PersistUser,
+  CREATE_OR_LOAD_USER,
+  CreateOrLoadUserSuccess,
+  CreateOrLoadUserFail,
+  CreateOrLoadUser,
+  UPDATE_USER,
+  UpdateUser,
+  UpdateUserSuccess
 } from '../actions/user.action';
 
 import { UserState } from '../reducers/user.reducer';
-import { getUserState } from '../reducers';
+import { getUserState } from '../selectors';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from 'src/app/models/user';
 
 @Injectable()
 export class UserEffects {
   constructor(
     private actions$: Actions,
     private userSvc: UserService,
-    private store$: Store<UserState>
+    private jwtSvc: JwtHelperService
   ) {}
 
   @Effect()
-  createTempUser$ = this.actions$.ofType(authActions.REGISTER).pipe(
-    map((action: authActions.Register) => action.payload),
-    // Remove password, add empty id which will be set later
-    map(user => ({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      id: ''
-    })),
+  persistUserToServer$ = this.actions$.ofType(CREATE_OR_LOAD_USER).pipe(
+    map(() => this.createUser()),
     switchMap(user => {
-      return of(new CreateTempUser(user));
-    })
-  );
-
-  @Effect()
-  updateTempUser$ = this.actions$.ofType(authActions.REGISTER_SUCCESS).pipe(
-    map((action: authActions.RegisterSuccess) => action.payload),
-    switchMap(user => {
-      return of(new UpdateUserWithId(user));
-    })
-  );
-
-  @Effect()
-  persistUserToServer$ = this.actions$.ofType(PERSIST_USER).pipe(
-    map((action: PersistUser) => action.payload),
-    switchMap(user => {
-      console.log(user);
-
       return this.userSvc.create(user).pipe(
-        map(result => new PersistUserSuccess(result)),
-        catchError(error => of(new PersistUserFail(error)))
+        map(result => {
+          return new CreateOrLoadUserSuccess(result);
+        }),
+        catchError(error => of(new CreateOrLoadUserFail(error)))
       );
     })
   );
+  @Effect()
+  updateUser$ = this.actions$.ofType(UPDATE_USER).pipe(
+    map((action: UpdateUser) => action.payload),
+    switchMap((user: User) => {
+      return this.userSvc.update(user).pipe(
+        map(result => {
+          return new UpdateUserSuccess(result);
+        }),
+        catchError(error => of(new CreateOrLoadUserFail(error)))
+      );
+    })
+  );
+
+  private createUser(): User {
+    const token: any = this.jwtSvc.decodeToken();
+    const user: User = {
+      id: token.sub,
+      firstName: token.given_name,
+      lastName: token.family_name,
+      email: token.email
+    };
+    return user;
+  }
 }

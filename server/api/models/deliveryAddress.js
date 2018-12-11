@@ -3,7 +3,6 @@ const DBProperty = require('../models/db-properties');
 const { REQUIRED } = require('../constants');
 class DeliveryAddress {
   constructor(address) {
-    console.log(address);
     if (isEmpty(address)) {
       this.addressLine1 = null;
       this.addressLine = null;

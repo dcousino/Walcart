@@ -5,10 +5,11 @@ import { Categories } from '../models/categories';
 import { Category } from '../models/category';
 import { ProductPage } from '../models/product-page/product-page';
 import { Store } from '@ngrx/store';
-import { ApplicationState, getProductState } from '../store';
+import { ApplicationState } from '../store';
 import { AuthService } from './auth/auth.service';
 import { map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { getProductState } from '../store/selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class QueryService {
     private auth: AuthService,
     private store: Store<ApplicationState>
   ) {
-    this.store.select('products').subscribe(page => {
+    this.store.select(getProductState).subscribe(page => {
       if (page) {
         this.currentPage = page.pages.length.toString();
         this.currentPageNumber = page.currentPage;

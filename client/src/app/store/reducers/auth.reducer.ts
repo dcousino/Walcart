@@ -4,15 +4,17 @@ import { createFeatureSelector } from '@ngrx/store';
 import { ApplicationState } from '.';
 
 export interface AuthState {
-  auth: CognitoUserSession;
+  isAuth: boolean;
+  token: string;
   loading: boolean;
   error?: any;
   id: string;
 }
 
 export const initialState: AuthState = {
+  isAuth: false,
   id: null,
-  auth: null,
+  token: null,
   loading: false
 };
 
@@ -31,16 +33,18 @@ export function reducer(
     case fromAuth.LOGIN_SUCCESS: {
       return {
         ...state,
-        auth: action.payload,
         loading: false,
-        error: false
+        error: false,
+        token: action.payload,
+        isAuth: true
       };
     }
     case fromAuth.LOGIN_FAIL: {
       return {
         ...state,
         loading: false,
-        error: action.payload
+        error: action.payload,
+        isAuth: false
       };
     }
     case fromAuth.REGISTER: {
@@ -77,9 +81,10 @@ export function reducer(
     case fromAuth.LOGOUT_SUCCESS: {
       return {
         ...state,
-        auth: null,
+        token: null,
         loading: false,
-        error: null
+        error: null,
+        isAuth: false
       };
     }
     case fromAuth.LOGOUT_FAIL: {
@@ -87,7 +92,7 @@ export function reducer(
         ...state,
         error: action.payload,
         // Still clear out auth
-        auth: null,
+        token: null,
         loading: false
       };
     }

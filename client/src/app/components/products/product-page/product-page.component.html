@@ -17,38 +17,19 @@
         class="col-lg-4 col-sm-12 py-2"
         *ngFor="let item of currentPage.items; trackBy: trackByFn"
       >
-        <div class="card h-100">
-          <img class="card-img-top" [src]="item.largeImage" alt="" />
-          <div class="card-body">
-            <p class="card-text">{{ item.name }}</p>
-          </div>
-          <div class="card-footer">
-            <button
-              *ngIf="item.stock !== 'Not available'"
-              (click)="addToCart(item)"
-              class="btn btn-success btn-circle"
-            >
-              <i class="fa fa-plus"></i>
-            </button>
-            <strong class="ml-4">Stock: </strong>
-            <span
-              [ngClass]="
-                item.stock == 'Available' ? 'text-success' : 'text-warning'
-              "
-              >{{ item.stock }}</span
-            >
-            | <strong>Price: </strong>
-            {{ item.salePrice ? '$' + item.salePrice.toFixed(2) : 'N/A' }}
-          </div>
-        </div>
+        <app-product-card
+          [productItem]="item"
+          (emitAddToCart)="addToCart(item)"
+        ></app-product-card>
       </div>
     </div>
   </div>
   <app-product-page-nav
     [name]="currentCategory.name"
     [isFirstPage]="isFirstPage()"
+    [currentPageNumber]="getCurrentPageNumber()"
     [isLastPage]="isLastPage()"
-    [totalPages]="currentPage.totalPages"
+    [totalPages]="totalPages"
     [id]="currentCategory.id"
     (getNext)="getNext()"
     (getPrevious)="getPrevious()"

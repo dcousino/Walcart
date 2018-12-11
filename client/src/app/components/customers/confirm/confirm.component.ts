@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Confirm, ApplicationState, getUserState } from '../../../store';
+import { Confirm, ApplicationState } from '../../../store';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ConfirmUser } from 'src/app/models/confirm-user';
-import { PersistUser } from 'src/app/store/actions/user.action';
 
 @Component({
   selector: 'app-confirm',

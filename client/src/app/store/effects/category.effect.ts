@@ -11,8 +11,9 @@ import { of, Observable, ObservableInput } from 'rxjs';
 import { QueryService } from 'src/app/services/query.service';
 import { Store } from '@ngrx/store';
 import { ProductState } from '../reducers/product.reducer';
-import { getCategoryState } from '../reducers';
 import { Category } from 'src/app/models/category';
+import { getCategories } from '../reducers/category.reducter';
+import { getCategoryState } from '../selectors';
 
 @Injectable()
 export class CategoryEffects {

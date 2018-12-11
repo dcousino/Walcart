@@ -43,7 +43,6 @@ export function reducer(
       };
     }
     case LOAD_CATEGORIES_FAIL: {
-      console.log(action.payload);
       return {
         ...state,
         loading: false,

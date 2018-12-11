@@ -1,0 +1,25 @@
+<div class="card h-100">
+  <img class="card-img-top" [src]="productItem.largeImage" alt="" />
+  <div class="card-body">
+    <p class="card-text">{{ productItem.name }}</p>
+    <app-rating [customerRating]="productItem.customerRating"></app-rating>
+  </div>
+  <div class="card-footer">
+    <button
+      *ngIf="productItem.stock !== 'Not available'"
+      (click)="addToCart(item)"
+      class="btn btn-success btn-circle"
+    >
+      <i class="fa fa-plus"></i>
+    </button>
+    <strong class="ml-4">Stock: </strong>
+    <span
+      [ngClass]="
+        productItem.stock == 'Available' ? 'text-success' : 'text-warning'
+      "
+      >{{ productItem.stock }}</span
+    >
+    | <strong>Price: </strong>
+    {{ productItem.salePrice ? '$' + productItem.salePrice.toFixed(2) : 'N/A' }}
+  </div>
+</div>

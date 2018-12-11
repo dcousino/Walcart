@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-
 import { Observable, of, Observer } from 'rxjs';
 import {
   CognitoUserPool,
@@ -10,8 +8,9 @@ import {
   CognitoUserSession
 } from 'amazon-cognito-identity-js';
 import { User } from '../../models/user';
-import { catchError } from 'rxjs/operators';
 import { RegistrationUser } from 'src/app/models/registration-user';
+import { ThrowStmt } from '@angular/compiler';
+
 const POOL_DATA = {
   UserPoolId: 'us-east-1_b62U8X7xd',
   ClientId: 'uu3jm1ssofhp0nh86t8ug3s13'
@@ -23,7 +22,7 @@ const userPool = new CognitoUserPool(POOL_DATA);
 })
 export class AuthService {
   registeredUser: CognitoUser;
-  constructor(private router: Router) {}
+  constructor() {}
   signUp(
     email: string,
     password: string,
@@ -102,7 +101,6 @@ export class AuthService {
           observer.error(err);
           observer.complete();
         } else {
-          console.log(result);
           observer.next(true);
           observer.complete();
         }
@@ -143,7 +141,7 @@ export class AuthService {
     };
     return new CognitoUser(userData);
   }
-  signIn(email: string, password: string): Observable<CognitoUserSession> {
+  signIn(email: string, password: string): Observable<string> {
     const authDetails = this.getAuthDetails(email, password);
     const cognitoUser = this.getCognitoUser(email);
 
@@ -163,10 +161,37 @@ export class AuthService {
     return userPool.getCurrentUser();
   }
   logout(): Observable<boolean> {
-    this.getAuthenticatedUser().signOut();
+    if (this.getAuthenticatedUser()) {
+      this.getAuthenticatedUser().signOut();
+    }
+
     return of(true);
   }
+  refreshToken() {
+    this.getAuthenticatedUser().getSession(
+      (err, session: CognitoUserSession) => {
+        if (err) {
+          console.log(err);
+          return;
+        } else {
+          this.getAuthenticatedUser().refreshSession(
+            session.getRefreshToken(),
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              }
+              const token = result.getIdToken().getJwtToken();
+              localStorage['token'] = token;
+            }
+          );
+        }
+      }
+    );
+  }
   isAuthenticated(): Observable<boolean> {
+    // TODO: if user is deleted they still have access until there token expires or they
+    // log out
+
     const user = this.getAuthenticatedUser();
     const obs = Observable.create(observer => {
       if (!user) {
@@ -174,6 +199,7 @@ export class AuthService {
       } else {
         user.getSession((err, session) => {
           if (err) {
+            console.log(err);
             observer.next(false);
           } else {
             if (session.isValid()) {

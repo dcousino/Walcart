@@ -23,7 +23,7 @@ export class Login implements Action {
 }
 export class LoginSuccess implements Action {
   readonly type = LOGIN_SUCCESS;
-  constructor(public payload: CognitoUserSession) {}
+  constructor(public payload: string) {}
 }
 
 export class LoginFail implements Action {

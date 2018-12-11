@@ -22,7 +22,7 @@ export class ProductPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private store: Store<ApplicationState>
-  ) {}
+  ) { }
   nextPage: string;
   private paramSub: any;
   private storeSub: any;
