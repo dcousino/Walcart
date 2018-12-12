@@ -10,10 +10,16 @@ import { HomeComponent } from './components/customers/home/home.component';
 import { CategoriesComponent } from './components/products/categories/categories.component';
 import { SubCategoriesComponent } from './components/products/sub-categories/sub-categories.component';
 import { ProductPageComponent } from './components/products/product-page/product-page.component';
+import { ProfileComponent } from './components/customers/profile/profile.component';
 const routes: Routes = [
   {
     path: '',
     component: CategoriesComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   },
   { path: 'login', component: LoginComponent },
   { path: 'confirm', component: ConfirmComponent },

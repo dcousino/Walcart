@@ -1,0 +1,52 @@
+<div class="row row-eq-height">
+  <div class="col">
+    <div class="nav flex-column nav-pills">
+      <a
+        (click)="setView('basic')"
+        [class.active]="view === 'basic'"
+        class="nav-link"
+        >Basic Info</a
+      >
+      <a
+        (click)="setView('address')"
+        [class.active]="view === 'address'"
+        class="nav-link"
+        >Address</a
+      >
+      <a
+        (click)="setView('order')"
+        class="nav-link"
+        [class.active]="view === 'order'"
+        >Order History</a
+      >
+    </div>
+  </div>
+  <div class="col-10">
+    <div class="jumbotron h-100">
+      <div class="container">
+        <h1 class="display-4">{{ customerName }}</h1>
+        <p class="lead">Welcome Back!</p>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+
+<ng-container *ngIf="view === 'address'">
+  <app-address-details
+    title="Delivery Address"
+    [address]="user.deliveryAddress"
+    (emitSubmit)="onSubmitAddress($event)"
+  ></app-address-details>
+  <app-address-details
+    title="Billing Address"
+    [address]="user.billingAddress"
+    (emitSubmit)="onSubmitAddress($event)"
+  ></app-address-details>
+</ng-container>
+<ng-container *ngIf="view === 'basic'">
+  <app-basic-info
+    [user]="user"
+    (emitSubmit)="onSubmitBasicInfo($event)"
+  ></app-basic-info>
+</ng-container>

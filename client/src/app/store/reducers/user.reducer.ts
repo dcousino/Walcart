@@ -1,20 +1,15 @@
 import { User } from '../../models/user';
 import * as fromUser from '../actions/user.action';
 export interface UserState {
-  data: User;
-  auth: boolean;
+  user: User;
   loading: boolean;
+  error: any;
 }
 
 export const initialState: UserState = {
-  data: {
-    firstName: 'Daniel',
-    lastName: 'Cousino',
-    email: 'Daniel.cousinoa',
-    password: 'asdf'
-  },
-  auth: false,
-  loading: false
+  user: null,
+  loading: false,
+  error: null
 };
 
 export function reducer(
@@ -22,26 +17,54 @@ export function reducer(
   action: fromUser.UserAction
 ): UserState {
   switch (action.type) {
-    case fromUser.LOGIN: {
+    case fromUser.CREATE_OR_LOAD_USER: {
       return {
         ...state,
         loading: true
       };
     }
-    case fromUser.LOGIN_SUCCESS: {
+    case fromUser.CREATE_OR_LOAD_USER_SUCCESS: {
       return {
         ...state,
-        auth: true,
+        loading: false,
+        user: action.payload
+      };
+    }
+    case fromUser.CREATE_OR_LOAD_USER_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+    }
+    case fromUser.UPDATE_USER: {
+      return {
+        ...state,
+        loading: true,
+        user: action.payload
+      };
+    }
+    case fromUser.UPDATE_USER_SUCCESS: {
+      return {
+        ...state,
         loading: false
       };
     }
-    case fromUser.LOGIN_FAIL: {
+    case fromUser.UPDATE_USER_FAIL: {
       return {
         ...state,
-        auth: false,
-        loading: false
+        loading: false,
+        error: action.payload
       };
     }
+    case fromUser.UPDATE_USER_WITH_ID: {
+      return {
+        ...state,
+        loading: false,
+        user: { ...state.user, id: action.payload }
+      };
+    }
+
     default:
       return state;
   }

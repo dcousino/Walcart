@@ -5,10 +5,11 @@ import { Categories } from '../models/categories';
 import { Category } from '../models/category';
 import { ProductPage } from '../models/product-page/product-page';
 import { Store } from '@ngrx/store';
-import { ApplicationState, getProductState } from '../store';
+import { ApplicationState } from '../store';
 import { AuthService } from './auth/auth.service';
 import { map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { getProductState } from '../store/selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class QueryService {
     private auth: AuthService,
     private store: Store<ApplicationState>
   ) {
-    this.store.select('products').subscribe(page => {
+    this.store.select(getProductState).subscribe(page => {
       if (page) {
         this.currentPage = page.pages.length.toString();
         this.currentPageNumber = page.currentPage;
@@ -45,12 +46,7 @@ export class QueryService {
 
   getFirstProductPage(categoryId: string): Observable<ProductPage> {
     return this.httpClient.get<ProductPage>(
-      `https://fs4rs4fpcj.execute-api.us-east-1.amazonaws.com/latest/walmart/v1/paginated/items?count=25&category=${categoryId}`,
-      {
-        headers: new HttpHeaders({
-          Authorization: this.auth.getToken()
-        })
-      }
+      `https://fs4rs4fpcj.execute-api.us-east-1.amazonaws.com/latest/walmart/v1/paginated/items?count=25&category=${categoryId}`
     );
   }
 
@@ -60,12 +56,7 @@ export class QueryService {
     }
     return this.httpClient
       .get<ProductPage>(
-        `https://fs4rs4fpcj.execute-api.us-east-1.amazonaws.com/latest/walmart/${pathParams}`,
-        {
-          headers: new HttpHeaders({
-            Authorization: this.auth.getToken()
-          })
-        }
+        `https://fs4rs4fpcj.execute-api.us-east-1.amazonaws.com/latest/walmart/${pathParams}`
       )
       .pipe(
         map(res => {

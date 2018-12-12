@@ -1,68 +1,81 @@
 import { Action } from '@ngrx/store';
-import { Category } from 'src/app/models/category';
+import { User } from 'src/app/models/user';
 
-export const LOGIN = '[User] Login';
-export const LOGIN_FAIL = '[User] Login Fail';
-export const LOGIN_SUCCESS = '[User] Login Success';
+export const CREATE_OR_LOAD_USER = '[User] Create new user or load from DB';
+export const CREATE_OR_LOAD_USER_SUCCESS =
+  '[User] Create new user or load from DB success';
+export const CREATE_OR_LOAD_USER_FAIL =
+  '[User] Create new user or load from DB fail';
+export const UPDATE_USER = '[User] Update user and persist to DB';
+export const UPDATE_USER_SUCCESS =
+  '[User] Update user and persist to DB success';
+export const UPDATE_USER_FAIL = '[User] Update user and persist to DB fail';
 
-export const CONFIRM = '[User] Confirm';
-export const CONFIRM_FAIL = '[User] Confirm Fail';
-export const CONFIRM_SUCCESS = '[User] Confirm Success';
+export const UPDATE_USER_WITH_ID =
+  '[User] Update user with id after successful registration';
+export const PERSIST_USER = '[User] Persist user to database';
+export const PERSIST_USER_SUCCESS = '[User] Persist user to database success';
+export const PERSIST_USER_FAIL = '[User] Persist user to database failed';
+export const LOAD_USER = '[User] Load user';
 
-export const REGISTER = '[User] Register';
-export const REGISTER_FAIL = '[User] Register Fail';
-export const REGISTER_SUCCESS = '[User] Register Success';
-
-export class Login implements Action {
-  readonly type = LOGIN;
+export class CreateOrLoadUser implements Action {
+  readonly type = CREATE_OR_LOAD_USER;
 }
 
-export class LoginFail implements Action {
-  readonly type = LOGIN_FAIL;
+export class CreateOrLoadUserSuccess implements Action {
+  readonly type = CREATE_OR_LOAD_USER_SUCCESS;
+  constructor(public payload: User) {}
+}
+
+export class CreateOrLoadUserFail implements Action {
+  readonly type = CREATE_OR_LOAD_USER_FAIL;
   constructor(public payload: any) {}
 }
 
-export class LoginSuccess implements Action {
-  readonly type = LOGIN_SUCCESS;
-  constructor(public payload: Category[]) {}
+export class UpdateUserWithId implements Action {
+  readonly type = UPDATE_USER_WITH_ID;
+  constructor(public payload: string) {}
 }
-
-export class Confirm implements Action {
-  readonly type = CONFIRM;
+export class PersistUser implements Action {
+  readonly type = PERSIST_USER;
+  constructor(public payload: User) {}
 }
-
-export class ConfirmFail implements Action {
-  readonly type = CONFIRM_FAIL;
+export class PersistUserSuccess implements Action {
+  readonly type = PERSIST_USER_SUCCESS;
+  constructor(public payload: boolean) {}
+}
+export class PersistUserFail implements Action {
+  readonly type = PERSIST_USER_FAIL;
+  constructor(public payload: any) {}
+}
+export class UpdateUser implements Action {
+  readonly type = UPDATE_USER;
+  constructor(public payload: User) {}
+}
+export class UpdateUserSuccess implements Action {
+  readonly type = UPDATE_USER_SUCCESS;
+  constructor(public payload: boolean) {}
+}
+export class UpdateUserFail implements Action {
+  readonly type = UPDATE_USER_FAIL;
   constructor(public payload: any) {}
 }
 
-export class ConfirmSuccess implements Action {
-  readonly type = CONFIRM_SUCCESS;
-  constructor(public payload: Category[]) {}
-}
-
-export class Register implements Action {
-  readonly type = REGISTER;
-}
-
-export class RegisterFail implements Action {
-  readonly type = REGISTER_FAIL;
-  constructor(public payload: any) {}
-}
-
-export class RegisterSuccess implements Action {
-  readonly type = REGISTER_SUCCESS;
-  constructor(public payload: Category[]) {}
+export class LoadUser implements Action {
+  readonly type = LOAD_USER;
+  constructor(public payload: User) {}
 }
 
 // action types
 export type UserAction =
-  | Login
-  | LoginFail
-  | LoginSuccess
-  | Confirm
-  | ConfirmFail
-  | ConfirmSuccess
-  | Register
-  | RegisterFail
-  | RegisterSuccess;
+  | PersistUser
+  | CreateOrLoadUser
+  | CreateOrLoadUserSuccess
+  | CreateOrLoadUserFail
+  | PersistUserSuccess
+  | PersistUserFail
+  | UpdateUserWithId
+  | LoadUser
+  | UpdateUser
+  | UpdateUserSuccess
+  | UpdateUserFail;

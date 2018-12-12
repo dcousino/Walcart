@@ -4,13 +4,17 @@ import { createFeatureSelector } from '@ngrx/store';
 import { ApplicationState } from '.';
 
 export interface AuthState {
-  auth: CognitoUserSession;
+  isAuth: boolean;
+  token: string;
   loading: boolean;
   error?: any;
+  id: string;
 }
 
 export const initialState: AuthState = {
-  auth: null,
+  isAuth: false,
+  id: null,
+  token: null,
   loading: false
 };
 
@@ -22,34 +26,65 @@ export function reducer(
     case fromAuth.LOGIN: {
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       };
     }
     case fromAuth.LOGIN_SUCCESS: {
       return {
         ...state,
-        auth: action.payload,
-        loading: false
+        loading: false,
+        error: false,
+        token: action.payload,
+        isAuth: true
       };
     }
     case fromAuth.LOGIN_FAIL: {
       return {
         ...state,
         loading: false,
-        error: action.payload
+        error: action.payload,
+        isAuth: false
+      };
+    }
+    case fromAuth.REGISTER: {
+      return {
+        ...state,
+        loading: true,
+        error: null,
+        id: null
+      };
+    }
+    case fromAuth.REGISTER_SUCCESS: {
+      return {
+        ...state,
+        id: action.payload,
+        loading: false,
+        error: false
+      };
+    }
+    case fromAuth.REGISTER_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        id: null
       };
     }
     case fromAuth.LOGOUT: {
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       };
     }
     case fromAuth.LOGOUT_SUCCESS: {
       return {
         ...state,
-        auth: null,
-        loading: false
+        token: null,
+        loading: false,
+        error: null,
+        isAuth: false
       };
     }
     case fromAuth.LOGOUT_FAIL: {
@@ -57,14 +92,15 @@ export function reducer(
         ...state,
         error: action.payload,
         // Still clear out auth
-        auth: null,
+        token: null,
         loading: false
       };
     }
     case fromAuth.CONFIRM: {
       return {
         ...state,
-        loading: false
+        loading: false,
+        error: null
       };
     }
     default:

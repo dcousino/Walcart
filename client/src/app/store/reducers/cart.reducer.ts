@@ -18,10 +18,25 @@ export function reducer(
 ): CartState {
   switch (action.type) {
     case fromCart.ADD_TO_CART: {
-      return {
-        ...state,
-        cart: [...state.cart, action.payload]
-      };
+      if (state.cart.some(item => item.itemId === action.payload.itemId)) {
+        return {
+          ...state,
+          cart: state.cart.map(item =>
+            item.itemId === action.payload.itemId
+              ? {
+                  ...item,
+                  quantity: ++item.quantity,
+                  totalCost: item.quantity * item.salePrice
+                }
+              : item
+          )
+        };
+      } else {
+        return {
+          ...state,
+          cart: [...state.cart, action.payload]
+        };
+      }
     }
     case fromCart.REMOVE_FROM_CART: {
       return {

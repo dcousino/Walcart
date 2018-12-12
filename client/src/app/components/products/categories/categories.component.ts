@@ -4,6 +4,8 @@ import { Category } from 'src/app/models/category';
 import { ApplicationState } from 'src/app/store';
 import { Store } from '@ngrx/store';
 import { LoadCategories } from 'src/app/store/actions/category.action';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorModalComponent } from '../../alerts/error-modal/error-modal.component';
 
 @Component({
   selector: 'app-categories',

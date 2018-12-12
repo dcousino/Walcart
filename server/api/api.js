@@ -53,8 +53,32 @@ api.post(
       TableName: 'users',
       Item: {
         id: request.body.id,
+        email: request.body.email,
         firstName: request.body.firstName,
         lastName: request.body.lastName,
+        deliveryAddress: {
+          type: 'DeliveryAddress',
+          addressLine1: null,
+          addressLine2: null,
+          city: null,
+          state: null,
+          country: null,
+          zip: null,
+          deliverToFirstName: request.body.firstName,
+          deliverToLastName: request.body.lastName
+        },
+        billingAddress: {
+          type: 'BillingAddress',
+          addressLine1: null,
+          addressLine2: null,
+          city: null,
+          state: null,
+          country: null,
+          zip: null,
+          deliverToFirstName: request.body.firstName,
+          deliverToLastName: request.body.lastName,
+          isSameAsDeliveryAddress: true
+        },
         lastVisited: (Date.now() / 1000) | 0
       },
       ConditionExpression: 'attribute_not_exists(id)'
@@ -62,7 +86,7 @@ api.post(
 
     try {
       await dynamoDb.put(params).promise();
-      return true;
+      return params.Item;
     } catch (error) {
       return handleError(error);
     }

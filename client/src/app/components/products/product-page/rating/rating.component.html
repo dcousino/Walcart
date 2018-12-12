@@ -1,0 +1,17 @@
+<ng-container *ngIf="customerRating">
+  <ng-template #t let-fill="fill">
+    <span class="star" [class.full]="fill === 100">
+      <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+    </span>
+  </ng-template>
+
+  <ngb-rating
+    [(rate)]="customerRating"
+    [starTemplate]="t"
+    [readonly]="true"
+    max="5"
+  ></ngb-rating>
+
+  <hr />
+  <pre>Rate: <b>{{customerRating}}</b></pre>
+</ng-container>

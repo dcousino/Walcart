@@ -2,8 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Store } from '@ngrx/store';
 import { ApplicationState, Logout } from 'src/app/store';
-import { Router, NavigationStart, Event, NavigationEnd } from '@angular/router';
+import { Router, Event, NavigationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
+import {
+  getAuthState,
+  getCartState,
+  getUserState
+} from 'src/app/store/selectors';
+import { User } from 'src/app/models/user';
+import { fromEvent, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -19,11 +26,21 @@ export class NavbarComponent implements OnInit {
   cartItemCount: number;
   isAuth: boolean;
   currentPage: string;
+  user: User = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    id: ''
+  };
+
   ngOnInit() {
-    this.store.select('auth').subscribe(authState => {
-      this.isAuth = authState.auth !== null;
+    this.store.select(getAuthState).subscribe(authState => {
+      this.isAuth = authState.token !== null;
     });
-    this.store.select('cart').subscribe(cartState => {
+    this.store.select(getUserState).subscribe(userState => {
+      this.user = userState.user;
+    });
+    this.store.select(getCartState).subscribe(cartState => {
       this.cartItemCount = cartState.cart.length
         ? cartState.cart.length
         : undefined;
@@ -34,7 +51,10 @@ export class NavbarComponent implements OnInit {
       .subscribe((event: any) => {
         this.currentPage = event.url;
       });
+
+    window.scrollbars.visible;
   }
+
   isCurrentPage(page: string) {
     return `/${page}` === this.currentPage;
   }
