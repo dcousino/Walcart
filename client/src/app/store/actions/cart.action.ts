@@ -9,6 +9,7 @@ export const SAVE_CART = '[Cart] Save cart';
 export const SAVE_CART_SUCCESS = '[Cart] Save cart success';
 export const SAVE_CART_FAIL = '[Cart] Save cart fail';
 export const CLEAR_CART = '[Cart] Clear cart';
+export const LOAD_CART = '[Cart] Load cart on login';
 
 export class AddToCart implements Action {
   readonly type = ADD_TO_CART;
@@ -31,7 +32,6 @@ export class ClearCart implements Action {
 
 export class SaveCart implements Action {
   readonly type = SAVE_CART;
-  constructor(public payload: Cart) {}
 }
 
 export class SaveCartSuccess implements Action {
@@ -43,6 +43,11 @@ export class SaveCartFail implements Action {
   constructor(public payload: any) {}
 }
 
+export class LoadCart implements Action {
+  readonly type = LOAD_CART;
+  constructor(public payload: CartItem[]) {}
+}
+
 // action types
 export type CartAction =
   | SaveCart
@@ -51,4 +56,5 @@ export type CartAction =
   | AddToCart
   | RemoveFromCart
   | UpdateCartItemQuantity
-  | ClearCart;
+  | ClearCart
+  | LoadCart;

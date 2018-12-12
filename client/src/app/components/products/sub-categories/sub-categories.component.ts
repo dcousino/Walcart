@@ -1,18 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ApplicationState } from 'src/app/store';
 import { Category } from 'src/app/models/category';
-import { QueryService } from 'src/app/services/query.service';
-import {
-  LoadInitialProductPage,
-  LoadNextProductPage
-} from 'src/app/store/actions/product.action';
-import { ProductPage } from 'src/app/models/product-page/product-page';
-import {
-  SetCurrentSubCategory,
-  SetCurrentCategory
-} from 'src/app/store/actions/category.action';
+import { ApplicationState } from 'src/app/store';
+import { SetCurrentCategory } from 'src/app/store/actions/category.action';
+import { LoadInitialProductPage } from 'src/app/store/actions/product.action';
 
 @Component({
   selector: 'app-sub-categories',

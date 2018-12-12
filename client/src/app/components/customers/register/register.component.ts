@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ApplicationState, Register } from '../../../store';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { RegistrationUser } from 'src/app/models/registration-user';
 import { User } from 'src/app/models/user';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ApplicationState, Register } from '../../../store';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

@@ -32,7 +32,7 @@
       <ul *ngIf="isAuth" class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/profile']">
-            <img ngxGravatar [email]="user?.email" fallback="mp"
+            <img ngxGravatar [email]="user?.email || ''" fallback="mp"
           /></a>
         </li>
         <li class="nav-item">

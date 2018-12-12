@@ -1,18 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ApplicationState } from 'src/app/store';
-import { getUserState } from 'src/app/store/selectors';
-import {
-  User,
-  BillingAddress,
-  DeliveryAddress,
-  Address
-} from 'src/app/models/user';
 import { BehaviorSubject } from 'rxjs';
-import {
-  UpdateUserWithId,
-  UpdateUser
-} from 'src/app/store/actions/user.action';
+import { Address, User } from 'src/app/models/user';
+import { ApplicationState } from 'src/app/store';
+import { UpdateUser } from 'src/app/store/actions/user.action';
+import { getUserState } from 'src/app/store/selectors';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +14,7 @@ import {
 export class ProfileComponent implements OnInit {
   constructor(private store: Store<ApplicationState>) {}
   customerName: string;
-  gravatar: string;
+  gravatar: string = '';
   viewN = new BehaviorSubject<string>('basic');
   user: User;
   view: string;

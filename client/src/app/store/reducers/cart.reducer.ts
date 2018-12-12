@@ -2,12 +2,11 @@ import { CartItem } from '../../models/cart-item';
 import * as fromCart from '../actions/cart.action';
 export interface CartState {
   cart: CartItem[];
-  id: string;
   loading: boolean;
+  error?: any;
 }
 
 export const initialState: CartState = {
-  id: '',
   cart: [],
   loading: false
 };
@@ -58,6 +57,32 @@ export function reducer(
               }
             : item
         )
+      };
+    }
+    case fromCart.SAVE_CART: {
+      return {
+        ...state,
+        loading: true,
+        error: undefined
+      };
+    }
+    case fromCart.SAVE_CART_SUCCESS: {
+      return {
+        ...state,
+        loading: false
+      };
+    }
+    case fromCart.SAVE_CART_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+    }
+    case fromCart.LOAD_CART: {
+      return {
+        ...state,
+        cart: [...state.cart, ...action.payload]
       };
     }
     default:

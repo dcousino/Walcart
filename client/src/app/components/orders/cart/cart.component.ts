@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { CartItem } from 'src/app/models/cart-item';
 import { ApplicationState } from 'src/app/store';
-import { Product } from 'src/app/models/product';
-import { ProductItem } from 'src/app/models/product-page/product-item';
 import {
   RemoveFromCart,
+  SaveCart,
   UpdateCartItemQuantity
 } from 'src/app/store/actions/cart.action';
-import { CartItem } from 'src/app/models/cart-item';
 import { getCartState } from 'src/app/store/selectors';
-
+import { CreateOrder } from 'src/app/store/actions/order.action';
+import { uuidv4 } from 'src/app/uuid';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { Order } from 'src/app/models/order';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -20,9 +22,14 @@ export class CartComponent implements OnInit {
   cartTotal: string = '0.00';
   estimatedShipping: string = '0.00';
   total: string;
-  constructor(private store: Store<ApplicationState>) {}
+  isAuth: boolean;
+  constructor(
+    private store: Store<ApplicationState>,
+    private authSvc: AuthService
+  ) {}
 
   ngOnInit() {
+    this.authSvc.isAuthenticated().subscribe(isAuth => (this.isAuth = isAuth));
     this.store.select(getCartState).subscribe(cartState => {
       this.items = cartState.cart;
       if (this.items.length > 0) {
@@ -46,8 +53,32 @@ export class CartComponent implements OnInit {
 
   removeItem(id: number): void {
     this.store.dispatch(new RemoveFromCart(id));
+    return;
   }
   updateQuantity(id: number, quantity: number): void {
+    if (quantity <= 0) {
+      this.store.dispatch(new RemoveFromCart(id));
+      return;
+    }
     this.store.dispatch(new UpdateCartItemQuantity({ id, quantity }));
+    return;
+  }
+  save(): void {
+    this.store.dispatch(new SaveCart());
+    return;
+  }
+  checkOut(): void {
+    this.store.dispatch(new CreateOrder(this.getOrder()));
+    return;
+  }
+
+  private getOrder(): Order {
+    return {
+      id: uuidv4(),
+      items: this.items,
+      date: new Date(),
+      total: this.total,
+      shipping: this.estimatedShipping
+    };
   }
 }

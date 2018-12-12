@@ -1,27 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import { map, switchMap, withLatestFrom, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { UserService } from 'src/app/services/user/user.service';
-import { Store, State } from '@ngrx/store';
-import {
-  PersistUserSuccess,
-  PersistUserFail,
-  PERSIST_USER,
-  PersistUser,
-  CREATE_OR_LOAD_USER,
-  CreateOrLoadUserSuccess,
-  CreateOrLoadUserFail,
-  CreateOrLoadUser,
-  UPDATE_USER,
-  UpdateUser,
-  UpdateUserSuccess
-} from '../actions/user.action';
-
-import { UserState } from '../reducers/user.reducer';
-import { getUserState } from '../selectors';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Actions, Effect } from '@ngrx/effects';
+import { of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user/user.service';
+import {
+  CreateOrLoadUserFail,
+  CreateOrLoadUserSuccess,
+  CREATE_OR_LOAD_USER,
+  UpdateUser,
+  UpdateUserSuccess,
+  UPDATE_USER
+} from '../actions/user.action';
 
 @Injectable()
 export class UserEffects {

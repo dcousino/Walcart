@@ -1,3 +1,13 @@
-<p>
-  checkout works!
-</p>
+<h2>Review Address Information</h2>
+<ng-container *ngIf="view === 'address'">
+  <app-address-details
+    title="Delivery Address"
+    [address]="user.deliveryAddress"
+    (emitSubmit)="onSubmitAddress($event)"
+  ></app-address-details>
+  <app-address-details
+    title="Billing Address"
+    [address]="user.billingAddress"
+    (emitSubmit)="onSubmitAddress($event)"
+  ></app-address-details>
+</ng-container>

@@ -20,7 +20,18 @@ api.corsHeaders('Content-Type,Authorization');
 api.registerAuthorizer(WALCART_AUTH, {
   providerARNs: [process.env.cognito_arn]
 });
-
+api.setGatewayResponse('DEFAULT_4XX', {
+  responseTemplates: {
+    'application/json':
+      '{"custom": true, "message":$context.error.messageString}'
+  },
+  statusCode: 401,
+  headers: {
+    'x-response-claudia': 'yes',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+  }
+});
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Users ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 /**
  * Gets a user by id (email)

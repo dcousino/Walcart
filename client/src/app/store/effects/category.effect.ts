@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import {
-  LOAD_CATEGORIES,
-  LoadCategoriesSuccess,
-  LoadCategoriesFail
-} from '../actions/category.action';
-import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
-
-import { of, Observable, ObservableInput } from 'rxjs';
-import { QueryService } from 'src/app/services/query.service';
+import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { ProductState } from '../reducers/product.reducer';
+import { Observable, ObservableInput, of } from 'rxjs';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { Category } from 'src/app/models/category';
-import { getCategories } from '../reducers/category.reducter';
+import { QueryService } from 'src/app/services/query.service';
+import {
+  LoadCategoriesFail,
+  LoadCategoriesSuccess,
+  LOAD_CATEGORIES
+} from '../actions/category.action';
+import { ProductState } from '../reducers/product.reducer';
 import { getCategoryState } from '../selectors';
 
 @Injectable()

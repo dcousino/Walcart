@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApplicationState, Login } from '../../../store';
+import { Store } from '@ngrx/store';
 import { LoginUser } from 'src/app/models/login-user';
+import { ApplicationState, Login } from '../../../store';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,10 @@ import { LoginUser } from 'src/app/models/login-user';
 export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
-    private store: Store<ApplicationState>
+    private store: Store<ApplicationState>,
+    private route: ActivatedRoute
   ) {}
+  returnUrl: string;
   authForm: FormGroup;
   authError: any;
   ngOnInit() {
@@ -21,6 +24,11 @@ export class LoginComponent implements OnInit {
     this.store.select('auth').subscribe(auth => {
       this.authError = auth.error;
     });
+
+    console.log(this.route.snapshot.queryParams);
+
+    this.returnUrl =
+      this.route.snapshot.queryParams['returnUrl'] || 'categories';
   }
   createForm(): void {
     this.authForm = this.fb.group({
@@ -31,6 +39,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: LoginUser; valid: boolean }) {
     if (valid) {
+      value.returnUrl = this.returnUrl;
       this.store.dispatch(new Login(value));
     }
   }

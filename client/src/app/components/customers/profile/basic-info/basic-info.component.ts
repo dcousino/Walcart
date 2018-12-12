@@ -1,11 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user';
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-  FormBuilder
-} from '@angular/forms';
 
 @Component({
   selector: 'app-basic-info',

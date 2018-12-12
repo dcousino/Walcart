@@ -39,7 +39,14 @@ export class UserService {
   }
 
   update(user: User): Observable<boolean> {
-    return this.httpClient.put<boolean>(this.baseUrl, user);
+    return this.httpClient.put<boolean>(this.baseUrl, user).pipe(
+      map(updated => updated),
+      catchError(err => {
+        if (err.status === 401) {
+          throw Error('You are not logged in');
+        } else throw err;
+      })
+    );
   }
 
   delete(id: string): Observable<boolean> {

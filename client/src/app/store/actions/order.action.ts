@@ -1,23 +1,24 @@
 import { Action } from '@ngrx/store';
 import { Category } from 'src/app/models/category';
+import { Order } from 'src/app/models/order';
 
-export const NEW_ORDER = '[Products] Load Categories';
-export const UPDATE_ORDER = '[Products] Load Categories Fail';
-export const COMPLETE_ORDER = '[Products] Load Categories Success';
+export const CREATE_ORDER = '[Order] Create new order';
+export const CREATE_ORDER_SUCCESS = '[Order] Create new order success';
+export const CREATE_ORDER_FAIL = '[Order] Create new order fail';
 
-export class NewOrder implements Action {
-  readonly type = NEW_ORDER;
+export class CreateOrder implements Action {
+  readonly type = CREATE_ORDER;
+  constructor(public payload: Order) {}
 }
 
-export class UpdateOrder implements Action {
-  readonly type = UPDATE_ORDER;
+export class CreateOrderSuccess implements Action {
+  readonly type = CREATE_ORDER_SUCCESS;
+}
+
+export class CreateOrderFail implements Action {
+  readonly type = CREATE_ORDER_FAIL;
   constructor(public payload: any) {}
 }
 
-export class CompleteOrder implements Action {
-  readonly type = COMPLETE_ORDER;
-  constructor(public payload: Category[]) {}
-}
-
 // action types
-export type OrderAction = NewOrder | UpdateOrder | CompleteOrder;
+export type OrderAction = CreateOrder | CreateOrderSuccess | CreateOrderFail;

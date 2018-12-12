@@ -1,3 +1,6 @@
+import { CartItem } from './cart-item';
+import { Order } from './order';
+
 export interface User {
   id: string;
   firstName: string;
@@ -6,6 +9,9 @@ export interface User {
   password?: string;
   deliveryAddress?: Address;
   billingAddress?: Address;
+  cart?: CartItem[];
+  currentOrder?: Order;
+  orderHistory?: Order[];
 }
 
 export interface DeliveryAddress {
