@@ -81,11 +81,13 @@ h1 {
 }
 
 label {
-  color: #aaa;
+  color: rgb(44, 43, 43);
 }
 
 .shopping-cart {
-  margin-top: -45px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 30px;
 }
 
 /* Column headers */

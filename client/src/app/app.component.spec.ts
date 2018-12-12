@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
 import { reducers } from './store';
+import { GravatarModule } from 'ngx-gravatar';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
 export function localStorageSyncReducer(
@@ -23,6 +24,7 @@ describe('AppComponent', () => {
       declarations: [AppComponent, NavbarComponent],
       imports: [
         RouterTestingModule,
+        GravatarModule,
         FormsModule,
         StoreModule.forRoot(reducers, { metaReducers })
       ]
