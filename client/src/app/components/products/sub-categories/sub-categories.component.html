@@ -1,40 +1,34 @@
 <app-spinner *ngIf="loading"></app-spinner>
-<ng-container *ngIf="category && category.children">
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item disabled">
-        <a
-          [routerLink]="['/categories']"
-          class="btn btn-sm btn-outline-success"
-        >
-          Back to browse categories
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <div>
-    <div class="row">
-      <div
-        class="col-md-4"
-        *ngFor="let category of category.children; trackBy: trackByFn"
-      >
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body">
-            <p class="card-text">{{ category.name }}</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button
-                  (click)="onClick(category.id)"
-                  class="btn btn-sm btn-outline-secondary"
-                >
-                  View
-                </button>
-              </div>
-              <small class="text-muted">9 mins</small>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a [routerLink]="['/categories']" class="btn btn-sm btn-outline-success">
+        Back to browse categories
+      </a>
+    </li>
+  </ul>
+</nav>
+<div>
+  <div class="row">
+    <div
+      class="col-md-4"
+      *ngFor="let category of category.children; trackBy: trackByFn"
+    >
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <p class="card-text">{{ category.name }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <button
+                (click)="onClick(category.id)"
+                class="btn btn-sm btn-outline-secondary"
+              >
+                View
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</ng-container>
+</div>
