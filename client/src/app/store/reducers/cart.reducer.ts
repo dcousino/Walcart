@@ -80,6 +80,10 @@ export function reducer(
       };
     }
     case fromCart.LOAD_CART: {
+      if (!action.payload) {
+        return state;
+      }
+
       return {
         ...state,
         cart: [...state.cart, ...action.payload]

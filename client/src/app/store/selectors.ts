@@ -13,4 +13,4 @@ export const getUserState = createFeatureSelector<UserState>('user');
 export const getCategoryState = createFeatureSelector<CategoryState>(
   'categories'
 );
-export const getOrderState = createFeatureSelector<OrderState>('categories');
+export const getOrderState = createFeatureSelector<OrderState>('orders');

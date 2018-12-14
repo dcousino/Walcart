@@ -1,13 +1,145 @@
-<h2>Review Address Information</h2>
-<ng-container *ngIf="view === 'address'">
-  <app-address-details
-    title="Delivery Address"
-    [address]="user.deliveryAddress"
-    (emitSubmit)="onSubmitAddress($event)"
-  ></app-address-details>
-  <app-address-details
-    title="Billing Address"
-    [address]="user.billingAddress"
-    (emitSubmit)="onSubmitAddress($event)"
-  ></app-address-details>
-</ng-container>
+<div class="py-5 text-center"><h2>Checkout</h2></div>
+
+<div class="row">
+  <div class=" col-md-4 order-md-2 mb-4">
+    <h4 class="d-flex justify-content-between align-items-center mb-3">
+      <span class="text-muted">Your cart</span>
+      <span class="badge badge-secondary badge-pill">{{
+        order.items.length
+      }}</span>
+    </h4>
+    <ul class="list-group mb-3">
+      <li
+        *ngFor="let cartItem of order?.items"
+        class="list-group-item custom-bk d-flex justify-content-between lh-condensed"
+      >
+        <div>
+          <h6 class="my-0">{{ cartItem.name }}</h6>
+          <small class="text-muted">qty: {{ cartItem.quantity }}</small>
+        </div>
+        <span class="text-muted">${{ cartItem?.totalCost?.toFixed(2) }}</span>
+      </li>
+      <li class="list-group-item custom-bk d-flex justify-content-between">
+        <span>Delivery</span> <strong>${{ order.shipping }}</strong>
+      </li>
+      <li class="list-group-item d-flex custom-bk justify-content-between">
+        <span>Total</span> <strong>${{ order.total }}</strong>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-8 order-md-1">
+    <h4 class="text-muted mb-3">Delivery Address</h4>
+    <app-address-details
+      title=""
+      [address]="user.deliveryAddress"
+      [includeSave]="false"
+      (emitSubmit)="onSubmitAddress($event)"
+    ></app-address-details>
+    <form>
+      <hr class="mb-4" />
+      <div class="card custom-bk">
+        <div class="card-body">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              name="sameAsDelivery"
+            />
+            <label class="form-check-label ml-3" for="sameAsDelivery">
+              Shipping address is the same as my billing address
+            </label>
+          </div>
+        </div>
+      </div>
+      <hr class="mb-4" />
+
+      <h4 class="mb-3">Payment</h4>
+
+      <div class="card custom-bk">
+        <div class="card-body">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="credia-card-radio"
+              id="credia-card-radio"
+              value="option1"
+            />
+            <label class="form-check-label ml-3" for="exampleRadios1">
+              Credit Card
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="paypal-radio"
+              name="paypal-radio"
+              value="option2"
+            />
+            <label class="form-check-label ml-3" for="exampleRadios3">
+              PayPal
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="card custom-bk mt-3">
+        <div class="card-body">
+          <div class="form-row">
+            <div class="input-group col-md-6  mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Full Name" />
+            </div>
+            <div class="input-group col-md-6  mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"
+                  ><i class="fa fa-credit-card"></i
+                ></span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                name="creditcard"
+                placeholder="Credit Card Number"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="input-group col-md-6  mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"
+                  ><i class="fa fa-calendar"></i
+                ></span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Expiration"
+              />
+            </div>
+            <div class="input-group col-md-6  mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"
+                  ><i class="fa fa-hashtag"></i
+                ></span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                name="ccv"
+                placeholder="CCV"
+              />
+            </div>
+          </div>
+          <hr class="mb-4" />
+          <button class="btn btn-primary btn-lg btn-block" type="submit">
+            Continue to checkout
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -16,6 +16,7 @@ import { UsStates } from '../states';
 export class AddressDetailsComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
   @Input() title: string;
+  @Input() includeSave: boolean = false;
   @Input() address: Address;
   @Output() emitSubmit = new EventEmitter<Address>();
   states = UsStates;

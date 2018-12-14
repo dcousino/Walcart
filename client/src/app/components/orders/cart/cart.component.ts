@@ -18,7 +18,7 @@ import { Order } from 'src/app/models/order';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  items: CartItem[];
+  items: CartItem[] = [];
   cartTotal: string = '0.00';
   estimatedShipping: string = '0.00';
   total: string;

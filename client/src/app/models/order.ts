@@ -1,4 +1,5 @@
 import { CartItem } from './cart-item';
+import { Address } from './user';
 
 export interface Order {
   id: string;
@@ -6,4 +7,6 @@ export interface Order {
   shipping: string;
   total: string;
   date: Date;
+  deliveryAddress?: Address;
+  billingAddress?: Address;
 }

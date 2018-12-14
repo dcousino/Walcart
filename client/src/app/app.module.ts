@@ -44,7 +44,7 @@ export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
   return localStorageSync({
-    keys: ['auth', 'user', 'categories', 'cart'],
+    keys: ['auth', 'user', 'categories', 'cart', 'orders'],
     rehydrate: true
   })(reducer);
 }

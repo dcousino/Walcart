@@ -7,9 +7,14 @@ body {
   background-repeat: repeat;
   padding-bottom: 50px;
 }
-body {
+/* body {
   width: calc(100vw - 34px);
-}
+} */
 .btn-primary {
   background-color: rgb(103, 103, 218) !important;
+}
+
+.custom-bk {
+  background: rgba(250, 220, 140, 0.75);
+  border: none;
 }
