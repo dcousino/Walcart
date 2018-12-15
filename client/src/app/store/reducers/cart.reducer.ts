@@ -44,8 +44,6 @@ export function reducer(
       };
     }
     case fromCart.UPDATE_CART_ITEM_QUANTITY: {
-      console.log(action.payload);
-
       return {
         ...state,
         cart: state.cart.map(item =>

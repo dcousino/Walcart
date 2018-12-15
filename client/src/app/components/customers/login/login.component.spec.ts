@@ -6,6 +6,7 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { reducers } from '../../../store';
 import { DebugElement } from '@angular/core';
 import { BrowserModule, By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
@@ -26,6 +27,7 @@ describe('LoginComponent', () => {
         FormsModule,
         BrowserModule,
         ReactiveFormsModule,
+        RouterTestingModule,
         StoreModule.forRoot(reducers, { metaReducers })
       ]
     }).compileComponents();

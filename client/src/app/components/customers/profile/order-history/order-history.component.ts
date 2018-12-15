@@ -11,10 +11,10 @@ import { getOrderState } from 'src/app/store/selectors';
 })
 export class OrderHistoryComponent implements OnInit {
   constructor(private store: Store<ApplicationState>) {}
-  orderHistory: Order[];
+  orderHistory: any;
   ngOnInit() {
-    this.store
-      .select(getOrderState)
-      .subscribe(orderState => (this.orderHistory = orderState.orderHistory));
+    this.store.select(getOrderState).subscribe(orderState => {
+      this.orderHistory = orderState.orderHistory;
+    });
   }
 }

@@ -7,7 +7,8 @@ import {
   NgbAccordionModule,
   NgbModalModule,
   NgbRatingModule,
-  NgbTabsetModule
+  NgbTabsetModule,
+  NgbAlertModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
@@ -39,6 +40,10 @@ import { SubCategoriesComponent } from './components/products/sub-categories/sub
 import { JWTOptionFactory } from './jwtoption-factory';
 import { effects, reducers } from './store';
 import { clearState } from './store/reducers/clearState.metaReducer';
+import { AddressFormComponent } from './components/orders/checkout/address-form/address-form.component';
+
+import { PaymentInfoFormComponent } from './components/orders/checkout/payment-info-form/payment-info-form.component';
+import { NotificationModalComponent } from './components/alerts/notification-modal/notification-modal.component';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
@@ -75,7 +80,10 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     ProfileComponent,
     AddressDetailsComponent,
     BasicInfoComponent,
-    OrderHistoryComponent
+    OrderHistoryComponent,
+    AddressFormComponent,
+    PaymentInfoFormComponent,
+    NotificationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -85,6 +93,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     NgbModalModule,
     NgbRatingModule,
     NgbTabsetModule,
+    NgbAlertModule,
     ReactiveFormsModule,
     GravatarModule,
     StoreModule.forRoot(reducers, { metaReducers }),
@@ -99,7 +108,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     }),
     NgbAccordionModule.forRoot()
   ],
-  entryComponents: [ErrorModalComponent, AddressDetailsComponent],
+  entryComponents: [ErrorModalComponent, NotificationModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

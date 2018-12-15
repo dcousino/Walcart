@@ -47,7 +47,7 @@ export class CartEffects {
   );
 
   @Effect()
-  persistUserToServer$ = this.actions$.ofType(CREATE_OR_LOAD_USER_SUCCESS).pipe(
+  loadCartFromDB$ = this.actions$.ofType(CREATE_OR_LOAD_USER_SUCCESS).pipe(
     map((action: CreateOrLoadUserSuccess) => action.payload),
     switchMap(user => of(new LoadCart(user.cart)))
   );

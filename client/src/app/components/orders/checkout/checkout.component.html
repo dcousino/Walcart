@@ -28,14 +28,21 @@
     </ul>
   </div>
   <div class="col-md-8 order-md-1">
-    <h4 class="text-muted mb-3">Delivery Address</h4>
-    <app-address-details
-      title=""
-      [address]="user.deliveryAddress"
-      [includeSave]="false"
-      (emitSubmit)="onSubmitAddress($event)"
-    ></app-address-details>
-    <form>
+    <form [formGroup]="checkoutForm" (ngSubmit)="submit()" novalidate>
+      <h4 class="text-muted mb-3">Delivery Address</h4>
+      <app-address-form
+        [address]="user.deliveryAddress"
+        (formReady)="formInitialized('deliveryAddress', $event)"
+      >
+      </app-address-form>
+      <ng-container *ngIf="!billingIsSameAsDelivery">
+        <h4 class="text-muted mb-3">Billing Address</h4>
+        <app-address-form
+          [address]="user.billingAddress"
+          (formReady)="formInitialized('billingAddress', $event)"
+        >
+        </app-address-form>
+      </ng-container>
       <hr class="mb-4" />
       <div class="card custom-bk">
         <div class="card-body">
@@ -43,7 +50,7 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
+              formControlName="sameAsDelivery"
               name="sameAsDelivery"
             />
             <label class="form-check-label ml-3" for="sameAsDelivery">
@@ -62,11 +69,11 @@
             <input
               class="form-check-input"
               type="radio"
-              name="credia-card-radio"
-              id="credia-card-radio"
-              value="option1"
+              name="paymentType"
+              value="creditcard"
+              formControlName="paymentType"
             />
-            <label class="form-check-label ml-3" for="exampleRadios1">
+            <label class="form-check-label ml-3" for="paymentType">
               Credit Card
             </label>
           </div>
@@ -74,72 +81,30 @@
             <input
               class="form-check-input"
               type="radio"
-              id="paypal-radio"
-              name="paypal-radio"
-              value="option2"
+              name="paymentType"
+              value="paypal"
+              formControlName="paymentType"
             />
-            <label class="form-check-label ml-3" for="exampleRadios3">
+            <label class="form-check-label ml-3" for="paymentType">
               PayPal
             </label>
           </div>
         </div>
       </div>
-      <div class="card custom-bk mt-3">
-        <div class="card-body">
-          <div class="form-row">
-            <div class="input-group col-md-6  mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-user"></i></span>
-              </div>
-              <input type="text" class="form-control" placeholder="Full Name" />
-            </div>
-            <div class="input-group col-md-6  mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"
-                  ><i class="fa fa-credit-card"></i
-                ></span>
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                name="creditcard"
-                placeholder="Credit Card Number"
-              />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="input-group col-md-6  mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"
-                  ><i class="fa fa-calendar"></i
-                ></span>
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Expiration"
-              />
-            </div>
-            <div class="input-group col-md-6  mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"
-                  ><i class="fa fa-hashtag"></i
-                ></span>
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                name="ccv"
-                placeholder="CCV"
-              />
-            </div>
-          </div>
-          <hr class="mb-4" />
-          <button class="btn btn-primary btn-lg btn-block" type="submit">
-            Continue to checkout
-          </button>
-        </div>
-      </div>
+
+      <app-payment-info-form
+        *ngIf="paymentType === 'creditcard'"
+        (formReady)="formInitialized('payment', $event)"
+      ></app-payment-info-form>
+      <hr class="mb-4" />
+
+      <button
+        [disabled]="isInvalid"
+        class="btn btn-primary btn-lg btn-block"
+        type="submit"
+      >
+        Continue to checkout
+      </button>
     </form>
   </div>
 </div>

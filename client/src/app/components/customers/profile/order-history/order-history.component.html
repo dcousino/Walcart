@@ -1,3 +1,23 @@
-<ul>
-  <li *ngFor="let order of orderHistory">{{ order.id }}</li>
-</ul>
+<ng-container *ngFor="let order of orderHistory">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-header mb-3">
+        <p>{{ order.date | date: 'medium' }}</p>
+        <p><strong>Total: </strong> {{ order.total | currency }}</p>
+      </div>
+      <div class="product" *ngFor="let item of order.items">
+        <div class="product-image"><img [src]="item.thumbnailImage" /></div>
+        <div class="product-details">
+          <div class="product-title">{{ item.name }}</div>
+          <p class="product-description">{{ item.brand }}</p>
+        </div>
+        <div class="product-price">
+          <strong>Price: </strong> {{ item.totalCost | currency }}
+        </div>
+        <div class="product-quantity">
+          <strong>Qty: </strong> {{ item.quantity }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

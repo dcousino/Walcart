@@ -3,7 +3,11 @@ import {
   OrderAction,
   CREATE_ORDER,
   CREATE_ORDER_SUCCESS,
-  CREATE_ORDER_FAIL
+  CREATE_ORDER_FAIL,
+  CREATE_ORDER_HISTORY,
+  CREATE_ORDER_HISTORY_FAIL,
+  CREATE_ORDER_HISTORY_SUCCESS,
+  LOAD_ORDER_HISTORY
 } from '../actions/order.action';
 export interface OrderState {
   currentOrder: Order;
@@ -35,6 +39,37 @@ export function reducer(state = initialState, action: OrderAction): OrderState {
       };
     }
     case CREATE_ORDER_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+    }
+    case CREATE_ORDER_HISTORY: {
+      return {
+        ...state,
+        loading: true,
+        orderHistory: [...state.orderHistory, action.payload],
+        error: undefined
+      };
+    }
+    case LOAD_ORDER_HISTORY: {
+      if (!action.payload) {
+        return state;
+      }
+
+      return {
+        ...state,
+        orderHistory: [...state.orderHistory, ...action.payload]
+      };
+    }
+    case CREATE_ORDER_HISTORY_SUCCESS: {
+      return {
+        ...state,
+        loading: false
+      };
+    }
+    case CREATE_ORDER_HISTORY_FAIL: {
       return {
         ...state,
         loading: false,

@@ -68,6 +68,17 @@ export class AuthEffects {
   );
 
   @Effect({ dispatch: false })
+  userRegisterErrorModal$ = this.actions$
+    .ofType(authActions.REGISTER_FAIL)
+    .pipe(
+      map((action: authActions.RegisterFail) => action.payload),
+      tap(error => {
+        const modalRef = this.modalService.open(ErrorModalComponent);
+        modalRef.componentInstance.errorMessage = error.message;
+      })
+    );
+
+  @Effect({ dispatch: false })
   registerSuccess$ = this.actions$.ofType(authActions.REGISTER_SUCCESS).pipe(
     tap(() => {
       this.router.navigate(['/confirm']);

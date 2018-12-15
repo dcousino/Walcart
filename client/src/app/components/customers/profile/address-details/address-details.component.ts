@@ -32,6 +32,11 @@ export class AddressDetailsComponent implements OnInit {
       this.address.isSameAsDeliveryAddress
     ) {
       this.toggleBillingForm(true);
+      this.addressForm
+        .get('isSameAsDeliveryAddress')
+        .valueChanges.subscribe(value => {
+          this.toggleBillingForm(value);
+        });
     }
   }
 

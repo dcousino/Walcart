@@ -7,7 +7,37 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  user: null,
+  user: {
+    id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    deliveryAddress: {
+      type: 'DeliveryAddress',
+      addressLine1: '',
+      addressLine2: '',
+      country: '',
+      zip: '',
+      state: '',
+      city: '',
+      deliverToFirstName: '',
+      deliverToLastName: ''
+    },
+    billingAddress: {
+      type: 'BillingAddress',
+      addressLine1: '',
+      addressLine2: '',
+      country: '',
+      isSameAsDeliveryAddress: false,
+      zip: '',
+      state: '',
+      city: '',
+      deliverToFirstName: '',
+      deliverToLastName: ''
+    },
+    orderHistory: [],
+    currentOrder: null
+  },
   loading: false,
   error: null
 };

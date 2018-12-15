@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <h4 class="modal-title">Dummy Order Info</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p>Congratulations, your order has been placed!</p>
+  <ng-container *ngFor="let orderItem of (order | keyvalue)">
+    <ng-container *ngIf="typeCheck(orderItem.value) !== 'object'">
+      <p>
+        <strong>{{ orderItem.key }}: </strong>{{ orderItem.value }}
+      </p>
+    </ng-container>
+    <ng-container *ngIf="typeCheck(orderItem.value) === 'object'">
+      <ng-container *ngFor="let sub of (orderItem.value | keyvalue)">
+        <p>
+          <strong>{{ sub.key }}: </strong>{{ sub.value }}
+        </p>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="activeModal.close('Close click')"
+  >
+    Close
+  </button>
+</div>
