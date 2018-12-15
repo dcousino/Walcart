@@ -13,7 +13,7 @@ const teamName = 'Bits...Please';
 ## Team Members:
 
 ```javascript
-const teamMembers = ['Mohammed', 'Daniel', 'Geze'];
+let teamMembers = ['Mohammed', 'Daniel', 'Geze'];
 // update
 teamMembers = teamMembers.filter(member => member !== 'Geze');
 ```

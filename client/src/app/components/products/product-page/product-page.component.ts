@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { CartItem } from 'src/app/models/cart-item';
+import { Category } from 'src/app/models/category';
+import { ProductItem } from 'src/app/models/product-page/product-item';
+import { ProductPage } from 'src/app/models/product-page/product-page';
 import { ApplicationState } from 'src/app/store';
+import { AddToCart } from 'src/app/store/actions/cart.action';
 import {
   LoadNextProductPage,
   LoadPreviousPage
 } from 'src/app/store/actions/product.action';
-import { ProductPage } from 'src/app/models/product-page/product-page';
-import { ProductItem } from 'src/app/models/product-page/product-item';
-import { Category } from 'src/app/models/category';
-import { AddToCart } from 'src/app/store/actions/cart.action';
-import { CartItem } from 'src/app/models/cart-item';
 
 @Component({
   selector: 'app-product-page',
@@ -22,7 +22,7 @@ export class ProductPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private store: Store<ApplicationState>
-  ) { }
+  ) {}
   nextPage: string;
   private paramSub: any;
   private storeSub: any;

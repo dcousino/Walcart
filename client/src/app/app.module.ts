@@ -4,10 +4,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import {
+  NgbAccordionModule,
   NgbModalModule,
   NgbRatingModule,
   NgbTabsetModule,
-  NgbAccordionModule
+  NgbAlertModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
@@ -23,6 +24,7 @@ import { HomeComponent } from './components/customers/home/home.component';
 import { LoginComponent } from './components/customers/login/login.component';
 import { AddressDetailsComponent } from './components/customers/profile/address-details/address-details.component';
 import { BasicInfoComponent } from './components/customers/profile/basic-info/basic-info.component';
+import { OrderHistoryComponent } from './components/customers/profile/order-history/order-history.component';
 import { ProfileComponent } from './components/customers/profile/profile.component';
 import { RegisterComponent } from './components/customers/register/register.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
@@ -35,16 +37,19 @@ import { ProductPageNavComponent } from './components/products/product-page/prod
 import { ProductPageComponent } from './components/products/product-page/product-page.component';
 import { RatingComponent } from './components/products/product-page/rating/rating.component';
 import { SubCategoriesComponent } from './components/products/sub-categories/sub-categories.component';
+import { JWTOptionFactory } from './jwtoption-factory';
 import { effects, reducers } from './store';
 import { clearState } from './store/reducers/clearState.metaReducer';
-import { AuthService } from './services/auth/auth.service';
-import { JWTOptionFactory } from './jwtoption-factory';
+import { AddressFormComponent } from './components/orders/checkout/address-form/address-form.component';
+
+import { PaymentInfoFormComponent } from './components/orders/checkout/payment-info-form/payment-info-form.component';
+import { NotificationModalComponent } from './components/alerts/notification-modal/notification-modal.component';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
   return localStorageSync({
-    keys: ['auth', 'user', 'categories', 'cart'],
+    keys: ['auth', 'user', 'categories', 'cart', 'orders'],
     rehydrate: true
   })(reducer);
 }
@@ -74,7 +79,11 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     ProductCardComponent,
     ProfileComponent,
     AddressDetailsComponent,
-    BasicInfoComponent
+    BasicInfoComponent,
+    OrderHistoryComponent,
+    AddressFormComponent,
+    PaymentInfoFormComponent,
+    NotificationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +93,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     NgbModalModule,
     NgbRatingModule,
     NgbTabsetModule,
+    NgbAlertModule,
     ReactiveFormsModule,
     GravatarModule,
     StoreModule.forRoot(reducers, { metaReducers }),
@@ -98,7 +108,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     }),
     NgbAccordionModule.forRoot()
   ],
-  entryComponents: [ErrorModalComponent, AddressDetailsComponent],
+  entryComponents: [ErrorModalComponent, NotificationModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

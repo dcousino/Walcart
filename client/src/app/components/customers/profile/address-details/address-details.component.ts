@@ -1,17 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {
-  DeliveryAddress,
-  BillingAddress,
-  User,
-  Address
-} from 'src/app/models/user';
-import { UsStates } from '../states';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
-  Validators,
-  FormControl
+  Validators
 } from '@angular/forms';
+import { Address, BillingAddress } from 'src/app/models/user';
+import { UsStates } from '../states';
 
 @Component({
   selector: 'app-address-details',
@@ -21,6 +16,7 @@ import {
 export class AddressDetailsComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
   @Input() title: string;
+  @Input() includeSave: boolean = false;
   @Input() address: Address;
   @Output() emitSubmit = new EventEmitter<Address>();
   states = UsStates;
@@ -36,6 +32,11 @@ export class AddressDetailsComponent implements OnInit {
       this.address.isSameAsDeliveryAddress
     ) {
       this.toggleBillingForm(true);
+      this.addressForm
+        .get('isSameAsDeliveryAddress')
+        .valueChanges.subscribe(value => {
+          this.toggleBillingForm(value);
+        });
     }
   }
 

@@ -1,0 +1,14 @@
+.card {
+  background: linear-gradient(rgba(255, 255, 255, 0.45), rgba(58, 58, 58, 0.45)),
+    url(../../../../assets/sub-category-card.jpeg) no-repeat center;
+  background-size: fill;
+  color: rgb(46, 150, 127);
+  -webkit-text-stroke-width: 0.02em;
+  -webkit-text-stroke-color: black;
+}
+
+.btn-outline-secondary {
+  color: rgb(46, 150, 127);
+  -webkit-text-stroke-width: 0.02em;
+  -webkit-text-stroke-color: black;
+}

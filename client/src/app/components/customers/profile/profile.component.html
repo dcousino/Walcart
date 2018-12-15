@@ -33,20 +33,43 @@
 <br />
 
 <ng-container *ngIf="view === 'address'">
-  <app-address-details
-    title="Delivery Address"
-    [address]="user.deliveryAddress"
-    (emitSubmit)="onSubmitAddress($event)"
-  ></app-address-details>
-  <app-address-details
-    title="Billing Address"
-    [address]="user.billingAddress"
-    (emitSubmit)="onSubmitAddress($event)"
-  ></app-address-details>
+  <div class="row mb-3">
+    <div class="col"></div>
+    <div class="col-10">
+      <app-address-details
+        title="Delivery Address"
+        [address]="user.deliveryAddress"
+        (emitSubmit)="onSubmitAddress($event)"
+        [includeSave]="true"
+      ></app-address-details>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col"></div>
+    <div class="col-10">
+      <app-address-details
+        title="Billing Address"
+        [address]="user.billingAddress"
+        (emitSubmit)="onSubmitAddress($event)"
+        [includeSave]="true"
+      ></app-address-details>
+    </div>
+  </div>
 </ng-container>
 <ng-container *ngIf="view === 'basic'">
-  <app-basic-info
-    [user]="user"
-    (emitSubmit)="onSubmitBasicInfo($event)"
-  ></app-basic-info>
+  <div class="row mb-3">
+    <div class="col"></div>
+    <div class="col-10">
+      <app-basic-info
+        [user]="user"
+        (emitSubmit)="onSubmitBasicInfo($event)"
+      ></app-basic-info>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="view === 'order'">
+  <div class="row mb-3">
+    <div class="col"></div>
+    <div class="col-10"><app-order-history></app-order-history></div>
+  </div>
 </ng-container>

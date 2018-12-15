@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import * as authActions from '../actions/auth.action';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Actions, Effect } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import {
-  switchMap,
-  map,
   catchError,
+  map,
+  switchMap,
   tap,
-  mergeMap,
   withLatestFrom
 } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UserState } from '../reducers/user.reducer';
-import { getUserState } from '../selectors';
-import { PersistUser, CreateOrLoadUser } from '../actions/user.action';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorModalComponent } from 'src/app/components/alerts/error-modal/error-modal.component';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import * as authActions from '../actions/auth.action';
+import { CreateOrLoadUser } from '../actions/user.action';
+import { UserState } from '../reducers/user.reducer';
+import { AuthState } from '../reducers/auth.reducer';
+import { getAuthState } from '../selectors';
 
 @Injectable()
 export class AuthEffects {
@@ -25,7 +25,7 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthService,
     private router: Router,
-    private userStore$: Store<UserState>,
+    private authStore$: Store<AuthState>,
     private modalService: NgbModal
   ) {}
 
@@ -43,8 +43,9 @@ export class AuthEffects {
   );
   @Effect({ dispatch: false })
   loginSuccess$ = this.actions$.ofType(authActions.LOGIN_SUCCESS).pipe(
-    tap(() => {
-      this.router.navigate(['/categories']);
+    withLatestFrom(this.authStore$.select(getAuthState)),
+    tap(([_, authState]) => {
+      this.router.navigate(['/' + authState.returnUrl]);
     })
   );
 
@@ -65,6 +66,17 @@ export class AuthEffects {
       modalRef.componentInstance.errorMessage = error.message;
     })
   );
+
+  @Effect({ dispatch: false })
+  userRegisterErrorModal$ = this.actions$
+    .ofType(authActions.REGISTER_FAIL)
+    .pipe(
+      map((action: authActions.RegisterFail) => action.payload),
+      tap(error => {
+        const modalRef = this.modalService.open(ErrorModalComponent);
+        modalRef.componentInstance.errorMessage = error.message;
+      })
+    );
 
   @Effect({ dispatch: false })
   registerSuccess$ = this.actions$.ofType(authActions.REGISTER_SUCCESS).pipe(

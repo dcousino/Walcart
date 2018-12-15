@@ -1,0 +1,97 @@
+<div class="card custom-bk mt-3">
+  <div class="card-body">
+    <div [formGroup]="paymentForm">
+      <div class="form-row">
+        <div class="input-group col-md-6  mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-user"></i></span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="fullName"
+            placeholder="Full Name"
+          />
+          <div
+            *ngIf="
+              form.fullName.touched &&
+              (form.fullName?.errors?.error || form.fullName?.errors?.required)
+            "
+            class="invalid-feedback d-block"
+          >
+            Name is invalid
+          </div>
+        </div>
+        <div class="input-group col-md-6  mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"
+              ><i class="fa fa-credit-card"></i
+            ></span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            name="creditcard"
+            placeholder="Credit Card Number"
+            formControlName="creditCardNumber"
+          />
+          <div
+            *ngIf="
+              form.creditCardNumber.touched &&
+              (form.creditCardNumber?.errors?.error ||
+                form.creditCardNumber?.errors?.required)
+            "
+            class="invalid-feedback d-block"
+          >
+            Card number is invalid
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="input-group col-md-6  mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Expiration"
+            formControlName="expirationDate"
+          />
+          <div
+            *ngIf="
+              form.expirationDate.touched &&
+              (form.expirationDate?.errors?.error ||
+                form.expirationDate?.errors?.required)
+            "
+            class="invalid-feedback d-block"
+          >
+            Expiration Date is invalid
+          </div>
+        </div>
+        <div class="input-group col-md-6  mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-hashtag"></i></span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            name="ccv"
+            placeholder="CCV"
+            formControlName="ccv"
+          />
+
+          <div
+            *ngIf="
+              form.ccv.touched &&
+              (form.ccv?.errors?.error || form.ccv?.errors?.required)
+            "
+            class="invalid-feedback d-block"
+          >
+            CCV is invalid
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

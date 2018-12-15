@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { Store } from '@ngrx/store';
 import { ApplicationState, Logout } from 'src/app/store';
 import { Router, Event, NavigationEnd } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import {
   getAuthState,
   getCartState,
   getUserState
 } from 'src/app/store/selectors';
 import { User } from 'src/app/models/user';
-import { fromEvent, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -18,11 +16,7 @@ import { fromEvent, Observable } from 'rxjs';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  constructor(
-    private authService: AuthService,
-    private store: Store<ApplicationState>,
-    private router: Router
-  ) {}
+  constructor(private store: Store<ApplicationState>, private router: Router) {}
   cartItemCount: number;
   isAuth: boolean;
   currentPage: string;

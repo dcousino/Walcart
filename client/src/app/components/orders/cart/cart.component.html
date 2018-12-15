@@ -36,14 +36,26 @@
       <div class="totals-value" id="cart-subtotal">{{ cartTotal }}</div>
     </div>
     <div class="totals-item">
-      <label>Shipping</label>
+      <label>Delivery</label>
       <div class="totals-value" id="cart-shipping">{{ estimatedShipping }}</div>
     </div>
     <div class="totals-item totals-item-total">
       <label>Grand Total</label>
       <div class="totals-value" id="cart-total">{{ total }}</div>
     </div>
-
-    <button class="checkout">Checkout</button>
+    <button (click)="save()" class="btn btn-outline-info">
+      <i class="far fa-save fa-2x"></i>
+    </button>
+    <button *ngIf="isAuth" (click)="checkOut()" class="checkout">
+      Checkout
+    </button>
+    <button
+      *ngIf="!isAuth"
+      [routerLink]="['/login']"
+      [queryParams]="{ returnUrl: 'checkout' }"
+      class="checkout"
+    >
+      Login to Checkout
+    </button>
   </div>
 </div>

@@ -1,3 +1,7 @@
 .btn-default {
   background-color: transparent;
 }
+.card {
+  background: rgba(250, 220, 140, 0.75);
+  border: none;
+}

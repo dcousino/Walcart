@@ -11,6 +11,7 @@ import { CategoriesComponent } from './components/products/categories/categories
 import { SubCategoriesComponent } from './components/products/sub-categories/sub-categories.component';
 import { ProductPageComponent } from './components/products/product-page/product-page.component';
 import { ProfileComponent } from './components/customers/profile/profile.component';
+import { CheckoutComponent } from './components/orders/checkout/checkout.component';
 const routes: Routes = [
   {
     path: '',
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'confirm', component: ConfirmComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
   {
     path: 'categories',
     component: CategoriesComponent

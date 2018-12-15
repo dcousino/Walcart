@@ -1,7 +1,4 @@
-import { CognitoUserSession } from 'amazon-cognito-identity-js';
 import * as fromAuth from '../actions/auth.action';
-import { createFeatureSelector } from '@ngrx/store';
-import { ApplicationState } from '.';
 
 export interface AuthState {
   isAuth: boolean;
@@ -9,13 +6,15 @@ export interface AuthState {
   loading: boolean;
   error?: any;
   id: string;
+  returnUrl: string;
 }
 
 export const initialState: AuthState = {
   isAuth: false,
   id: null,
   token: null,
-  loading: false
+  loading: false,
+  returnUrl: '/'
 };
 
 export function reducer(
@@ -27,7 +26,8 @@ export function reducer(
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
+        returnUrl: action.payload.returnUrl
       };
     }
     case fromAuth.LOGIN_SUCCESS: {

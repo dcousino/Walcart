@@ -1,15 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
-
 body {
-  padding-top: 100px;
-  background-image: url('/assets/background.png');
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.45),
+      rgba(58, 58, 58, 0.45)
+    ),
+    url('/assets/background.png');
   background-repeat: repeat;
+  padding-top: 100px;
   padding-bottom: 50px;
-}
-body {
   width: calc(100vw - 34px);
+  min-height: 100vh;
 }
+
 .btn-primary {
   background-color: rgb(103, 103, 218) !important;
+}
+
+.custom-bk {
+  background: rgba(250, 220, 140, 0.75);
+  border: none;
 }
