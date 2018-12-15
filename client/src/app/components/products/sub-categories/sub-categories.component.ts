@@ -48,4 +48,7 @@ export class SubCategoriesComponent implements OnInit {
     this.paramSub.unsubscribe();
     this.catSub.unsubscribe();
   }
+  trackByFn(index: number, category: Category): string {
+    return category ? category.id : undefined;
+  }
 }
