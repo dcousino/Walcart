@@ -13,10 +13,11 @@ branches:
     - master
     - develop
 before_script:
-  - cd client
+  - cd client && npm install -g @angular/cli && npm install --save-dev @angular-devkit/build-angular
 script:
-  - npm run build
-  - npm run test
+  - ng build --prod --aot
+  - ng test --code-coverage --watch=false
+  - node reportFixer
   - cd .. && sonar-scanner
 deploy:
   provider: s3
