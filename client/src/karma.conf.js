@@ -7,7 +7,7 @@ module.exports = function(config) {
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     sonarQubeUnitReporter: {
       sonarQubeVersion: 'LATEST',
-      outputFile: 'reports/ut_report.xml',
+      outputFile: '../reports/ut_report.xml',
       useBrowserName: false
     },
     plugins: [
