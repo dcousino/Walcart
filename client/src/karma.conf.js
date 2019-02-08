@@ -5,13 +5,13 @@ module.exports = function(config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
-    // sonarQubeUnitReporter: {
-    //   sonarQubeVersion: 'LATEST',
-    //   outputFile: '../reports/ut_report.xml',
-    //   useBrowserName: false,
-    //   overrideTestDescription: true,
-    //   testFilePattern: '.spec.ts'
-    // },
+    sonarQubeUnitReporter: {
+      sonarQubeVersion: 'LATEST',
+      outputFile: '../reports/ut_report.xml',
+      useBrowserName: false,
+      overrideTestDescription: true,
+      testFilePattern: '.spec.ts'
+    },
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
@@ -28,7 +28,7 @@ module.exports = function(config) {
       reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'sonarqubeUnit', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
