@@ -1,0 +1,22 @@
+<testExecutions version="1">
+  <file path="client/src/app/app.component.spec.ts">
+    <testCase name="AppComponent should create the app" duration="180"/>
+  </file>
+  <file path="client/src/app/auth.guard.spec.ts">
+    <testCase name="AuthGuard should ..." duration="17"/>
+  </file>
+  <file path="src/app/components/customers/home/home.component.spec.ts">
+    <testCase name="HomeComponent should create" duration="31"/>
+  </file>
+  <file path="src/app/components/customers/login/login.component.spec.ts">
+    <testCase name="LoginComponent should create" duration="88"/>
+    <testCase name="LoginComponent should call onSubmit method" duration="63"/>
+    <testCase name="LoginComponent should be invalid if email and password are null" duration="58"/>
+    <testCase name="LoginComponent should be invalid if email and password are filled in" duration="62"/>
+    <testCase name="LoginComponent submit button should be disabled if form is invalid" duration="69"/>
+    <testCase name="LoginComponent submit button should be enabled if form is valid" duration="52"/>
+  </file>
+  <file path="src/app/services/query.service.spec.ts">
+    <testCase name="QueryService should be created" duration="11"/>
+  </file>
+</testExecutions>
